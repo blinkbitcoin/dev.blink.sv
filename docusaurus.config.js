@@ -140,9 +140,9 @@ const config = {
         copyright: `Copyright © ${new Date().getFullYear()} Galoy Inc.`,
       },
       colorMode: {
-        defaultMode: 'light',
+        defaultMode: 'dark',
         disableSwitch: false,  // manual switch
-        respectPrefersColorScheme: true, // system dark mode switch
+        respectPrefersColorScheme: false, // system dark mode switch
       },
       prism: {
         theme: lightCodeTheme,
