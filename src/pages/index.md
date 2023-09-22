@@ -26,6 +26,6 @@ Secure your interactions with our API with an authentication token.
 * 🛠  Find guidelines and links for using the Postman collection. [Read more](/api/postman)
 
 ### Further Resources
-* 📚 For more info about the API, including documentation, videos, and more [click here](/api/learn-more)
+* 📚 For more documentation about the API, including the full reference and videos [click here](/api/learn-more)
 
 📩 Contact us on any of the Community channels linked below if you have any questions or feedback.
