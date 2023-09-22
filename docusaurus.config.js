@@ -6,7 +6,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Blink Dev Site',
+  title: 'Blink Developer Documentation',
   tagline: 'Developer Docs',
   favicon: 'img/favicon.ico',
 
@@ -65,12 +65,12 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       // Replace with your project's social card
-      image: 'img/blink-logo.svg',
+      image: 'img/blink-logo.jpg',
       navbar: {
-        title: 'Blink Developer Documentation',
+        title: 'Developer Documentation',
         logo: {
           alt: 'Blink logo',
-          src: 'img/blink-logo.jpg',
+          src: 'img/blink-logo.svg',
         },
         items: [
           {
@@ -141,7 +141,7 @@ const config = {
       },
       colorMode: {
         defaultMode: 'dark',
-        disableSwitch: false,  // manual switch
+        disableSwitch: true,  // manual switch
         respectPrefersColorScheme: false, // system dark mode switch
       },
       prism: {
