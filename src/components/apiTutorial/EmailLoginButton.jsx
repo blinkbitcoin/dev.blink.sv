@@ -5,7 +5,7 @@ import { generateCurlCommandRequestEmailCode, generateCurlCommandEmailLogin } fr
 
 function EmailLoginButton() {
   const { authToken, setAuthToken } = useAuth();
-  const [authEndpoint, setAuthEndpoint] = useState('https://api.staging.galoy.io/auth');
+  const [authEndpoint, setAuthEndpoint] = useState('https://api.blink.sv/auth');
   const [emailAddress, setEmailAddress] = useState('');
   const [emailCode, setEmailCode] = useState('');
   const [successMessageEmailCode, setSuccessMessageEmailCode] = useState(null);
@@ -68,10 +68,18 @@ function EmailLoginButton() {
       <h3>1) Request a 2FA code to your email</h3>
       <div style={{ marginTop: '10px' }}></div>
       <div>
-      <div>The REST authentication endpoint to connect to:</div>
-        <input type="text" value={authEndpoint} onChange={e => setAuthEndpoint(e.target.value)} style={{ width: '50%', marginBottom: '10px' }} />
+        <div>The REST authentication endpoint to connect to:</div>
+        <select
+          type="text"
+          value={authEndpoint}
+          onChange={e => setAuthEndpoint(e.target.value)}
+          style={{ width: '50%', marginBottom: '10px' }}
+        >
+          <option value="https://api.blink.sv/auth">Blink (mainnet) - https://api.blink.sv/graphql</option>
+          <option value="https://api.staging.galoy.io/auth">Staging (signet) - https://api.staging.galoy.io/graphql</option>
+        </select>
         <div></div>
-        <input type="email" placeholder="Fill in the email address used with Blink" value={emailAddress} onChange={e => setEmailAddress(e.target.value)} style={{ width: '50%', marginBottom: '10px' }} />
+        <input type="email" placeholder="Fill in the email address used for the account" value={emailAddress} onChange={e => setEmailAddress(e.target.value)} style={{ width: '50%', marginBottom: '10px' }} />
       </div>
       <button onClick={handleRequestEmailCode}>Request code</button>
       <div style={{ marginTop: '20px' }}>
@@ -79,7 +87,7 @@ function EmailLoginButton() {
         <pre style={{
           backgroundColor: 'auto',
           padding: '10px',
-          marginLeft: '10px' ,
+          marginLeft: '10px',
           overflowX: 'auto',
           whiteSpace: 'pre-wrap'
         }}>
@@ -115,7 +123,7 @@ function EmailLoginButton() {
         <pre style={{
           backgroundColor: 'auto',
           padding: '10px',
-          marginLeft: '10px' ,
+          marginLeft: '10px',
           overflowX: 'auto',
           whiteSpace: 'pre-wrap'
         }}>
