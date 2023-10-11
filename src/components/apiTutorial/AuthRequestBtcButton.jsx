@@ -5,7 +5,7 @@ import { useAuth } from './AuthContext';
 
 function AuthRequestButton() {
   const { authToken, setAuthToken } = useAuth();
-  const [apiEndpoint, setApiEndpoint] = useState('https://api.staging.galoy.io/graphql');
+  const [apiEndpoint, setApiEndpoint] = useState('https://api.blink.sv/graphql');
   const [manualAuthToken, setManualAuthToken] = useState('');
   const [amount, setAmount] = useState(1000);
   const [accountWalletId, setAccountWalletId] = useState('');
@@ -266,13 +266,16 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
 
   return (
     <div>
-      The GraphQL endpoint to connect to:
-      <input
+      <div>The GraphQL endpoint to connect to:</div>
+      <select
         type="text"
         value={apiEndpoint}
         onChange={handleApiEndpointChange}
-        style={{ width: '100%', marginBottom: '10px' }}
-      />
+        style={{ width: '50%', marginBottom: '10px' }}
+      >
+        <option value="https://api.blink.sv/graphql">Blink (mainnet) - https://api.blink.sv/graphql</option>
+        <option value="https://api.staging.galoy.io/graphql">Staging (signet) - https://api.staging.galoy.io/graphql</option>
+      </select>
       <div>The following methods require a valid auth token set in the header as a bearer token:</div>
       {authTokenSection}
 

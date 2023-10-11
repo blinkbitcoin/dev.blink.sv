@@ -5,7 +5,7 @@ import { generateCurlCommandPhoneLogin } from './curlCommandGenerators';
 
 function PhoneLoginButton() {
   const { authToken, setAuthToken } = useAuth();
-  const [apiEndpoint, setApiEndpoint] = useState('https://api.staging.galoy.io/graphql');
+  const [apiEndpoint, setApiEndpoint] = useState('https://api.blink.sv/graphql');
   const [phone, setPhone] = useState('');
   const [code, setCode] = useState('');
   const [showToken, setShowToken] = useState(false);
@@ -53,10 +53,19 @@ function PhoneLoginButton() {
     <div>
       <div>
         <h2>Log in with phone and code</h2>
-        <input type="text" value={apiEndpoint} onChange={handleApiEndpointChange} style={{ width: '100%', marginBottom: '10px' }} />
+        <div>The GraphQL endpoint to connect to:</div>
+        <select
+          type="text"
+          value={apiEndpoint}
+          onChange={handleApiEndpointChange}
+          style={{ width: '50%', marginBottom: '10px' }}
+        >
+          <option value="https://api.blink.sv/graphql">Blink (mainnet) - https://api.blink.sv/graphql</option>
+          <option value="https://api.staging.galoy.io/graphql">Staging (signet) - https://api.staging.galoy.io/graphql</option>
+        </select>
+
         <input type="text" placeholder="Phone" value={phone} onChange={handlePhoneChange} />
         <input type="text" placeholder="Code" value={code} onChange={handleCodeChange} />
-
 
         <button onClick={handleLogin}>Log in</button>
       </div>
@@ -66,7 +75,7 @@ function PhoneLoginButton() {
         <pre style={{
           backgroundColor: 'auto',
           padding: '10px',
-          marginLeft: '10px' ,
+          marginLeft: '10px',
           overflowX: 'auto',
           whiteSpace: 'pre-wrap'
         }}>

@@ -5,10 +5,7 @@ slug: /api/auth
 ---
 
 import { AuthProvider } from '/src/components/apiTutorial/AuthContext';
-import PhoneLoginButton from '/src/components/apiTutorial/PhoneLoginButton';
 import EmailLoginButton from '/src/components/apiTutorial/EmailLoginButton';
-import AuthRequestBtcButton from '/src/components/apiTutorial/AuthRequestBtcButton';
-import AuthRequestUsdButton from '/src/components/apiTutorial/AuthRequestUsdButton';
 
 There are multiple ways to obtain an auth token to be used with the API.
 
