@@ -41,3 +41,63 @@ export const generateCurlCommandEmailLogin = (authEndpoint, emailLoginId, emailC
   --header 'Accept: application/json' \\
   --data '${body}'`;
 }
+
+export function generateCurlCommand({
+  query,
+  type,
+  setCurlCommand,
+  authToken,
+  apiEndpoint,
+  amount,
+  accountWalletId,
+  paymentRequest = '',
+  walletId = '',
+  currency = ''
+}) {
+  let requestBody = {
+    query: query.trim(),
+    variables: {}
+  };
+
+  const authHeader = authToken
+    ? `--header 'Authorization: Bearer ${authToken}'`
+    : "--header 'Authorization: Bearer <YOUR_AUTH_TOKEN_HERE>'";
+
+  if (type === 'invoice') {
+    requestBody.variables.input = {
+      amount: amount.toString(),
+      walletId: accountWalletId,
+    };
+  } else if (type === 'feeProbe') {
+    requestBody.variables.input = {
+      paymentRequest: paymentRequest,
+      walletId: accountWalletId,
+    };
+  } else if (type === 'lnInvoicePaymentSend') {
+    requestBody.variables.input = {
+      paymentRequest: paymentRequest,
+      walletId: walletId
+    };
+  }
+
+  let queryData = JSON.stringify(requestBody).replace(/\n/g, '');
+
+  const walletCurrency = currency
+
+  const walletCommand = `curl -sS --request POST --header 'content-type: application/json' \\
+  ${authHeader} \\
+  --url '${apiEndpoint}' \\
+  --data '{"query":"query me { me { defaultAccount { wallets { id walletCurrency }}}}", "variables":{}}' \\
+| jq '.data.me.defaultAccount.wallets[] | select(.walletCurrency == "${walletCurrency}") .id'`;
+
+  const command = `curl --request POST --header 'content-type: application/json' \\
+  ${authHeader} \\
+  --url '${apiEndpoint}' \\
+  --data '${queryData}'`;
+
+  // Determine which command to use based on type
+  let commandToSet = (type === 'wallet') ? walletCommand : command;
+
+  // Use the passed setter to update the state
+  setCurlCommand(commandToSet);
+};

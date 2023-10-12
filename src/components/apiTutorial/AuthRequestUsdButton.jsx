@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { handleAuthenticatedRequest } from './authRequests';
 import { useAuth } from './AuthContext';
+import { generateCurlCommand } from './curlCommandGenerators';
 
 function AuthRequestButton() {
   const { authToken, setAuthToken } = useAuth();
@@ -25,6 +26,8 @@ function AuthRequestButton() {
   const [errorMessageFetchInvoice, setErrorMessageFetchInvoice] = useState(null);
   const [errorMessageFetchFeeProbe, setErrorMessageFetchFeeProbe] = useState(null);
   const [errorMessageLnInvoicePayment, setErrorMessageLnInvoicePayment] = useState(null);
+
+  const walletCurrency = 'USD';
 
   const getWalletQuery = `\
   query Me {
@@ -79,57 +82,6 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
 }`;
   const getInvoiceSendQuery = (paymentRequest, walletId) => getInvoiceSendQueryText
 
-  const generateCurlCommand = (query, type, paymentRequest = '', walletId = '') => {
-    let requestBody = {
-      query: query.trim(),
-      variables: {}
-    };
-
-    const authHeader = authToken
-      ? `--header 'Authorization: Bearer ${authToken}'`
-      : "--header 'Authorization: Bearer <YOUR_AUTH_TOKEN_HERE>'";
-
-    if (type === 'invoice') {
-      requestBody.variables.input = {
-        amount: amount.toString(),
-        walletId: accountWalletId,
-      };
-    } else if (type === 'feeProbe') {
-      requestBody.variables.input = {
-        paymentRequest: paymentRequest,
-        walletId: accountWalletId,
-      };
-    } else if (type === 'lnInvoicePaymentSend') {
-      requestBody.variables.input = {
-        paymentRequest: paymentRequest,
-        walletId: walletId
-      };
-    }
-
-    let queryData = JSON.stringify(requestBody).replace(/\n/g, '');
-
-    const walletCommand = `curl -sS --request POST --header 'content-type: application/json' \\
-    ${authHeader} \\
-    --url '${apiEndpoint}' \\
-    --data '{"query":"query me { me { defaultAccount { wallets { id walletCurrency }}}}", "variables":{}}' \\
- | jq '.data.me.defaultAccount.wallets[] | select(.walletCurrency == "USD") .id'`;
-
-    const command = `curl --request POST --header 'content-type: application/json' \\
-    ${authHeader} \\
-    --url '${apiEndpoint}' \\
-    --data '${queryData}'`;
-
-    if (type === 'wallet') {
-      setCurlCommandWallet(walletCommand);
-    } else if (type === 'invoice') {
-      setCurlCommandInvoice(command);
-    } else if (type === 'feeProbe') {
-      setCurlCommandFeeProbe(command);
-    } else if (type === 'lnInvoicePaymentSend') {
-      setCurlCommandLnInvoicePayment(command);
-    }
-  };
-
   const fetchWalletData = async () => {
     try {
       const data = await handleAuthenticatedRequest(authToken, apiEndpoint, getWalletQuery);
@@ -139,7 +91,16 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
       if (btcWallet?.id) {
         setAccountWalletId(btcWallet.id);
       }
-      generateCurlCommand(getWalletQuery, 'wallet');
+      generateCurlCommand({
+        query: getWalletQuery,
+        type: 'wallet',
+        setCurlCommand: setCurlCommandWallet,
+        authToken: authToken,
+        apiEndpoint: apiEndpoint,
+        amount: amount,
+        accountWalletId: btcWallet.id,
+        walletCurrency: walletCurrency
+      });
     } catch (error) {
       setErrorMessageFetchWallet(error.message);
     }
@@ -157,7 +118,15 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
     try {
       const data = await handleAuthenticatedRequest(authToken, apiEndpoint, query, variables);
       setInvoiceData(data);
-      generateCurlCommand(query, 'invoice');
+      generateCurlCommand({
+        query: query,
+        type: 'invoice',
+        setCurlCommand: setCurlCommandInvoice,
+        authToken: authToken,
+        apiEndpoint: apiEndpoint,
+        amount: amount,
+        accountWalletId: accountWalletId,
+      });
     } catch (error) {
       setErrorMessageFetchInvoice(error.message);
     }
@@ -175,7 +144,16 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
     try {
       const data = await handleAuthenticatedRequest(authToken, apiEndpoint, query, variables);
       setLnInvoicePaymentData(data);
-      generateCurlCommand(query, 'lnInvoicePaymentSend', paymentRequest, accountWalletId);
+      generateCurlCommand({
+        query: query,
+        type: 'lnInvoicePaymentSend',
+        setCurlCommand: setCurlCommandLnInvoicePayment,
+        authToken: authToken,
+        apiEndpoint: apiEndpoint,
+        amount: amount,
+        accountWalletId: accountWalletId,
+        paymentRequest: paymentRequest
+      });
     } catch (error) {
       setErrorMessageLnInvoicePayment(error.message);
     }
@@ -193,32 +171,71 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
     try {
       const data = await handleAuthenticatedRequest(authToken, apiEndpoint, query, variables);
       setFeeProbeData(data);
-      generateCurlCommand(query, 'feeProbe', paymentRequest, accountWalletId);
+      generateCurlCommand({
+        query: query,
+        type: 'feeProbe',
+        setCurlCommand: setCurlCommandFeeProbe,
+        authToken: authToken,
+        apiEndpoint: apiEndpoint,
+        amount: amount,
+        accountWalletId: accountWalletId,
+        paymentRequest: paymentRequest
+      });
     } catch (error) {
       setErrorMessageFetchFeeProbe(error.message);
     }
   };
 
   useEffect(() => {
-    // This will be triggered whenever authToken or apiEndpoint changes
-    generateCurlCommand(getWalletQuery, 'wallet');
-  }, [authToken, apiEndpoint]); // Listening to authToken and apiEndpoint changes
+    generateCurlCommand({
+      query: getWalletQuery,
+      type: 'wallet',
+      setCurlCommand: setCurlCommandWallet,
+      authToken: authToken,
+      apiEndpoint: apiEndpoint,
+      walletCurrency: walletCurrency
+    });
+  }, [authToken, apiEndpoint]);
 
   useEffect(() => {
-    // This will be triggered whenever authToken, apiEndpoint, amount or accountWalletId changes
     const query = getInvoiceQuery(amount, accountWalletId);
-    generateCurlCommand(query, 'invoice');
-  }, [authToken, apiEndpoint, amount, accountWalletId]); // Listening to these states changes
+    generateCurlCommand({
+      query: query,
+      type: 'invoice',
+      setCurlCommand: setCurlCommandInvoice,
+      authToken: authToken,
+      apiEndpoint: apiEndpoint,
+      amount: amount,
+      accountWalletId: accountWalletId,
+    });
+  }, [authToken, apiEndpoint, amount, accountWalletId]);
 
   useEffect(() => {
-    // This will be triggered whenever authToken, apiEndpoint, paymentRequest, or accountWalletId changes
     const query = getFeeProbeQuery(paymentRequest, accountWalletId);
-    generateCurlCommand(query, 'feeProbe', paymentRequest, accountWalletId);
+    generateCurlCommand({
+      query: query,
+      type: 'feeProbe',
+      setCurlCommand: setCurlCommandFeeProbe,
+      authToken: authToken,
+      apiEndpoint: apiEndpoint,
+      amount: amount,
+      accountWalletId: accountWalletId,
+      paymentRequest: paymentRequest,
+    });
   }, [authToken, apiEndpoint, paymentRequest, accountWalletId]);
 
   useEffect(() => {
     const query = getInvoiceSendQuery(paymentRequest, accountWalletId);
-    generateCurlCommand(query, 'lnInvoicePaymentSend', paymentRequest, accountWalletId);
+    generateCurlCommand({
+      query: query,
+      type: 'lnInvoicePaymentSend',
+      setCurlCommand: setCurlCommandLnInvoicePayment,
+      authToken: authToken,
+      apiEndpoint: apiEndpoint,
+      amount: amount,
+      accountWalletId: accountWalletId,
+      paymentRequest: paymentRequest,
+    });
   }, [authToken, apiEndpoint, paymentRequest, accountWalletId]);
 
   const handleAuthTokenChange = (e) => {
