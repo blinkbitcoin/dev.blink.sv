@@ -1,8 +1,8 @@
-// SetAuthTokenComponent.jsx
+// SetAuthToken.jsx
 import React, { useState } from 'react';
 import { useAuth } from './AuthContext';
 
-export function SetAuthTokenComponent() {
+export function SetAuthToken() {
   const { setAuthToken } = useAuth();
 
   const handleAuthTokenChange = (e) => {

@@ -1,10 +1,10 @@
-// AuthRequestWalletDataBtc.jsx
+// GetWalletDataBtc.jsx
 import React, { useState, useEffect } from 'react';
 import { handleAuthenticatedRequest } from './authRequests';
 import { useAuth } from './AuthContext';
 import { generateCurlCommand } from './curlCommandGenerators';
 
-export function AuthRequestWalletDataBtc() {
+export function GetWalletDataBtc() {
   const { authToken, apiEndpoint } = useAuth();
 
   const [curlCommandWallet, setCurlCommandWallet] = useState('');

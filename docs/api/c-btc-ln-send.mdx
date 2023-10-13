@@ -5,16 +5,18 @@ slug: /api/sats
 ---
 
 import { AuthProvider } from '/src/components/apiTutorial/AuthContext';
-import AuthRequestBtcButton from '/src/components/apiTutorial/AuthRequestBtcButton';
-import { SetApiComponent } from '/src/components/apiTutorial/SetApiComponent';
-import { SetAuthTokenComponent } from '/src/components/apiTutorial/SetAuthTokenComponent';
-import { AuthRequestWalletDataBtc } from '/src/components/apiTutorial/AuthRequestWalletDataBtc';
+import { SetApiEndpoint } from '/src/components/apiTutorial/SetApiEndpoint';
+import { SetAuthToken } from '/src/components/apiTutorial/SetAuthToken';
+import { GetWalletDataBtc } from '/src/components/apiTutorial/GetWalletDataBtc';
+import { LnInvoiceCreate } from '/src/components/apiTutorial/LnInvoiceCreate';
+import { LnInvoiceFeeProbe } from '/src/components/apiTutorial/LnInvoiceFeeProbe';
+import { LnInvoicePaymentSend } from '/src/components/apiTutorial/LnInvoicePaymentSend';
 
 <AuthProvider>
 
-  <SetApiComponent />
+  <SetApiEndpoint />
 
-  <SetAuthTokenComponent />
+  <SetAuthToken />
 
 ### Get the wallet IDs and check the balances
 
@@ -37,8 +39,12 @@ The "USD" wallet balance is in cents.
     }
   }
 ```
-  <AuthRequestWalletDataBtc />
+  <GetWalletDataBtc />
 
-  <AuthRequestBtcButton />
+  <LnInvoiceCreate />
+
+  <LnInvoiceFeeProbe />
+
+  <LnInvoicePaymentSend />
 
 </AuthProvider>

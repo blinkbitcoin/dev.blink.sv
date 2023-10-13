@@ -1,10 +1,10 @@
-// AuthRequestWalletDataUsd.jsx
+// GetWalletDataUsd.jsx
 import React, { useState, useEffect } from 'react';
 import { handleAuthenticatedRequest } from './authRequests';
 import { useAuth } from './AuthContext';
 import { generateCurlCommand } from './curlCommandGenerators';
 
-export function AuthRequestWalletDataUsd() {
+export function GetWalletDataUsd() {
   const { authToken, apiEndpoint } = useAuth();
   const [curlCommandWallet, setCurlCommandWallet] = useState('');
   const [walletData, setWalletData] = useState(null);

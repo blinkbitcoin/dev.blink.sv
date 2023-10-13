@@ -3,7 +3,7 @@ import { requestEmailCode, emailLogin } from './authUtilities';
 import { useAuth } from './AuthContext';
 import { generateCurlCommandRequestEmailCode, generateCurlCommandEmailLogin } from './curlCommandGenerators';
 
-function EmailLoginButton() {
+function LoginEmail() {
   const { authToken, setAuthToken } = useAuth();
   const [authEndpoint, setAuthEndpoint] = useState('https://api.blink.sv/auth');
   const [emailAddress, setEmailAddress] = useState('');
@@ -145,4 +145,4 @@ function EmailLoginButton() {
   );
 }
 
-export default EmailLoginButton;
+export default LoginEmail;

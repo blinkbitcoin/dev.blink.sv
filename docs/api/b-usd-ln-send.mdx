@@ -5,17 +5,18 @@ slug: /api/stablesats
 ---
 
 import { AuthProvider } from '/src/components/apiTutorial/AuthContext';
-import AuthRequestUsdButton from '/src/components/apiTutorial/AuthRequestUsdButton';
-import { SetApiComponent } from '/src/components/apiTutorial/SetApiComponent';
-import { SetAuthTokenComponent } from '/src/components/apiTutorial/SetAuthTokenComponent';
-import { AuthRequestWalletDataUsd } from '/src/components/apiTutorial/AuthRequestWalletDataUsd';
+import { SetApiEndpoint } from '/src/components/apiTutorial/SetApiEndpoint';
+import { SetAuthToken } from '/src/components/apiTutorial/SetAuthToken';
+import { GetWalletDataUsd } from '/src/components/apiTutorial/GetWalletDataUsd';
 import { LnUsdInvoiceCreate } from '/src/components/apiTutorial/LnUsdInvoiceCreate';
+import { LnUsdInvoiceFeeProbe } from '/src/components/apiTutorial/LnUsdInvoiceFeeProbe';
+import { LnInvoicePaymentSend } from '/src/components/apiTutorial/LnInvoicePaymentSend';
 
 <AuthProvider>
 
-  <SetApiComponent />
+  <SetApiEndpoint />
 
-  <SetAuthTokenComponent />
+  <SetAuthToken />
 
 ### Get the wallet IDs and check the balances
 
@@ -39,10 +40,12 @@ The "USD" wallet balance is in cents.
   }
 ```
 
-  <AuthRequestWalletDataUsd />
+  <GetWalletDataUsd />
 
   <LnUsdInvoiceCreate />
 
-  <AuthRequestUsdButton />
+  <LnUsdInvoiceFeeProbe />
+
+  <LnInvoicePaymentSend />
 
 </AuthProvider>

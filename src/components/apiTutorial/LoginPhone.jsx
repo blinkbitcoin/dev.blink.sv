@@ -3,7 +3,7 @@ import { phoneLogin } from './authUtilities';
 import { useAuth } from './AuthContext';
 import { generateCurlCommandPhoneLogin } from './curlCommandGenerators';
 
-function PhoneLoginButton() {
+function LoginPhone() {
   const { authToken, setAuthToken } = useAuth();
   const [apiEndpoint, setApiEndpoint] = useState('https://api.blink.sv/graphql');
   const [phone, setPhone] = useState('');
@@ -96,4 +96,4 @@ function PhoneLoginButton() {
   );
 }
 
-export default PhoneLoginButton;
+export default LoginPhone;
