@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { useAuth } from './AuthContext';
 
-
 export function SetApiComponent() {
   const { apiEndpoint, setApiEndpoint } = useAuth();
 

@@ -6,6 +6,7 @@ import { generateCurlCommand } from './curlCommandGenerators';
 
 export function AuthRequestWalletDataBtc() {
   const { authToken, apiEndpoint } = useAuth();
+
   const [curlCommandWallet, setCurlCommandWallet] = useState('');
   const [walletData, setWalletData] = useState(null);
   const [errorMessageFetchWallet, setErrorMessageFetchWallet] = useState(null);
@@ -59,7 +60,6 @@ export function AuthRequestWalletDataBtc() {
 
   return (
     <div>
-      {/* Display for WalletData */}
       <button onClick={fetchWalletData}>Send the request</button>
       {errorMessageFetchWallet && <div style={{ color: 'red' }}>Error: {errorMessageFetchWallet}</div>}
       {walletData && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(walletData, null, 2)}</pre></div>}

@@ -59,7 +59,6 @@ export function AuthRequestWalletDataUsd() {
 
   return (
     <div>
-      {/* Display for WalletData */}
       <button onClick={fetchWalletData}>Send the request</button>
       {errorMessageFetchWallet && <div style={{ color: 'red' }}>Error: {errorMessageFetchWallet}</div>}
       {walletData && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(walletData, null, 2)}</pre></div>}
