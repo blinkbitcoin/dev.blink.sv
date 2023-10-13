@@ -4,14 +4,10 @@ import { handleAuthenticatedRequest } from './authRequests';
 import { useAuth } from './AuthContext';
 import { generateCurlCommand } from './curlCommandGenerators';
 
-export function AuthRequestButton() {
-  const { authToken, apiEndpoint,accountWalletId, paymentRequest } = useAuth();
+export default function AuthRequestButton() {
+  const { authToken, apiEndpoint, accountWalletId, paymentRequest } = useAuth();
 
   const [amount, setAmount] = useState(1000);
-
-  const [curlCommandWallet, setCurlCommandWallet] = useState('');
-  const [walletData, setWalletData] = useState(null);
-  const [errorMessageFetchWallet, setErrorMessageFetchWallet] = useState(null);
 
   const [curlCommandInvoice, setCurlCommandInvoice] = useState('');
   const [invoiceData, setInvoiceData] = useState(null);
@@ -24,21 +20,6 @@ export function AuthRequestButton() {
   const [curlCommandLnInvoicePayment, setCurlCommandLnInvoicePayment] = useState('');
   const [lnInvoicePaymentData, setLnInvoicePaymentData] = useState(null);
   const [errorMessageLnInvoicePayment, setErrorMessageLnInvoicePayment] = useState(null);
-
-  const walletCurrency = 'BTC';
-
-  const getWalletQuery = `\
-  query Me {
-    me {
-      defaultAccount {
-        wallets {
-          id
-          walletCurrency
-          balance
-        }
-      }
-    }
-  }`;
 
   const getInvoiceQueryText = `\
 mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
@@ -79,29 +60,6 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
   }
 }`;
   const getInvoiceSendQuery = (paymentRequest, walletId) => getInvoiceSendQueryText
-
-  const fetchWalletData = async () => {
-    try {
-      const data = await handleAuthenticatedRequest(authToken, apiEndpoint, getWalletQuery);
-      setWalletData(data);
-
-      const btcWallet = data?.me?.defaultAccount?.wallets?.find(wallet => wallet.walletCurrency === "BTC");
-      if (btcWallet?.id) {
-        setAccountWalletId(btcWallet.id);
-      }
-      generateCurlCommand(getWalletQuery, 'wallet');
-      generateCurlCommand({
-        query: getWalletQuery,
-        type: 'wallet',
-        setCurlCommand: setCurlCommandWallet,
-        authToken: authToken,
-        apiEndpoint: apiEndpoint,
-        walletCurrency: walletCurrency
-      });
-    } catch (error) {
-      setErrorMessageFetchWallet(error.message);
-    }
-  };
 
   const fetchInvoiceData = async () => {
     const query = getInvoiceQuery(amount, accountWalletId);
@@ -184,17 +142,6 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
   };
 
   useEffect(() => {
-    generateCurlCommand({
-      query: getWalletQuery,
-      type: 'wallet',
-      setCurlCommand: setCurlCommandWallet,
-      authToken: authToken,
-      apiEndpoint: apiEndpoint,
-      walletCurrency: walletCurrency
-    });
-  }, [authToken, apiEndpoint]);
-
-  useEffect(() => {
     const query = getInvoiceQuery(amount, accountWalletId);
     generateCurlCommand({
       query: query,
@@ -245,24 +192,6 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
 
   return (
     <div>
-      {/* Display for WalletData */}
-      <button onClick={fetchWalletData}>Send the request</button>
-      {errorMessageFetchWallet && <div style={{ color: 'red' }}>Error: {errorMessageFetchWallet}</div>}
-      {walletData && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(walletData, null, 2)}</pre></div>}
-
-      <div style={{ marginTop: '20px', marginBottom: '40px' }}>
-        <div style={{ fontWeight: 'bold' }}>curl command to get the BTC wallet ID:</div>
-        <pre style={{
-          backgroundColor: 'auto',
-          padding: '10px',
-          marginLeft: '10px',
-          overflowX: 'auto',
-          whiteSpace: 'pre-wrap'
-        }}>
-          {curlCommandWallet}
-        </pre>
-      </div>
-
       {/* Display for InvoiceData */}
       <h3>Generate an invoice</h3>
       <div>Receive satoshis to the BTC balance.</div>
