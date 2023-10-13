@@ -52,7 +52,7 @@ export function generateCurlCommand({
   accountWalletId,
   paymentRequest = '',
   walletId = '',
-  currency = ''
+  walletCurrency = ''
 }) {
   let requestBody = {
     query: query.trim(),
@@ -80,9 +80,7 @@ export function generateCurlCommand({
     };
   }
 
-  let queryData = JSON.stringify(requestBody).replace(/\n/g, '');
-
-  const walletCurrency = currency
+  let queryData = JSON.stringify(requestBody).replace(/\n/g, '');5
 
   const walletCommand = `curl -sS --request POST --header 'content-type: application/json' \\
   ${authHeader} \\

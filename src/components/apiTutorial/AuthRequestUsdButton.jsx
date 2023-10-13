@@ -1,30 +1,28 @@
-// AuthRequestButton.jsx
+// AuthRequestUsdButton.jsx
 import React, { useState, useEffect } from 'react';
 import { handleAuthenticatedRequest } from './authRequests';
 import { useAuth } from './AuthContext';
 import { generateCurlCommand } from './curlCommandGenerators';
 
-function AuthRequestButton() {
-  const { authToken, setAuthToken } = useAuth();
-  const [apiEndpoint, setApiEndpoint] = useState('https://api.blink.sv/graphql');
-  const [manualAuthToken, setManualAuthToken] = useState('');
-  const [amount, setAmount] = useState(100);
-  const [accountWalletId, setAccountWalletId] = useState('');
-  const [paymentRequest, setPaymentRequest] = useState('');
+export function AuthRequestButton() {
+  const { authToken, apiEndpoint,accountWalletId, paymentRequest } = useAuth();
+
+  const [amount, setAmount] = useState(1000);
 
   const [curlCommandWallet, setCurlCommandWallet] = useState('');
-  const [curlCommandInvoice, setCurlCommandInvoice] = useState('');
-  const [curlCommandFeeProbe, setCurlCommandFeeProbe] = useState('');
-  const [curlCommandLnInvoicePayment, setCurlCommandLnInvoicePayment] = useState('');
-
   const [walletData, setWalletData] = useState(null);
-  const [invoiceData, setInvoiceData] = useState(null);
-  const [feeProbeData, setFeeProbeData] = useState(null);
-  const [lnInvoicePaymentData, setLnInvoicePaymentData] = useState(null);
-
   const [errorMessageFetchWallet, setErrorMessageFetchWallet] = useState(null);
+
+  const [curlCommandInvoice, setCurlCommandInvoice] = useState('');
+  const [invoiceData, setInvoiceData] = useState(null);
   const [errorMessageFetchInvoice, setErrorMessageFetchInvoice] = useState(null);
+
+  const [curlCommandFeeProbe, setCurlCommandFeeProbe] = useState('');
+  const [feeProbeData, setFeeProbeData] = useState(null);
   const [errorMessageFetchFeeProbe, setErrorMessageFetchFeeProbe] = useState(null);
+
+  const [curlCommandLnInvoicePayment, setCurlCommandLnInvoicePayment] = useState('');
+  const [lnInvoicePaymentData, setLnInvoicePaymentData] = useState(null);
   const [errorMessageLnInvoicePayment, setErrorMessageLnInvoicePayment] = useState(null);
 
   const walletCurrency = 'USD';
@@ -97,8 +95,6 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
         setCurlCommand: setCurlCommandWallet,
         authToken: authToken,
         apiEndpoint: apiEndpoint,
-        amount: amount,
-        accountWalletId: btcWallet.id,
         walletCurrency: walletCurrency
       });
     } catch (error) {
@@ -238,18 +234,6 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
     });
   }, [authToken, apiEndpoint, paymentRequest, accountWalletId]);
 
-  const handleAuthTokenChange = (e) => {
-    setManualAuthToken(e.target.value);
-  };
-
-  const handleSetManualToken = () => {
-    setAuthToken(manualAuthToken);
-  };
-
-  const handleApiEndpointChange = (e) => {
-    setApiEndpoint(e.target.value);
-  };
-
   const handleAmountChange = (e) => {
     setAmount(e.target.value);
   };
@@ -258,54 +242,9 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
     setAccountWalletId(e.target.value);
   };
 
-  function AuthTokenInput({ value, onChange, onSet }) {
-    return (
-      <div>
-        <input
-          type="text"
-          placeholder="Paste and set the authentication token"
-          value={value}
-          onChange={onChange}
-          style={{ width: '50%', marginBottom: '10px' }}
-        />
-        <div><button onClick={onSet}>Set token</button></div>
-      </div>
-    );
-  }
-
-  const authTokenSection = (
-    <AuthTokenInput
-      value={manualAuthToken}
-      onChange={handleAuthTokenChange}
-      onSet={handleSetManualToken}
-    />
-  );
-
   return (
     <div>
-      <div>The GraphQL endpoint to connect to:</div>
-      <select
-        type="text"
-        value={apiEndpoint}
-        onChange={handleApiEndpointChange}
-        style={{ width: '50%', marginBottom: '10px' }}
-      >
-        <option value="https://api.blink.sv/graphql">Blink (mainnet) - https://api.blink.sv/graphql</option>
-        <option value="https://api.staging.galoy.io/graphql">Staging (signet) - https://api.staging.galoy.io/graphql</option>
-      </select>
-      <div>The following methods require a valid auth token set in the header as a bearer token:</div>
-      {authTokenSection}
-
       {/* Display for WalletData */}
-      <div style={{ marginTop: '40px' }}></div>
-      <h3>Get the wallet IDs and check the balances</h3>
-      <div>Can run this query at any stage to confirm the change in the balances.</div>
-      <div>The "BTC" wallet balance is denominated in satoshis.</div>
-      <div>The "USD" wallet balance is in cents.</div>
-      <div style={{ marginTop: '20px' }}></div>
-
-      <div style={{ fontWeight: 'bold' }}>The body of the GraphQL request:</div>
-      <pre style={{ marginLeft: '10px' }}>{getWalletQuery}</pre>
       <button onClick={fetchWalletData}>Send the request</button>
       {errorMessageFetchWallet && <div style={{ color: 'red' }}>Error: {errorMessageFetchWallet}</div>}
       {walletData && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(walletData, null, 2)}</pre></div>}
@@ -474,5 +413,3 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
     </div>
   );
 }
-
-export default AuthRequestButton;

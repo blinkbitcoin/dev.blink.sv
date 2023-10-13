@@ -1,3 +1,4 @@
+//AuthContext.jsx
 import React, { createContext, useContext, useState } from 'react';
 
 const AuthContext = createContext();
@@ -8,10 +9,19 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
   const [authToken, setAuthToken] = useState(null);
+  const [apiEndpoint, setApiEndpoint] = useState('https://api.blink.sv/graphql');
+  const [accountWalletId, setAccountWalletId] = useState('');
+  const [paymentRequest, setPaymentRequest] = useState('');
 
   const value = {
     authToken,
-    setAuthToken
+    setAuthToken,
+    apiEndpoint,
+    setApiEndpoint,
+    accountWalletId,
+    setAccountWalletId,
+    paymentRequest,
+    setPaymentRequest
   };
 
   return (

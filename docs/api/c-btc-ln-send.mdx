@@ -1,0 +1,42 @@
+---
+id: api-sats
+title: Send and receive satoshis
+slug: /api/sats
+---
+
+import { AuthProvider } from '/src/components/apiTutorial/AuthContext';
+import AuthRequestBtcButton from '/src/components/apiTutorial/AuthRequestBtcButton';
+import { SetApiComponent } from '/src/components/apiTutorial/SetApiComponent';
+import { SetAuthTokenComponent } from '/src/components/apiTutorial/SetAuthTokenComponent';
+
+<AuthProvider>
+
+  <SetApiComponent />
+
+  <SetAuthTokenComponent />
+
+### Get the wallet IDs and check the balances
+
+Can run this query at any stage to confirm the change in the balances.<br />
+The "BTC" wallet balance is denominated in satoshis.<br />
+The "USD" wallet balance is in cents.
+
+**The body of the GraphQL request:**
+
+```graphql
+  query Me {
+    me {
+      defaultAccount {
+        wallets {
+          id
+          walletCurrency
+          balance
+        }
+      }
+    }
+  }
+```
+
+  <AuthRequestBtcButton />
+
+</AuthProvider>
