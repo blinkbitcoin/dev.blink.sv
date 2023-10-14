@@ -79,9 +79,6 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
 
   return (
     <div>
-      <h3>Pay an invoice</h3>
-      <div>Pay a BOLT11 invoice from your BTC balance</div>
-      <div style={{ marginTop: '20px' }}></div>
       <div>
         <div style={{ fontWeight: 'bold' }}>Set the variables</div>
         <div>
@@ -107,15 +104,15 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
           />
         </label>
       </div>
-      <div style={{ marginTop: '20px' }}></div>
-      <div style={{ fontWeight: 'bold' }}>The body of the GraphQL request:</div>
-      <pre style={{ marginLeft: '10px' }}>{getInvoiceSendQueryText}</pre>
+      <div style={{ marginTop: '10px' }}></div>
       <button onClick={fetchLnInvoicePaymentData}>Send payment</button>
+      <div style={{ marginTop: '10px' }}></div>
       {errorMessageLnInvoicePayment && <div style={{ color: 'red' }}>Error: {errorMessageLnInvoicePayment}</div>}
       {lnInvoicePaymentData && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(lnInvoicePaymentData, null, 2)}</pre></div>}
 
       <div style={{ marginTop: '20px' }}>
-        <div style={{ fontWeight: 'bold' }}>curl command to pay an invoice:</div>
+        <div style={{ fontWeight: 'bold' }}>curl command to pay an invoice</div>
+        <div style={{ marginTop: '10px' }}></div>
         <pre style={{
           backgroundColor: 'auto',
           padding: '10px',

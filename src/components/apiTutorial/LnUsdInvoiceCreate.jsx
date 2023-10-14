@@ -79,10 +79,6 @@ mutation lnUsdInvoiceCreate($input: LnUsdInvoiceCreateInput!) {
 
   return (
     <div>
-      <h3>Generate a Stablesats invoice</h3>
-      <div>Using Stablesats a merchant can generate invoices denominated in USD cents.</div>
-      <div>The satoshi amount of the invoice will reflect the current USD/BTC exchange rate and the balance will be kept at the dollar value.</div>
-      <div style={{ marginTop: '20px' }}></div>
       <div>
         <div>
           <div style={{ fontWeight: 'bold' }}>Set the variables</div>
@@ -107,15 +103,15 @@ mutation lnUsdInvoiceCreate($input: LnUsdInvoiceCreateInput!) {
           />
         </label>
       </div>
-      <div style={{ marginTop: '20px' }}></div>
-      <div style={{ fontWeight: 'bold' }}>The body of the GraphQL request:</div>
-      <pre style={{ marginLeft: '10px' }}>{getInvoiceQueryText}</pre>
+      <div style={{ marginTop: '10px' }}></div>
       <button onClick={fetchInvoiceData}>Create a Stablesats invoice</button>
+      <div style={{ marginTop: '10px' }}></div>
       {errorMessageFetchInvoice && <div style={{ color: 'red' }}>Error: {errorMessageFetchInvoice}</div>}
       {invoiceData && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(invoiceData, null, 2)}</pre></div>}
 
       <div style={{ marginTop: '20px', marginBottom: '40px' }}>
-        <div style={{ fontWeight: 'bold' }}>curl command to generate a Stablesats invoice:</div>
+        <div style={{ fontWeight: 'bold' }}>curl command to generate a Stablesats invoice</div>
+        <div style={{ marginTop: '10px' }}></div>
         <pre style={{
           backgroundColor: 'auto',
           padding: '10px',

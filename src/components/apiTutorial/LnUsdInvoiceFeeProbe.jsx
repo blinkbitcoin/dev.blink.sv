@@ -73,10 +73,6 @@ mutation lnUsdInvoiceFeeProbe($input: LnUsdInvoiceFeeProbeInput!) {
 
   return (
     <div>
-      <h3>Probe invoice fee</h3>
-      <div>Estimate the cost of paying a lightning invoice.</div>
-      <div>Payments to an other Blink user and to nodes with a direct channel are free.</div>
-      <div style={{ marginTop: '20px' }}></div>
       <div>
         <div style={{ fontWeight: 'bold' }}>Set the variables</div>
         <div>
@@ -102,15 +98,15 @@ mutation lnUsdInvoiceFeeProbe($input: LnUsdInvoiceFeeProbeInput!) {
           />
         </label>
       </div>
-      <div style={{ marginTop: '20px' }}></div>
-      <div style={{ fontWeight: 'bold' }}>The body of the GraphQL request:</div>
-      <pre style={{ marginLeft: '10px' }}>{getFeeProbeQueryText}</pre>
+      <div style={{ marginTop: '10px' }}></div>
       <button onClick={fetchFeeProbeData}>Probe fee</button>
+      <div style={{ marginTop: '10px' }}></div>
       {errorMessageFetchFeeProbe && <div style={{ color: 'red' }}>Error: {errorMessageFetchFeeProbe}</div>}
       {feeProbeData && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(feeProbeData, null, 2)}</pre></div>}
 
       <div style={{ marginTop: '20px', marginBottom: '40px' }}>
-        <h4>cURL command to probe invoice fee:</h4>
+        <h4>curl command to probe invoice fee</h4>
+        <div style={{ marginTop: '10px' }}></div>
         <pre style={{
           backgroundColor: 'auto',
           padding: '10px',

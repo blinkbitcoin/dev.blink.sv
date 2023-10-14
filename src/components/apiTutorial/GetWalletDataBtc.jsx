@@ -61,11 +61,13 @@ export function GetWalletDataBtc() {
   return (
     <div>
       <button onClick={fetchWalletData}>Send the request</button>
+      <div style={{ marginTop: '10px' }}></div>
       {errorMessageFetchWallet && <div style={{ color: 'red' }}>Error: {errorMessageFetchWallet}</div>}
       {walletData && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(walletData, null, 2)}</pre></div>}
 
       <div style={{ marginTop: '20px', marginBottom: '40px' }}>
-        <div style={{ fontWeight: 'bold' }}>curl command to get the BTC wallet ID:</div>
+        <div style={{ fontWeight: 'bold' }}>curl command to get the BTC wallet ID</div>
+        <div style={{ marginTop: '10px' }}></div>
         <pre style={{
           backgroundColor: 'auto',
           padding: '10px',

@@ -30,7 +30,7 @@ export const generateCurlCommandPhoneLogin = (apiEndpoint, phone, code) => {
 export const generateCurlCommandEmailLogin = (authEndpoint, emailLoginId, emailCode) => {
   const url = `${authEndpoint}/auth/email/login`;
 
-  // Convert the body object to a string for the cURL command
+  // Convert the body object to a string for the curl command
   const body = JSON.stringify({
     code: emailCode,
     emailLoginId: emailLoginId

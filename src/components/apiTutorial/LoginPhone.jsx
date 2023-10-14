@@ -71,7 +71,7 @@ function LoginPhone() {
       </div>
 
       <div style={{ marginTop: '20px' }}>
-        <h3>cURL command for phone login:</h3>
+        <h3>curl command for phone login</h3>
         <pre style={{
           backgroundColor: 'auto',
           padding: '10px',

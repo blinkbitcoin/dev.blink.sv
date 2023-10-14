@@ -79,11 +79,9 @@ mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
 
   return (
     <div>
-      <h3>Generate a lightning invoice</h3>
-      <div>Receive satoshis to the BTC balance.</div>
       <div>
         <div style={{ fontWeight: 'bold' }}>Set the variables</div>
-        <div style={{ marginTop: '20px' }}></div>
+        <div style={{ marginTop: '10px' }}></div>
         <div>
           <label>
             <div>Amount (sats):</div>
@@ -106,15 +104,15 @@ mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
           />
         </label>
       </div>
-      <div style={{ marginTop: '20px' }}></div>
-      <div style={{ fontWeight: 'bold' }}>The body of the GraphQL request:</div>
-      <pre style={{ marginLeft: '10px' }}>{getInvoiceQueryText}</pre>
+      <div style={{ marginTop: '10px' }}></div>
       <button onClick={fetchInvoiceData}>Create invoice</button>
+      <div style={{ marginTop: '10px' }}></div>
       {errorMessageFetchInvoice && <div style={{ color: 'red' }}>Error: {errorMessageFetchInvoice}</div>}
       {invoiceData && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(invoiceData, null, 2)}</pre></div>}
 
       <div style={{ marginTop: '20px', marginBottom: '40px' }}>
-        <div style={{ fontWeight: 'bold' }}>curl command to generate an invoice:</div>
+        <div style={{ fontWeight: 'bold' }}>curl command to generate an invoice</div>
+        <div style={{ marginTop: '10px' }}></div>
         <pre style={{
           backgroundColor: 'auto',
           padding: '10px',
