@@ -18,9 +18,9 @@ slug: /api/learn-more
 
 ## Preformed GraphQL queries
 
-Dive deeper into contsructing GraphQL queries with these preformed queries:
+Dive deeper into constructing GraphQL queries with these preformed queries:
 
-* [galoy/tree/main/test/bats/gql](https://github.com/GaloyMoney/galoy/tree/main/test/bats/gql)
+* [galoy/tree/main/core/api/test/bats/gql](https://github.com/GaloyMoney/galoy/tree/main/core/api/test/bats/gql)
 * [galoy-mobile/blob/main/app/graphql/generated.gql](https://github.com/GaloyMoney/galoy-mobile/blob/main/app/graphql/generated.gql)
 
 ## Videos

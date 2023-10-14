@@ -3,7 +3,7 @@ import { requestEmailCode, emailLogin } from './authUtilities';
 import { useAuth } from './AuthContext';
 import { generateCurlCommandRequestEmailCode, generateCurlCommandEmailLogin } from './curlCommandGenerators';
 
-function EmailLoginButton() {
+function LoginEmail() {
   const { authToken, setAuthToken } = useAuth();
   const [authEndpoint, setAuthEndpoint] = useState('https://api.blink.sv/auth');
   const [emailAddress, setEmailAddress] = useState('');
@@ -19,13 +19,13 @@ function EmailLoginButton() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // Generate and set the cURL command whenever authEndpoint or emailAddress changes
+    // Generate and set the curl command whenever authEndpoint or emailAddress changes
     const newCurlCommand = generateCurlCommandRequestEmailCode(authEndpoint, emailAddress);
     setCurlCommandRequestEmailCode(newCurlCommand);
   }, [authEndpoint, emailAddress]);
 
   useEffect(() => {
-    // Generate and set the cURL command for email login whenever authEndpoint, emailLoginIdInput or emailCode changes
+    // Generate and set the curl command for email login whenever authEndpoint, emailLoginIdInput or emailCode changes
     const newCurlCommand = generateCurlCommandEmailLogin(authEndpoint, emailLoginIdInput, emailCode);
     setCurlCommandEmailLogin(newCurlCommand);
   }, [authEndpoint, emailLoginIdInput, emailCode]);
@@ -83,7 +83,7 @@ function EmailLoginButton() {
       </div>
       <button onClick={handleRequestEmailCode}>Request code</button>
       <div style={{ marginTop: '20px' }}>
-        <h4>cURL command to request an email code:</h4>
+        <h4>curl command to request an email code</h4>
         <pre style={{
           backgroundColor: 'auto',
           padding: '10px',
@@ -119,7 +119,7 @@ function EmailLoginButton() {
       )
       }
       <div style={{ marginTop: '20px' }}>
-        <h4>cURL command for email login:</h4>
+        <h4>curl command for email login</h4>
         <pre style={{
           backgroundColor: 'auto',
           padding: '10px',
@@ -145,4 +145,4 @@ function EmailLoginButton() {
   );
 }
 
-export default EmailLoginButton;
+export default LoginEmail;
