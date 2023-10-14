@@ -1,31 +1,40 @@
-## Get started with Blink
-Begin your development journey with our hosted API within minutes.
+# Welcome to the Blink Developer Portal
 
-* 🌟 New to Blink? [Start Here](/api)
+Empowering Bitcoin Adoption Worldwide with the Blink API
 
-:::note
-🔗 Interested in self-hosting the Galoy stack? Visit [dev.galoy.io](https://dev.galoy.io).
-:::
+Are you ready to revolutionize the way people and businesses embrace Bitcoin? Look no further! Blink API offers you a powerful, cost-effective, and reliable solution for easily integrating Bitcoin into your projects, regardless of your experience level.
 
-## Authentication
-Secure your interactions with our API with an authentication token.
+## Why Choose the Blink API?
 
-* 🔐 Get an authentication token through the API or from the Blink app. [Read more](/api/auth)
+### Bitcoin Focused
+* Built by Bitcoiners for everyone
+* Proudly based in El Salvador, the pioneering nation to embrace Bitcoin as legal tender
 
-## API Demos
+### Accessible
+* Swift registration with a phone number from most countries around the globe
+* Our tools and services prioritize user-friendliness and seamless onboarding
 
-## Send and receive Stablesats
-* 🔄 Try an interactive API demo for Stablesats. [Demo here](/api/stablesats)
+### Reliable
+* Check our real-time uptime status at [Blink Status Page](https://blink.statuspage.io/)
+* We're dedicated to ensuring a seamless experience with 24/7 technical and end-user support
 
-## Send and receive satoshis
-* ₿ Try an interactive API demo denominated in satoshis. [Demo here](/api/sats)
+### Cost-Effective
+* **No Extra Charges using Lightning**: Enjoy lightning-fast Bitcoin transactions without worrying about hidden fees. Blink has transparent and affordable [pricing](https://faq.blink.sv/transaction-fees/what-are-the-transaction-fees-for-using-blink-wallet).
+* **Spare the Cost**: Eliminate the complexities of channel management. The Galoy backend handles it all, saving you valuable time and resources.
 
-## Additional tools
+### Stablesats
+* **Synthetic USD on Bitcoin**: Maintain the stability of your Bitcoin holdings in terms of dollar value.
+* Dive deeper on [stablesats.com](https://stablesats.com/)
 
-### Postman Collection for the Galoy API
-* 🛠  Find guidelines and links for using the Postman collection. [Read more](/api/postman)
+### Free Open Source and Self-Hostable
+* **Free Open Source Software**: The Galoy stack, the foundation of Blink API, is open-source and freely available. We're dedicated to fostering a secure and transparent Bitcoin ecosystem.
+* **Host on Your Terms**: When you're ready, you can host the API on your own terms and seamlessly transition everything to your stack.
+* Visit [dev.galoy.io](https://dev.galoy.io) for more information on our open-source offerings.
 
-### Further Resources
-* 📚 For more documentation about the API, including the full reference and videos [click here](/api/learn-more)
+Get Started Today!
 
-📩 Contact us on any of the Community channels linked below if you have any questions or feedback.
+Ready to empower yourself and your business to seamlessly embrace Bitcoin? Join developers and businesses worldwide who have already chosen Blink API for its Bitcoin-centric approach, accessibility, cost-effectiveness, stability, and security.
+
+[Join our Mattermost](https://chat.galoy.io/) | [Start with the API](https://dev.blink.sv/api)
+
+Join us in enabling a Bitcoin-powered future with the Blink API powered by Galoy!
