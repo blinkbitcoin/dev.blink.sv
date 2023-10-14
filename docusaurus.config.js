@@ -84,8 +84,8 @@ const config = {
             label: 'Hosted API',
           },
           {
-            href: 'https://github.com/GaloyMoney',
-            label: 'Follow Galoy on GitHub',
+            href: 'https://chat.galoy.io',
+            label: 'Join the Community',
             position: 'right',
           },
         ],
