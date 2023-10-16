@@ -12,7 +12,7 @@ export function SetAuthToken() {
 
   return (
     <div>
-      <div>The following methods require a valid auth token set in the header as a bearer token:</div>
+      <div>A valid authentication token is required in the header as a bearer token:</div>
       <input
         type="text"
         placeholder="Paste the authentication token to use it"
