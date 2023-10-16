@@ -1,14 +1,12 @@
 ---
-id: api-sats
-title: Send and receive satoshis
-slug: /api/sats
+title: Send BTC over Lightning
+slug: /api/btc-ln-send
 ---
 
 import { AuthProvider } from '/src/components/apiTutorial/AuthContext';
 import { SetApiEndpoint } from '/src/components/apiTutorial/SetApiEndpoint';
 import { SetAuthToken } from '/src/components/apiTutorial/SetAuthToken';
 import { GetWalletDataBtc } from '/src/components/apiTutorial/GetWalletDataBtc';
-import { LnInvoiceCreate } from '/src/components/apiTutorial/LnInvoiceCreate';
 import { LnInvoiceFeeProbe } from '/src/components/apiTutorial/LnInvoiceFeeProbe';
 import { LnInvoicePaymentSend } from '/src/components/apiTutorial/LnInvoicePaymentSend';
 
@@ -40,29 +38,6 @@ The "USD" wallet balance is in cents.
   }
 ```
   <GetWalletDataBtc />
-
-### Generate a lightning invoice
-Receive satoshis to your BTC balance
-
-**The body of the GraphQL request**
-
-```graphql
-mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
-  lnInvoiceCreate(input: $input) {
-    invoice {
-      paymentRequest
-      paymentHash
-      paymentSecret
-      satoshis
-    }
-    errors {
-      message
-    }
-  }
-}
-```
-
-  <LnInvoiceCreate />
 
 ### Estimate the payment fee (probe)
 

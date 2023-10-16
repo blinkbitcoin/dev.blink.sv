@@ -1,0 +1,65 @@
+---
+title: Receive BTC on Lightning
+slug: /api/btc-ln-receive
+---
+
+import { AuthProvider } from '/src/components/apiTutorial/AuthContext';
+import { SetApiEndpoint } from '/src/components/apiTutorial/SetApiEndpoint';
+import { SetAuthToken } from '/src/components/apiTutorial/SetAuthToken';
+import { GetWalletDataBtc } from '/src/components/apiTutorial/GetWalletDataBtc';
+import { LnInvoiceCreate } from '/src/components/apiTutorial/LnInvoiceCreate';
+
+<AuthProvider>
+
+  <SetApiEndpoint />
+
+  <SetAuthToken />
+
+### Get the wallet IDs and check the balances
+
+Can run this query at any stage to confirm the change in the balances.<br />
+The "BTC" wallet balance is denominated in satoshis.<br />
+The "USD" wallet balance is in cents.
+
+**The body of the GraphQL request**
+
+```graphql
+  query Me {
+    me {
+      defaultAccount {
+        wallets {
+          id
+          walletCurrency
+          balance
+        }
+      }
+    }
+  }
+```
+  <GetWalletDataBtc />
+
+### Generate a lightning invoice
+Receive satoshis to your BTC balance.<br />
+Use the `paymentRequest` from the response and pay it with a lightning wallet.
+
+**The body of the GraphQL request**
+
+```graphql
+mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
+  lnInvoiceCreate(input: $input) {
+    invoice {
+      paymentRequest
+      paymentHash
+      paymentSecret
+      satoshis
+    }
+    errors {
+      message
+    }
+  }
+}
+```
+
+  <LnInvoiceCreate />
+
+</AuthProvider>
