@@ -43,7 +43,7 @@ export const generateCurlCommandEmailLogin = (authEndpoint, emailLoginId, emailC
 }
 
 export function generateCurlCommand({
-  query,
+  operation,
   type,
   setCurlCommand,
   authToken,
@@ -55,7 +55,7 @@ export function generateCurlCommand({
   walletCurrency = ''
 }) {
   let requestBody = {
-    query: query.trim(),
+    operation: operation.trim(),
     variables: {}
   };
 

@@ -34,7 +34,7 @@ export function GetWalletDataUsd() {
       //const usdWallet = data?.me?.defaultAccount?.wallets?.find(wallet => wallet.walletCurrency === "USD");
 
       generateCurlCommand({
-        query: getWalletQuery,
+        operation: getWalletQuery,
         type: 'wallet',
         setCurlCommand: setCurlCommandWallet,
         authToken: authToken,
@@ -48,7 +48,7 @@ export function GetWalletDataUsd() {
 
   useEffect(() => {
     generateCurlCommand({
-      query: getWalletQuery,
+      operation: getWalletQuery,
       type: 'wallet',
       setCurlCommand: setCurlCommandWallet,
       authToken: authToken,

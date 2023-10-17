@@ -35,7 +35,7 @@ export function GetWalletDataBtc() {
       //const btcWallet = data?.me?.defaultAccount?.wallets?.find(wallet => wallet.walletCurrency === "BTC");
 
       generateCurlCommand({
-        query: getWalletQuery,
+        operation: getWalletQuery,
         type: 'wallet',
         setCurlCommand: setCurlCommandWallet,
         authToken: authToken,
@@ -49,7 +49,7 @@ export function GetWalletDataBtc() {
 
   useEffect(() => {
     generateCurlCommand({
-      query: getWalletQuery,
+      operation: getWalletQuery,
       type: 'wallet',
       setCurlCommand: setCurlCommandWallet,
       authToken: authToken,

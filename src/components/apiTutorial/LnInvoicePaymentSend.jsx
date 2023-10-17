@@ -14,7 +14,7 @@ export function LnInvoicePaymentSend() {
   const [lnInvoicePaymentData, setLnInvoicePaymentData] = useState(null);
   const [errorMessageLnInvoicePayment, setErrorMessageLnInvoicePayment] = useState(null);
 
-  const getInvoiceSendQueryText = `\
+  const operation = `\
 mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
   lnInvoicePaymentSend(input: $input) {
     status
@@ -26,10 +26,7 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
   }
 }`;
 
-  const getInvoiceSendQuery = (paymentRequest, walletId) => getInvoiceSendQueryText
-
   const fetchLnInvoicePaymentData = async () => {
-    const query = getInvoiceSendQuery(paymentRequest, accountWalletId);
     const variables = {
       input: {
         paymentRequest: paymentRequest,
@@ -38,10 +35,10 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
     };
 
     try {
-      const data = await handleAuthenticatedRequest(authToken, apiEndpoint, query, variables);
+      const data = await handleAuthenticatedRequest(authToken, apiEndpoint, operation, variables);
       setLnInvoicePaymentData(data);
       generateCurlCommand({
-        query: query,
+        operation: operation,
         type: 'lnInvoicePaymentSend',
         setCurlCommand: setCurlCommandLnInvoicePayment,
         authToken: authToken,
@@ -56,9 +53,8 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
   };
 
   useEffect(() => {
-    const query = getInvoiceSendQuery(paymentRequest, accountWalletId);
     generateCurlCommand({
-      query: query,
+      operation: operation,
       type: 'lnInvoicePaymentSend',
       setCurlCommand: setCurlCommandLnInvoicePayment,
       authToken: authToken,

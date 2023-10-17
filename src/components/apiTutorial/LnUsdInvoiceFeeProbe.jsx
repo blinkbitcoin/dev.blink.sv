@@ -14,7 +14,7 @@ export function LnUsdInvoiceFeeProbe() {
   const [feeProbeData, setFeeProbeData] = useState(null);
   const [errorMessageFetchFeeProbe, setErrorMessageFetchFeeProbe] = useState(null);
 
-  const getFeeProbeQueryText = `\
+  const operation = `\
 mutation lnUsdInvoiceFeeProbe($input: LnUsdInvoiceFeeProbeInput!) {
   lnUsdInvoiceFeeProbe(input: $input) {
     errors {
@@ -24,10 +24,7 @@ mutation lnUsdInvoiceFeeProbe($input: LnUsdInvoiceFeeProbeInput!) {
   }
 }`;
 
-  const getFeeProbeQuery = (paymentRequest, walletId) => getFeeProbeQueryText
-
   const fetchFeeProbeData = async () => {
-    const query = getFeeProbeQuery(paymentRequest, accountWalletId);
     const variables = {
       input: {
         paymentRequest: paymentRequest,
@@ -36,10 +33,10 @@ mutation lnUsdInvoiceFeeProbe($input: LnUsdInvoiceFeeProbeInput!) {
     };
 
     try {
-      const data = await handleAuthenticatedRequest(authToken, apiEndpoint, query, variables);
+      const data = await handleAuthenticatedRequest(authToken, apiEndpoint, operation, variables);
       setFeeProbeData(data);
       generateCurlCommand({
-        query: query,
+        operation: operation,
         type: 'feeProbe',
         setCurlCommand: setCurlCommandFeeProbe,
         authToken: authToken,
@@ -54,9 +51,8 @@ mutation lnUsdInvoiceFeeProbe($input: LnUsdInvoiceFeeProbeInput!) {
   };
 
   useEffect(() => {
-    const query = getFeeProbeQuery(paymentRequest, accountWalletId);
     generateCurlCommand({
-      query: query,
+      operation: operation,
       type: 'feeProbe',
       setCurlCommand: setCurlCommandFeeProbe,
       authToken: authToken,

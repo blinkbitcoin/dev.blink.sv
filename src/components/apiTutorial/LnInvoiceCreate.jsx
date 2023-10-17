@@ -13,7 +13,7 @@ export function LnInvoiceCreate() {
   const [invoiceData, setInvoiceData] = useState(null);
   const [errorMessageFetchInvoice, setErrorMessageFetchInvoice] = useState(null);
 
-  const getInvoiceQueryText = `\
+  const operation = `\
 mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
   lnInvoiceCreate(input: $input) {
     invoice {
@@ -28,10 +28,7 @@ mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
   }
 }`;
 
-  const getInvoiceQuery = (amount, walletId) => getInvoiceQueryText
-
   const fetchInvoiceData = async () => {
-    const query = getInvoiceQuery(amount, accountWalletId);
     const variables = {
       input: {
         amount: amount.toString(),
@@ -40,10 +37,10 @@ mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
     };
 
     try {
-      const data = await handleAuthenticatedRequest(authToken, apiEndpoint, query, variables);
+      const data = await handleAuthenticatedRequest(authToken, apiEndpoint, operation, variables);
       setInvoiceData(data);
       generateCurlCommand({
-        query: query,
+        operation: operation,
         type: 'invoice',
         setCurlCommand: setCurlCommandInvoice,
         authToken: authToken,
@@ -57,9 +54,8 @@ mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
   };
 
   useEffect(() => {
-    const query = getInvoiceQuery(amount, accountWalletId);
     generateCurlCommand({
-      query: query,
+      operation: operation,
       type: 'invoice',
       setCurlCommand: setCurlCommandInvoice,
       authToken: authToken,
