@@ -18,20 +18,9 @@ function LoginEmail() {
   const [curlCommandEmailLogin, setCurlCommandEmailLogin] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    // Generate and set the curl command whenever authEndpoint or emailAddress changes
-    const newCurlCommand = generateCurlCommandRequestEmailCode(authEndpoint, emailAddress);
-    setCurlCommandRequestEmailCode(newCurlCommand);
-  }, [authEndpoint, emailAddress]);
-
-  useEffect(() => {
-    // Generate and set the curl command for email login whenever authEndpoint, emailLoginIdInput or emailCode changes
-    const newCurlCommand = generateCurlCommandEmailLogin(authEndpoint, emailLoginIdInput, emailCode);
-    setCurlCommandEmailLogin(newCurlCommand);
-  }, [authEndpoint, emailLoginIdInput, emailCode]);
-
   const handleRequestEmailCode = async () => {
-    clearMessagesEmailCode();
+    setErrorMessageEmailCode(null);
+    setSuccessMessageEmailCode(null);
     try {
       const obtainedEmailLoginId = await requestEmailCode(authEndpoint, emailAddress);
       setEmailLoginIdInput(obtainedEmailLoginId); // Autofill the input
@@ -42,7 +31,8 @@ function LoginEmail() {
   }
 
   const handleEmailLogin = async () => {
-    clearErrorMessageEmailLogin();
+    setErrorMessageEmailLogin(null);
+    setSuccessMessageEmailLogin(null);
     if (!emailLoginIdInput || emailCode.length < 6) {
       setErrorMessageEmailLogin("Invalid input");
       return;
@@ -61,16 +51,17 @@ function LoginEmail() {
     }
   };
 
-  const clearMessagesEmailCode = () => {
-    setErrorMessageEmailCode(null);
-    setSuccessMessageEmailCode(null);
-  };
+  useEffect(() => {
+    // Generate and set the curl command whenever authEndpoint or emailAddress changes
+    const newCurlCommand = generateCurlCommandRequestEmailCode(authEndpoint, emailAddress);
+    setCurlCommandRequestEmailCode(newCurlCommand);
+  }, [authEndpoint, emailAddress]);
 
-  const clearErrorMessageEmailLogin = () => {
-    setErrorMessageEmailLogin(null);
-    setSuccessMessageEmailLogin(null);
-  };
-
+  useEffect(() => {
+    // Generate and set the curl command for email login whenever authEndpoint, emailLoginIdInput or emailCode changes
+    const newCurlCommand = generateCurlCommandEmailLogin(authEndpoint, emailLoginIdInput, emailCode);
+    setCurlCommandEmailLogin(newCurlCommand);
+  }, [authEndpoint, emailLoginIdInput, emailCode]);
 
   const toggleShowToken = () => {
     setShowToken(prevState => !prevState);

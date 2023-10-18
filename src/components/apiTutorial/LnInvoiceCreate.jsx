@@ -10,8 +10,8 @@ export function LnInvoiceCreate() {
   const [amount, setAmount] = useState(1000);
 
   const [curlCommandInvoice, setCurlCommandInvoice] = useState('');
-  const [invoiceData, setInvoiceData] = useState(null);
-  const [errorMessageFetchInvoice, setErrorMessageFetchInvoice] = useState(null);
+  const [response, setResponse] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const operation = `\
 mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
@@ -28,7 +28,9 @@ mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
   }
 }`;
 
-  const fetchInvoiceData = async () => {
+  const runOp = async () => {
+    setErrorMessage(null);
+    setResponse(null);
     const variables = {
       input: {
         amount: amount.toString(),
@@ -38,7 +40,7 @@ mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
 
     try {
       const data = await handleAuthenticatedRequest(authToken, apiEndpoint, operation, variables);
-      setInvoiceData(data);
+      setResponse(data);
       generateCurlCommand({
         operation: operation,
         type: 'invoice',
@@ -46,10 +48,10 @@ mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
         authToken: authToken,
         apiEndpoint: apiEndpoint,
         amount: amount,
-        accountWalletId: accountWalletId,
+        walletId: accountWalletId,
       });
     } catch (error) {
-      setErrorMessageFetchInvoice(error.message);
+      setErrorMessage(error.message);
     }
   };
 
@@ -61,7 +63,7 @@ mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
       authToken: authToken,
       apiEndpoint: apiEndpoint,
       amount: amount,
-      accountWalletId: accountWalletId,
+      walletId: accountWalletId,
     });
   }, [authToken, apiEndpoint, amount, accountWalletId]);
 
@@ -101,10 +103,10 @@ mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
         </label>
       </div>
       <div style={{ marginTop: '10px' }}></div>
-      <button onClick={fetchInvoiceData}>Create invoice</button>
+      <button onClick={runOp}>Create invoice</button>
       <div style={{ marginTop: '10px' }}></div>
-      {errorMessageFetchInvoice && <div style={{ color: 'red' }}>Error: {errorMessageFetchInvoice}</div>}
-      {invoiceData && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(invoiceData, null, 2)}</pre></div>}
+      {errorMessage && <div style={{ color: 'red' }}>Error: {errorMessage}</div>}
+      {response && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(response, null, 2)}</pre></div>}
 
       <div style={{ marginTop: '20px', marginBottom: '40px' }}>
         <div style={{ fontWeight: 'bold' }}>curl command to generate an invoice</div>

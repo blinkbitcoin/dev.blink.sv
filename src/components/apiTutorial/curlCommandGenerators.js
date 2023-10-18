@@ -44,18 +44,18 @@ export const generateCurlCommandEmailLogin = (authEndpoint, emailLoginId, emailC
 
 export function generateCurlCommand({
   operation,
-  type,
+  type = '',
   setCurlCommand,
   authToken,
   apiEndpoint,
   amount,
-  accountWalletId,
   paymentRequest = '',
   walletId = '',
-  walletCurrency = ''
+  walletCurrency = '',
+  address
 }) {
   let requestBody = {
-    operation: operation.trim(),
+    query: operation.trim(),
     variables: {}
   };
 
@@ -66,17 +66,23 @@ export function generateCurlCommand({
   if (type === 'invoice') {
     requestBody.variables.input = {
       amount: amount.toString(),
-      walletId: accountWalletId,
+      walletId: walletId,
     };
   } else if (type === 'feeProbe') {
     requestBody.variables.input = {
       paymentRequest: paymentRequest,
-      walletId: accountWalletId,
+      walletId: walletId,
     };
   } else if (type === 'lnInvoicePaymentSend') {
     requestBody.variables.input = {
       paymentRequest: paymentRequest,
       walletId: walletId
+    };
+  } else if (type === 'onChainUsdTxFee') {
+    requestBody.variables = {
+      walletId: walletId,
+      address: address,
+      amount: amount
     };
   }
 

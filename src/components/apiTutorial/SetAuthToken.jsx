@@ -6,8 +6,7 @@ export function SetAuthToken() {
   const { setAuthToken } = useAuth();
 
   const handleAuthTokenChange = (e) => {
-    const tokenValue = e.target.value;
-    setAuthToken(tokenValue);
+    setAuthToken(e.target.value);
   };
 
   return (

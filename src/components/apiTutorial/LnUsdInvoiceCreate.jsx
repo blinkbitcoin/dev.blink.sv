@@ -10,8 +10,8 @@ export function LnUsdInvoiceCreate() {
   const [amount, setAmount] = useState(1000);
 
   const [curlCommandInvoice, setCurlCommandInvoice] = useState('');
-  const [invoiceData, setInvoiceData] = useState(null);
-  const [errorMessageFetchInvoice, setErrorMessageFetchInvoice] = useState(null);
+  const [response, setResponse] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const operation = `\
 mutation lnUsdInvoiceCreate($input: LnUsdInvoiceCreateInput!) {
@@ -28,7 +28,9 @@ mutation lnUsdInvoiceCreate($input: LnUsdInvoiceCreateInput!) {
   }
 }`;
 
-  const fetchInvoiceData = async () => {
+  const runOp = async () => {
+    setErrorMessage(null);
+    setResponse(null);
     const variables = {
       input: {
         amount: amount.toString(),
@@ -38,7 +40,7 @@ mutation lnUsdInvoiceCreate($input: LnUsdInvoiceCreateInput!) {
 
     try {
       const data = await handleAuthenticatedRequest(authToken, apiEndpoint, operation, variables);
-      setInvoiceData(data);
+      setResponse(data);
       generateCurlCommand({
         operation: operation,
         type: 'invoice',
@@ -46,10 +48,10 @@ mutation lnUsdInvoiceCreate($input: LnUsdInvoiceCreateInput!) {
         authToken: authToken,
         apiEndpoint: apiEndpoint,
         amount: amount,
-        accountWalletId: accountWalletId,
+        walletId: accountWalletId,
       });
     } catch (error) {
-      setErrorMessageFetchInvoice(error.message);
+      setErrorMessage(error.message);
     }
   };
 
@@ -61,7 +63,7 @@ mutation lnUsdInvoiceCreate($input: LnUsdInvoiceCreateInput!) {
       authToken: authToken,
       apiEndpoint: apiEndpoint,
       amount: amount,
-      accountWalletId: accountWalletId,
+      walletId: accountWalletId,
     });
   }, [authToken, apiEndpoint, amount, accountWalletId]);
 
@@ -100,10 +102,10 @@ mutation lnUsdInvoiceCreate($input: LnUsdInvoiceCreateInput!) {
         </label>
       </div>
       <div style={{ marginTop: '10px' }}></div>
-      <button onClick={fetchInvoiceData}>Create a Stablesats invoice</button>
+      <button onClick={runOp}>Create a Stablesats invoice</button>
       <div style={{ marginTop: '10px' }}></div>
-      {errorMessageFetchInvoice && <div style={{ color: 'red' }}>Error: {errorMessageFetchInvoice}</div>}
-      {invoiceData && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(invoiceData, null, 2)}</pre></div>}
+      {errorMessage && <div style={{ color: 'red' }}>Error: {errorMessage}</div>}
+      {response && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(response, null, 2)}</pre></div>}
 
       <div style={{ marginTop: '20px', marginBottom: '40px' }}>
         <div style={{ fontWeight: 'bold' }}>curl command to generate a Stablesats invoice</div>

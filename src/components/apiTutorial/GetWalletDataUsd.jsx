@@ -7,12 +7,12 @@ import { generateCurlCommand } from './curlCommandGenerators';
 export function GetWalletDataUsd() {
   const { authToken, apiEndpoint } = useAuth();
   const [curlCommandWallet, setCurlCommandWallet] = useState('');
-  const [walletData, setWalletData] = useState(null);
-  const [errorMessageFetchWallet, setErrorMessageFetchWallet] = useState(null);
+  const [response, setResponse] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const walletCurrency = 'USD';
 
-  const getWalletQuery = `\
+  const operation = `\
   query Me {
     me {
       defaultAccount {
@@ -25,16 +25,18 @@ export function GetWalletDataUsd() {
     }
   }`;
 
-  const fetchWalletData = async () => {
+  const runOp = async () => {
+    setErrorMessage(null);
+    setResponse(null);
     try {
-      const data = await handleAuthenticatedRequest(authToken, apiEndpoint, getWalletQuery);
-      setWalletData(data);
+      const data = await handleAuthenticatedRequest(authToken, apiEndpoint, operation);
+      setResponse(data);
 
       //TODO: add to context
       //const usdWallet = data?.me?.defaultAccount?.wallets?.find(wallet => wallet.walletCurrency === "USD");
 
       generateCurlCommand({
-        operation: getWalletQuery,
+        operation: operation,
         type: 'wallet',
         setCurlCommand: setCurlCommandWallet,
         authToken: authToken,
@@ -42,13 +44,13 @@ export function GetWalletDataUsd() {
         walletCurrency: walletCurrency
       });
     } catch (error) {
-      setErrorMessageFetchWallet(error.message);
+      setErrorMessage(error.message);
     }
   };
 
   useEffect(() => {
     generateCurlCommand({
-      operation: getWalletQuery,
+      operation: operation,
       type: 'wallet',
       setCurlCommand: setCurlCommandWallet,
       authToken: authToken,
@@ -59,10 +61,10 @@ export function GetWalletDataUsd() {
 
   return (
     <div>
-      <button onClick={fetchWalletData}>Send the request</button>
+      <button onClick={runOp}>Send the request</button>
       <div style={{ marginTop: '10px' }}></div>
-      {errorMessageFetchWallet && <div style={{ color: 'red' }}>Error: {errorMessageFetchWallet}</div>}
-      {walletData && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(walletData, null, 2)}</pre></div>}
+      {errorMessage && <div style={{ color: 'red' }}>Error: {errorMessage}</div>}
+      {response && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(response, null, 2)}</pre></div>}
 
       <div style={{ marginTop: '20px', marginBottom: '40px' }}>
         <div style={{ fontWeight: 'bold' }}>curl command to get the USD wallet ID</div>
