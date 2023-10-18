@@ -74,7 +74,7 @@ const config = {
         title: 'Developer Documentation',
         logo: {
           alt: 'Blink logo',
-          src: 'img/blink-logo.svg',
+          src: 'img/blink-logo-orange.svg',
         },
         items: [
           {
