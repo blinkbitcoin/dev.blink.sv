@@ -3,7 +3,7 @@ export const generateCurlCommandRequestEmailCode = (authEndpoint, emailAddress) 
     email: emailAddress
   };
 
-  return `curl -X POST '${authEndpoint}/auth/email/code' \\
+  return `curl -X POST '${authEndpoint}/email/code' \\
   --header 'Content-Type: application/json' \\
   --header 'Accept: application/json' \\
   --data '${JSON.stringify(requestBody)}'`;
@@ -28,7 +28,7 @@ export const generateCurlCommandPhoneLogin = (apiEndpoint, phone, code) => {
 }
 
 export const generateCurlCommandEmailLogin = (authEndpoint, emailLoginId, emailCode) => {
-  const url = `${authEndpoint}/auth/email/login`;
+  const url = `${authEndpoint}/email/login`;
 
   // Convert the body object to a string for the curl command
   const body = JSON.stringify({

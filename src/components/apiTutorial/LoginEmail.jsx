@@ -31,6 +31,7 @@ function LoginEmail() {
   }, [authEndpoint, emailLoginIdInput, emailCode]);
 
   const handleRequestEmailCode = async () => {
+    clearMessagesEmailCode();
     try {
       const obtainedEmailLoginId = await requestEmailCode(authEndpoint, emailAddress);
       setEmailLoginIdInput(obtainedEmailLoginId); // Autofill the input
@@ -41,6 +42,7 @@ function LoginEmail() {
   }
 
   const handleEmailLogin = async () => {
+    clearErrorMessageEmailLogin();
     if (!emailLoginIdInput || emailCode.length < 6) {
       setErrorMessageEmailLogin("Invalid input");
       return;
@@ -59,6 +61,17 @@ function LoginEmail() {
     }
   };
 
+  const clearMessagesEmailCode = () => {
+    setErrorMessageEmailCode(null);
+    setSuccessMessageEmailCode(null);
+  };
+
+  const clearErrorMessageEmailLogin = () => {
+    setErrorMessageEmailLogin(null);
+    setSuccessMessageEmailLogin(null);
+  };
+
+
   const toggleShowToken = () => {
     setShowToken(prevState => !prevState);
   };
@@ -75,8 +88,8 @@ function LoginEmail() {
           onChange={e => setAuthEndpoint(e.target.value)}
           style={{ width: '50%', marginBottom: '10px' }}
         >
-          <option value="https://api.blink.sv/auth">Blink (mainnet) - https://api.blink.sv/graphql</option>
-          <option value="https://api.staging.galoy.io/auth">Staging (signet) - https://api.staging.galoy.io/graphql</option>
+          <option value="https://api.blink.sv/auth">Blink (mainnet) - https://api.blink.sv/auth</option>
+          <option value="https://api.staging.galoy.io/auth">Staging (signet) - https://api.staging.galoy.io/auth</option>
         </select>
         <div></div>
         <input type="email" placeholder="Fill in the email address used for the account" value={emailAddress} onChange={e => setEmailAddress(e.target.value)} style={{ width: '50%', marginBottom: '10px' }} />
