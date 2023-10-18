@@ -4,30 +4,17 @@ Empowering Bitcoin Adoption Worldwide with the Blink API
 
 Are you ready to revolutionize the way people and businesses embrace Bitcoin? Look no further! The Blink API offers you a powerful, cost-effective, and reliable solution for easily integrating Bitcoin into your projects, regardless of your experience level.
 
-## Why use the Bitcoin Lightning Network?
+## Why use the Lightning Network?
 The Bitcoin Lightning Network is a groundbreaking second-layer solution designed to address the scalability and transaction speed challenges of the Bitcoin blockchain.<br />
 Here's why integrating the Lightning Network through the Blink API is a game-changer:
 
-### Instant Transactions
-* The Lightning Network facilitates near-instant Bitcoin transactions, making it ideal for everyday purchases and micro-transactions.
-
-### Final settlement
-* Just like on-chain transactions, Lightning Network transactions are final and cannot be reversed. There is no risk of chargebacks.
-
-### Reduced Transaction Fees
-* By bypassing the main Bitcoin blockchain for most transactions, the Lightning Network significantly reduces associated fees, making it cost-effective for both businesses and users.
-
-### Scalability
-* The Lightning Network can handle millions of transactions per second, ensuring that as Bitcoin adoption grows, transaction speeds remain swift.
-
-### Enhanced Privacy
-* Transactions on the Lightning Network are not recorded on the main Bitcoin blockchain, offering increased privacy for users.
-
-### Micropayment Capabilities
-* The ability to conduct microtransactions opens up a plethora of new business models and opportunities, from pay-per-view content to micro-tipping.
-
-### Interoperability
-* Regardless of the currency displayed Lightning invoices are denominated in Bitcoin and can be paid with any Bitcoin Lightning capable wallet.
+* **Instant Transactions** - no waiting for the funds to arrive
+* **Final settlement** - just like on-chain transactions, Lightning Network transactions are final and cannot be reversed. There is no risk of chargebacks.
+* **Low cost**- by bypassing the main Bitcoin blockchain for most transactions, the Lightning Network significantly reduces associated fees, making it cost-effective for both businesses and users.
+* **Scalability** - the Lightning Network can handle millions of transactions per second, ensuring that as Bitcoin adoption grows, transaction speeds remain swift.
+* **Enhanced Privacy** - transactions on the Lightning Network are not recorded on the main Bitcoin blockchain, offering increased privacy for users.
+* **Micropayment Capabilities** -the ability to conduct microtransactions opens up a plethora of new business models and opportunities, from pay-per-view content to micro-tipping.
+* **Interoperability** - regardless of the currency displayed Lightning invoices are denominated in Bitcoin and can be paid with any Bitcoin Lightning capable wallet.
 
 By leveraging the Lightning Network's capabilities through the Blink API, developers can offer users the benefits of Bitcoin without the traditional limitations of the main blockchain. It's a step forward in making Bitcoin a practical choice for daily transactions and broadening its adoption around the globe.
 
@@ -38,7 +25,7 @@ By leveraging the Lightning Network's capabilities through the Blink API, develo
 * Proudly based in El Salvador, the pioneering nation to embrace Bitcoin as legal tender
 
 ### Accessible
-* Swift registration with a phone number from most countries around the globe
+* Registration in a minute with a phone number from most countries around the globe
 * Our tools and services prioritize user-friendliness and seamless onboarding
 
 ### Reliable
