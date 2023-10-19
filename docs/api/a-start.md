@@ -1,5 +1,7 @@
 ---
-description: For people new to Galoy, this page will point you in the right direction.
+id: start
+title: Start with Blink
+slug: /api/start
 ---
 
 # Start with Blink

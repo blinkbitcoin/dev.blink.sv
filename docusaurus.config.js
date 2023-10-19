@@ -100,10 +100,6 @@ const config = {
                 label: 'Hosted API',
                 to: '/api',
               },
-              {
-                label: 'FAQ',
-                href: 'https://faq.blink.sv',
-              },
             ],
           },
           {
@@ -153,6 +149,19 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
-};
+    plugins: [
+      [
+        '@docusaurus/plugin-client-redirects',
+        {
+          redirects: [
+            {
+              to: '/api/start',
+              from: ['/api'],
+            }
+          ],
+        },
+      ],
+    ],
+  };
 
 module.exports = config;
