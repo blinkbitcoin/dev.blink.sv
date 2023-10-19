@@ -1,4 +1,4 @@
-# Welcome to the Blink Developer Documentation
+# Welcome to the Blink API Documentation
 
 Empowering Bitcoin Adoption Worldwide with the Blink API
 

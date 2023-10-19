@@ -78,8 +78,14 @@ export function generateCurlCommand({
       paymentRequest: paymentRequest,
       walletId: walletId
     };
-  } else if (type === 'onChainUsdTxFee') {
+  } else if (type === 'onChainTxFee') {
     requestBody.variables = {
+      walletId: walletId,
+      address: address,
+      amount: amount
+    };
+  } else if (type === 'onChainSend') {
+    requestBody.variables.input = {
       walletId: walletId,
       address: address,
       amount: amount

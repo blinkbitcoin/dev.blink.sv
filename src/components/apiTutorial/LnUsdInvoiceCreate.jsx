@@ -7,7 +7,7 @@ import { generateCurlCommand } from './curlCommandGenerators';
 export function LnUsdInvoiceCreate() {
   const { authToken, apiEndpoint, accountWalletId, setAccountWalletId } = useAuth();
 
-  const [amount, setAmount] = useState(1000);
+  const [amount, setAmount] = useState(100);
 
   const [curlCommandInvoice, setCurlCommandInvoice] = useState('');
   const [response, setResponse] = useState(null);

@@ -1,27 +1,20 @@
-// LnInvoiceCreate.jsx
+// OnChainAddressCreateUsd.jsx
 import React, { useState, useEffect } from 'react';
 import { handleAuthenticatedRequest } from './authRequests';
 import { useAuth } from './AuthContext';
 import { generateCurlCommand } from './curlCommandGenerators';
 
-export function LnInvoiceCreate() {
+export function OnChainAddressCreateUsd() {
   const { authToken, apiEndpoint, accountWalletId, setAccountWalletId } = useAuth();
-
-  const [amount, setAmount] = useState(21);
 
   const [curlCommandInvoice, setCurlCommandInvoice] = useState('');
   const [response, setResponse] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
 
   const operation = `\
-mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
-  lnInvoiceCreate(input: $input) {
-    invoice {
-      paymentRequest
-      paymentHash
-      paymentSecret
-      satoshis
-    }
+mutation onChainAddressCreate($input: OnChainAddressCreateInput!) {
+  onChainAddressCreate(input: $input) {
+    address
     errors {
       message
     }
@@ -33,7 +26,6 @@ mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
     setResponse(null);
     const variables = {
       input: {
-        amount: amount.toString(),
         walletId: accountWalletId,
       }
     };
@@ -43,11 +35,9 @@ mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
       setResponse(data);
       generateCurlCommand({
         operation: operation,
-        type: 'invoice',
         setCurlCommand: setCurlCommandInvoice,
         authToken: authToken,
         apiEndpoint: apiEndpoint,
-        amount: amount,
         walletId: accountWalletId,
       });
     } catch (error) {
@@ -58,18 +48,12 @@ mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
   useEffect(() => {
     generateCurlCommand({
       operation: operation,
-      type: 'invoice',
       setCurlCommand: setCurlCommandInvoice,
       authToken: authToken,
       apiEndpoint: apiEndpoint,
-      amount: amount,
       walletId: accountWalletId,
     });
-  }, [authToken, apiEndpoint, amount, accountWalletId]);
-
-  const handleAmountChange = (e) => {
-    setAmount(e.target.value);
-  };
+  }, [authToken, apiEndpoint, accountWalletId]);
 
   const handleWalletIdChange = (e) => {
     setAccountWalletId(e.target.value);
@@ -78,38 +62,25 @@ mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
   return (
     <div>
       <div>
-        <div style={{ fontWeight: 'bold' }}>Set the variables</div>
-        <div style={{ marginTop: '10px' }}></div>
-        <div>
-          <label>
-            <div>Amount (sats):</div>
-            <input
-              type="number"
-              value={amount}
-              onChange={handleAmountChange}
-              style={{ marginLeft: '10px', width: '50%' }}
-            />
-          </label>
-        </div>
+        <div style={{ fontWeight: 'bold' }}>Set the USD wallet ID:</div>
         <label>
-          <div>BTC wallet ID:</div>
           <input
             type="text"
             value={accountWalletId}
             onChange={handleWalletIdChange}
             style={{ marginLeft: '10px', width: '50%' }}
-            placeholder="Paste the BTC wallet ID from the response above"
+            placeholder="Paste the USD wallet ID from the response above"
           />
         </label>
       </div>
       <div style={{ marginTop: '10px' }}></div>
-      <button onClick={runOp}>Create invoice</button>
+      <button onClick={runOp}>Create a new address</button>
       <div style={{ marginTop: '10px' }}></div>
       {errorMessage && <div style={{ color: 'red' }}>Error: {errorMessage}</div>}
       {response && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(response, null, 2)}</pre></div>}
 
       <div style={{ marginTop: '20px', marginBottom: '40px' }}>
-        <div style={{ fontWeight: 'bold' }}>curl command to generate an invoice</div>
+        <div style={{ fontWeight: 'bold' }}>curl command to generate a new address</div>
         <div style={{ marginTop: '10px' }}></div>
         <pre style={{
           backgroundColor: 'auto',

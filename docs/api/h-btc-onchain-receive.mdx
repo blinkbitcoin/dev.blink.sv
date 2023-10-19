@@ -1,14 +1,14 @@
 ---
-id: btc-ln-receive
-title: Receive BTC on Lightning
-slug: /api/btc-ln-receive
+id: btc-onchain-receive
+title: Receive BTC onchain
+slug: /api/btc-onchain-receive
 ---
 
 import { AuthProvider } from '/src/components/apiTutorial/AuthContext';
 import { SetApiEndpoint } from '/src/components/apiTutorial/SetApiEndpoint';
 import { SetAuthToken } from '/src/components/apiTutorial/SetAuthToken';
 import { GetWalletDataBtc } from '/src/components/apiTutorial/GetWalletDataBtc';
-import { LnInvoiceCreate } from '/src/components/apiTutorial/LnInvoiceCreate';
+import { OnChainAddressCreateBtc } from '/src/components/apiTutorial/OnChainAddressCreateBtc';
 
 <AuthProvider>
 
@@ -37,25 +37,21 @@ query Me {
   }
 }
 ```
+
   <GetWalletDataBtc />
 
 ---
 
-### Generate a lightning invoice
+### Generate a new address to receive BTC
 Receive satoshis to your BTC balance.<br />
-Use the `paymentRequest` from the response and pay it with a lightning wallet.
+Use the `address` from the response and send to it from any bitcoin wallet.
 
 **The body of the GraphQL request**
 
 ```graphql
-mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
-  lnInvoiceCreate(input: $input) {
-    invoice {
-      paymentRequest
-      paymentHash
-      paymentSecret
-      satoshis
-    }
+mutation onChainAddressCreate($input: OnChainAddressCreateInput!) {
+  onChainAddressCreate(input: $input) {
+    address
     errors {
       message
     }
@@ -63,6 +59,6 @@ mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
 }
 ```
 
-  <LnInvoiceCreate />
+  <OnChainAddressCreateBtc />
 
 </AuthProvider>

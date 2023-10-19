@@ -1,4 +1,5 @@
 ---
+id: btc-ln-send
 title: Send BTC over Lightning
 slug: /api/btc-ln-send
 ---
@@ -25,19 +26,21 @@ The "USD" wallet balance is in cents.
 **The body of the GraphQL request**
 
 ```graphql
-  query Me {
-    me {
-      defaultAccount {
-        wallets {
-          id
-          walletCurrency
-          balance
-        }
+query Me {
+  me {
+    defaultAccount {
+      wallets {
+        id
+        walletCurrency
+        balance
       }
     }
   }
+}
 ```
   <GetWalletDataBtc />
+
+---
 
 ### Estimate the payment fee (probe)
 
@@ -58,6 +61,8 @@ mutation lnInvoiceFeeProbe($input: LnInvoiceFeeProbeInput!) {
 ```
 
   <LnInvoiceFeeProbe />
+
+---
 
 ### Pay a lightning invoice
 
