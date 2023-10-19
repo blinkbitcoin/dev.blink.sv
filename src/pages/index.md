@@ -70,7 +70,7 @@ Sending and receiving Bitcoin and Stablesats via API is simple, and available us
 🏠 Become a sovereign organization
 
 Blink is built on the Galoy open source bitcoin banking stack.<br />
-When you're ready, you can host the API on your own terms and seamlessly transition everything to your own infrastucture.<br />
+When you're ready, you can host the API on your own terms and seamlessly transition everything to your own infrastructure.<br />
 Visit [dev.galoy.io](https://dev.galoy.io) for more information on our open-source offerings.
 
 [Join our Mattermost](https://chat.galoy.io/)
