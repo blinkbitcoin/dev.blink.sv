@@ -29,7 +29,8 @@ const sidebars = {
   ],
    */
   apiSidebar: [
-    'api/api-auth',
+    'api/start',
+    'api/auth',
     {
       type: 'category',
       label: 'API tutorials',
