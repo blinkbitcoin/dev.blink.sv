@@ -155,8 +155,8 @@ const config = {
         {
           redirects: [
             {
-              to: '/api',
-              from: ['/api/start'],
+              to: '/api/start',
+              from: ['/api'],
             }
           ],
         },

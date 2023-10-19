@@ -75,6 +75,6 @@ Visit [dev.galoy.io](https://dev.galoy.io) for more information on our open-sour
 
 [Join our Mattermost](https://chat.galoy.io/)
 
-[Start with the API](https://dev.blink.sv/api)
+[Start with the API](https://dev.blink.sv/api/start)
 
 Join us in enabling a Bitcoin-powered future with the Blink API powered by Galoy!
