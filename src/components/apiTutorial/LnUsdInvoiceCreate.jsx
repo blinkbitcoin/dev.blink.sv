@@ -7,13 +7,13 @@ import { generateCurlCommand } from './curlCommandGenerators';
 export function LnUsdInvoiceCreate() {
   const { authToken, apiEndpoint, accountWalletId, setAccountWalletId } = useAuth();
 
-  const [amount, setAmount] = useState(1000);
+  const [amount, setAmount] = useState(100);
 
   const [curlCommandInvoice, setCurlCommandInvoice] = useState('');
-  const [invoiceData, setInvoiceData] = useState(null);
-  const [errorMessageFetchInvoice, setErrorMessageFetchInvoice] = useState(null);
+  const [response, setResponse] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  const getInvoiceQueryText = `\
+  const operation = `\
 mutation lnUsdInvoiceCreate($input: LnUsdInvoiceCreateInput!) {
   lnUsdInvoiceCreate(input: $input) {
     invoice {
@@ -28,10 +28,9 @@ mutation lnUsdInvoiceCreate($input: LnUsdInvoiceCreateInput!) {
   }
 }`;
 
-  const getInvoiceQuery = (amount, walletId) => getInvoiceQueryText
-
-  const fetchInvoiceData = async () => {
-    const query = getInvoiceQuery(amount, accountWalletId);
+  const runOp = async () => {
+    setErrorMessage(null);
+    setResponse(null);
     const variables = {
       input: {
         amount: amount.toString(),
@@ -40,32 +39,31 @@ mutation lnUsdInvoiceCreate($input: LnUsdInvoiceCreateInput!) {
     };
 
     try {
-      const data = await handleAuthenticatedRequest(authToken, apiEndpoint, query, variables);
-      setInvoiceData(data);
+      const data = await handleAuthenticatedRequest(authToken, apiEndpoint, operation, variables);
+      setResponse(data);
       generateCurlCommand({
-        query: query,
+        operation: operation,
         type: 'invoice',
         setCurlCommand: setCurlCommandInvoice,
         authToken: authToken,
         apiEndpoint: apiEndpoint,
         amount: amount,
-        accountWalletId: accountWalletId,
+        walletId: accountWalletId,
       });
     } catch (error) {
-      setErrorMessageFetchInvoice(error.message);
+      setErrorMessage(error.message);
     }
   };
 
   useEffect(() => {
-    const query = getInvoiceQuery(amount, accountWalletId);
     generateCurlCommand({
-      query: query,
+      operation: operation,
       type: 'invoice',
       setCurlCommand: setCurlCommandInvoice,
       authToken: authToken,
       apiEndpoint: apiEndpoint,
       amount: amount,
-      accountWalletId: accountWalletId,
+      walletId: accountWalletId,
     });
   }, [authToken, apiEndpoint, amount, accountWalletId]);
 
@@ -104,10 +102,10 @@ mutation lnUsdInvoiceCreate($input: LnUsdInvoiceCreateInput!) {
         </label>
       </div>
       <div style={{ marginTop: '10px' }}></div>
-      <button onClick={fetchInvoiceData}>Create a Stablesats invoice</button>
+      <button onClick={runOp}>Create a Stablesats invoice</button>
       <div style={{ marginTop: '10px' }}></div>
-      {errorMessageFetchInvoice && <div style={{ color: 'red' }}>Error: {errorMessageFetchInvoice}</div>}
-      {invoiceData && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(invoiceData, null, 2)}</pre></div>}
+      {errorMessage && <div style={{ color: 'red' }}>Error: {errorMessage}</div>}
+      {response && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(response, null, 2)}</pre></div>}
 
       <div style={{ marginTop: '20px', marginBottom: '40px' }}>
         <div style={{ fontWeight: 'bold' }}>curl command to generate a Stablesats invoice</div>

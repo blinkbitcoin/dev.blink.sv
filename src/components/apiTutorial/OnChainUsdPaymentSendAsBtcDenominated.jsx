@@ -1,24 +1,26 @@
-// LnInvoiceFeeProbe.jsx
+// OnChainUsdPaymentSendAsBtcDenominated.jsx
 import React, { useState, useEffect } from 'react';
 import { handleAuthenticatedRequest } from './authRequests';
 import { useAuth } from './AuthContext';
 import { generateCurlCommand } from './curlCommandGenerators';
 
-export function LnInvoiceFeeProbe() {
-  const { authToken, apiEndpoint, accountWalletId, setAccountWalletId,
-    paymentRequest, setPaymentRequest } = useAuth();
+export function OnChainUsdPaymentSendAsBtcDenominated() {
+  const { authToken, apiEndpoint, accountWalletId, setAccountWalletId } = useAuth();
+  const [address, setAddress] = useState();
 
-  const [curlCommandFeeProbe, setCurlCommandFeeProbe] = useState('');
+  const [amount, setAmount] = useState(546);
+
+  const [curlCommand, setCurlCommand] = useState('');
   const [response, setResponse] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
 
   const operation = `\
-mutation lnInvoiceFeeProbe($input: LnInvoiceFeeProbeInput!) {
-  lnInvoiceFeeProbe(input: $input) {
+mutation onChainUsdPaymentSendAsBtcDenominated($input: OnChainUsdPaymentSendAsBtcDenominatedInput!) {
+  onChainUsdPaymentSendAsBtcDenominated(input: $input) {
     errors {
       message
     }
-    amount
+    status
   }
 }`;
 
@@ -27,8 +29,9 @@ mutation lnInvoiceFeeProbe($input: LnInvoiceFeeProbeInput!) {
     setResponse(null);
     const variables = {
       input: {
-        paymentRequest: paymentRequest,
         walletId: accountWalletId,
+        address: address,
+        amount: amount
       }
     };
 
@@ -37,12 +40,13 @@ mutation lnInvoiceFeeProbe($input: LnInvoiceFeeProbeInput!) {
       setResponse(data);
       generateCurlCommand({
         operation: operation,
-        type: 'feeProbe',
-        setCurlCommand: setCurlCommandFeeProbe,
+        type: 'onChainSend',
+        setCurlCommand: setCurlCommand,
         authToken: authToken,
         apiEndpoint: apiEndpoint,
         walletId: accountWalletId,
-        paymentRequest: paymentRequest
+        address: address,
+        amount: amount
       });
     } catch (error) {
       setErrorMessage(error.message);
@@ -52,14 +56,23 @@ mutation lnInvoiceFeeProbe($input: LnInvoiceFeeProbeInput!) {
   useEffect(() => {
     generateCurlCommand({
       operation: operation,
-      type: 'feeProbe',
-      setCurlCommand: setCurlCommandFeeProbe,
+      type: 'onChainSend',
+      setCurlCommand: setCurlCommand,
       authToken: authToken,
       apiEndpoint: apiEndpoint,
       walletId: accountWalletId,
-      paymentRequest: paymentRequest,
+      address: address,
+      amount: amount
     });
-  }, [authToken, apiEndpoint, paymentRequest, accountWalletId]);
+  }, [authToken, apiEndpoint, accountWalletId, amount, address]);
+
+  const handleAmountChange = (e) => {
+    setAmount(e.target.value);
+  };
+
+  const handleAddressChange = (e) => {
+    setAddress(e.target.value);
+  };
 
   const handleWalletIdChange = (e) => {
     setAccountWalletId(e.target.value);
@@ -69,37 +82,48 @@ mutation lnInvoiceFeeProbe($input: LnInvoiceFeeProbeInput!) {
     <div>
       <div>
         <div style={{ fontWeight: 'bold' }}>Set the variables</div>
+        <div style={{ marginTop: '10px' }}></div>
         <div>
           <label>
-            <div>Invoice</div>
+            <div>Amount (sats):</div>
+            <input
+              type="number"
+              value={amount}
+              onChange={handleAmountChange}
+              style={{ marginLeft: '10px', width: '50%' }}
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            <div>Onchain address:</div>
             <input
               type="text"
-              value={paymentRequest}
-              onChange={e => setPaymentRequest(e.target.value)}
+              value={address}
+              onChange={handleAddressChange}
               style={{ marginLeft: '10px', width: '50%' }}
-              placeholder="Paste a lightning invoice"
             />
           </label>
         </div>
         <label>
-          <div>BTC wallet ID:</div>
+          <div>USD wallet ID:</div>
           <input
             type="text"
             value={accountWalletId}
             onChange={handleWalletIdChange}
             style={{ marginLeft: '10px', width: '50%' }}
-            placeholder="Paste the BTC wallet ID from the response above"
+            placeholder="Paste the USD wallet ID from the response above"
           />
         </label>
       </div>
       <div style={{ marginTop: '10px' }}></div>
-      <button onClick={runOp}>Probe fee</button>
+      <button onClick={runOp}>Send the transaction</button>
       <div style={{ marginTop: '10px' }}></div>
       {errorMessage && <div style={{ color: 'red' }}>Error: {errorMessage}</div>}
       {response && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(response, null, 2)}</pre></div>}
 
       <div style={{ marginTop: '20px', marginBottom: '40px' }}>
-        <h4>curl command to probe invoice fee</h4>
+        <div style={{ fontWeight: 'bold' }}>curl command to send the transaction</div>
         <div style={{ marginTop: '10px' }}></div>
         <pre style={{
           backgroundColor: 'auto',
@@ -108,7 +132,7 @@ mutation lnInvoiceFeeProbe($input: LnInvoiceFeeProbeInput!) {
           overflowX: 'auto',
           whiteSpace: 'pre-wrap'
         }}>
-          {curlCommandFeeProbe}
+          {curlCommand}
         </pre>
       </div>
     </div>

@@ -1,4 +1,4 @@
-// AuthRequestButton.jsx
+// LnInvoicePaymentSend.jsx
 import React, { useState, useEffect } from 'react';
 import { handleAuthenticatedRequest } from './authRequests';
 import { useAuth } from './AuthContext';
@@ -8,13 +8,11 @@ export function LnInvoicePaymentSend() {
   const { authToken, apiEndpoint, accountWalletId, setAccountWalletId,
     paymentRequest, setPaymentRequest } = useAuth();
 
-  const [amount, setAmount] = useState(1000);
-
   const [curlCommandLnInvoicePayment, setCurlCommandLnInvoicePayment] = useState('');
-  const [lnInvoicePaymentData, setLnInvoicePaymentData] = useState(null);
-  const [errorMessageLnInvoicePayment, setErrorMessageLnInvoicePayment] = useState(null);
+  const [response, setResponse] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
-  const getInvoiceSendQueryText = `\
+  const operation = `\
 mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
   lnInvoicePaymentSend(input: $input) {
     status
@@ -26,10 +24,9 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
   }
 }`;
 
-  const getInvoiceSendQuery = (paymentRequest, walletId) => getInvoiceSendQueryText
-
-  const fetchLnInvoicePaymentData = async () => {
-    const query = getInvoiceSendQuery(paymentRequest, accountWalletId);
+  const runOp = async () => {
+    setErrorMessage(null);
+    setResponse(null);
     const variables = {
       input: {
         paymentRequest: paymentRequest,
@@ -38,40 +35,33 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
     };
 
     try {
-      const data = await handleAuthenticatedRequest(authToken, apiEndpoint, query, variables);
-      setLnInvoicePaymentData(data);
+      const data = await handleAuthenticatedRequest(authToken, apiEndpoint, operation, variables);
+      setResponse(data);
       generateCurlCommand({
-        query: query,
+        operation: operation,
         type: 'lnInvoicePaymentSend',
         setCurlCommand: setCurlCommandLnInvoicePayment,
         authToken: authToken,
         apiEndpoint: apiEndpoint,
-        amount: amount,
-        accountWalletId: accountWalletId,
+        walletId: accountWalletId,
         paymentRequest: paymentRequest
       });
     } catch (error) {
-      setErrorMessageLnInvoicePayment(error.message);
+      setErrorMessage(error.message);
     }
   };
 
   useEffect(() => {
-    const query = getInvoiceSendQuery(paymentRequest, accountWalletId);
     generateCurlCommand({
-      query: query,
+      operation: operation,
       type: 'lnInvoicePaymentSend',
       setCurlCommand: setCurlCommandLnInvoicePayment,
       authToken: authToken,
       apiEndpoint: apiEndpoint,
-      amount: amount,
-      accountWalletId: accountWalletId,
+      walletId: accountWalletId,
       paymentRequest: paymentRequest,
     });
   }, [authToken, apiEndpoint, paymentRequest, accountWalletId]);
-
-  const handleAmountChange = (e) => {
-    setAmount(e.target.value);
-  };
 
   const handleWalletIdChange = (e) => {
     setAccountWalletId(e.target.value);
@@ -105,10 +95,10 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
         </label>
       </div>
       <div style={{ marginTop: '10px' }}></div>
-      <button onClick={fetchLnInvoicePaymentData}>Send payment</button>
+      <button onClick={runOp}>Send payment</button>
       <div style={{ marginTop: '10px' }}></div>
-      {errorMessageLnInvoicePayment && <div style={{ color: 'red' }}>Error: {errorMessageLnInvoicePayment}</div>}
-      {lnInvoicePaymentData && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(lnInvoicePaymentData, null, 2)}</pre></div>}
+      {errorMessage && <div style={{ color: 'red' }}>Error: {errorMessage}</div>}
+      {response && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(response, null, 2)}</pre></div>}
 
       <div style={{ marginTop: '20px' }}>
         <div style={{ fontWeight: 'bold' }}>curl command to pay an invoice</div>

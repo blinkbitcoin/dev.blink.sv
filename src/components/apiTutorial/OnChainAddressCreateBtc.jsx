@@ -1,24 +1,23 @@
-// LnInvoiceFeeProbe.jsx
+// OnChainAddressCreateBtc.jsx
 import React, { useState, useEffect } from 'react';
 import { handleAuthenticatedRequest } from './authRequests';
 import { useAuth } from './AuthContext';
 import { generateCurlCommand } from './curlCommandGenerators';
 
-export function LnInvoiceFeeProbe() {
-  const { authToken, apiEndpoint, accountWalletId, setAccountWalletId,
-    paymentRequest, setPaymentRequest } = useAuth();
+export function OnChainAddressCreateBtc() {
+  const { authToken, apiEndpoint, accountWalletId, setAccountWalletId } = useAuth();
 
-  const [curlCommandFeeProbe, setCurlCommandFeeProbe] = useState('');
+  const [curlCommandInvoice, setCurlCommandInvoice] = useState('');
   const [response, setResponse] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
 
   const operation = `\
-mutation lnInvoiceFeeProbe($input: LnInvoiceFeeProbeInput!) {
-  lnInvoiceFeeProbe(input: $input) {
+mutation onChainAddressCreate($input: OnChainAddressCreateInput!) {
+  onChainAddressCreate(input: $input) {
+    address
     errors {
       message
     }
-    amount
   }
 }`;
 
@@ -27,7 +26,6 @@ mutation lnInvoiceFeeProbe($input: LnInvoiceFeeProbeInput!) {
     setResponse(null);
     const variables = {
       input: {
-        paymentRequest: paymentRequest,
         walletId: accountWalletId,
       }
     };
@@ -37,12 +35,10 @@ mutation lnInvoiceFeeProbe($input: LnInvoiceFeeProbeInput!) {
       setResponse(data);
       generateCurlCommand({
         operation: operation,
-        type: 'feeProbe',
-        setCurlCommand: setCurlCommandFeeProbe,
+        setCurlCommand: setCurlCommandInvoice,
         authToken: authToken,
         apiEndpoint: apiEndpoint,
         walletId: accountWalletId,
-        paymentRequest: paymentRequest
       });
     } catch (error) {
       setErrorMessage(error.message);
@@ -52,14 +48,12 @@ mutation lnInvoiceFeeProbe($input: LnInvoiceFeeProbeInput!) {
   useEffect(() => {
     generateCurlCommand({
       operation: operation,
-      type: 'feeProbe',
-      setCurlCommand: setCurlCommandFeeProbe,
+      setCurlCommand: setCurlCommandInvoice,
       authToken: authToken,
       apiEndpoint: apiEndpoint,
       walletId: accountWalletId,
-      paymentRequest: paymentRequest,
     });
-  }, [authToken, apiEndpoint, paymentRequest, accountWalletId]);
+  }, [authToken, apiEndpoint, accountWalletId]);
 
   const handleWalletIdChange = (e) => {
     setAccountWalletId(e.target.value);
@@ -68,21 +62,8 @@ mutation lnInvoiceFeeProbe($input: LnInvoiceFeeProbeInput!) {
   return (
     <div>
       <div>
-        <div style={{ fontWeight: 'bold' }}>Set the variables</div>
-        <div>
-          <label>
-            <div>Invoice</div>
-            <input
-              type="text"
-              value={paymentRequest}
-              onChange={e => setPaymentRequest(e.target.value)}
-              style={{ marginLeft: '10px', width: '50%' }}
-              placeholder="Paste a lightning invoice"
-            />
-          </label>
-        </div>
+        <div style={{ fontWeight: 'bold' }}>Set the BTC wallet ID:</div>
         <label>
-          <div>BTC wallet ID:</div>
           <input
             type="text"
             value={accountWalletId}
@@ -93,13 +74,13 @@ mutation lnInvoiceFeeProbe($input: LnInvoiceFeeProbeInput!) {
         </label>
       </div>
       <div style={{ marginTop: '10px' }}></div>
-      <button onClick={runOp}>Probe fee</button>
+      <button onClick={runOp}>Create a new address</button>
       <div style={{ marginTop: '10px' }}></div>
       {errorMessage && <div style={{ color: 'red' }}>Error: {errorMessage}</div>}
       {response && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(response, null, 2)}</pre></div>}
 
       <div style={{ marginTop: '20px', marginBottom: '40px' }}>
-        <h4>curl command to probe invoice fee</h4>
+        <div style={{ fontWeight: 'bold' }}>curl command to generate a new address</div>
         <div style={{ marginTop: '10px' }}></div>
         <pre style={{
           backgroundColor: 'auto',
@@ -108,7 +89,7 @@ mutation lnInvoiceFeeProbe($input: LnInvoiceFeeProbeInput!) {
           overflowX: 'auto',
           whiteSpace: 'pre-wrap'
         }}>
-          {curlCommandFeeProbe}
+          {curlCommandInvoice}
         </pre>
       </div>
     </div>

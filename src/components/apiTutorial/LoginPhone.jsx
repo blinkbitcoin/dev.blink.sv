@@ -9,9 +9,27 @@ function LoginPhone() {
   const [phone, setPhone] = useState('');
   const [code, setCode] = useState('');
   const [showToken, setShowToken] = useState(false);
-  const [successMessageLogin, setSuccessMessageLogin] = useState(null);
-  const [errorMessageLogin, setErrorMessageLogin] = useState(null);
+  const [response, setResponse] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [curlCommand, setCurlCommand] = useState('');
+
+  const handleLogin = async () => {
+    setErrorMessage(null);
+    setResponse(null);
+    if (phone.length < 10 || code.length < 6) {
+      setErrorMessage("Invalid input");
+      return;
+    }
+
+    try {
+      const tokenFromLogin = await phoneLogin(apiEndpoint, phone, code);
+      setAuthToken(tokenFromLogin);
+      setResponse("Got the auth token!");
+      setCurlCommand(generateCurlCommandPhoneLogin(apiEndpoint, phone, code));
+    } catch (error) {
+      setErrorMessage(error.message);
+    }
+  }
 
   useEffect(() => {
     setCurlCommand(generateCurlCommandPhoneLogin(apiEndpoint, phone, code));
@@ -27,22 +45,6 @@ function LoginPhone() {
 
   const handleApiEndpointChange = (e) => {
     setApiEndpoint(e.target.value);
-  }
-
-  const handleLogin = async () => {
-    if (phone.length < 10 || code.length < 6) {
-      setErrorMessageLogin("Invalid input");
-      return;
-    }
-
-    try {
-      const tokenFromLogin = await phoneLogin(apiEndpoint, phone, code);
-      setAuthToken(tokenFromLogin);
-      setSuccessMessageLogin("Got the auth token!");
-      setCurlCommand(generateCurlCommandPhoneLogin(apiEndpoint, phone, code));
-    } catch (error) {
-      setErrorMessageLogin(error.message);
-    }
   }
 
   const toggleShowToken = () => {
@@ -83,8 +85,8 @@ function LoginPhone() {
         </pre>
       </div>
 
-      {successMessageLogin && <div style={{ color: 'green' }}>{successMessageLogin}</div>}
-      {errorMessageLogin && <div style={{ color: 'red' }}>Error: {errorMessageLogin}</div>}
+      {response && <div style={{ color: 'green' }}>{response}</div>}
+      {errorMessage && <div style={{ color: 'red' }}>Error: {errorMessage}</div>}
 
       {authToken && (
         <div>
