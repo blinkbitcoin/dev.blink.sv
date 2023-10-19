@@ -1,49 +1,77 @@
 # Welcome to the Blink API Documentation
 
-Empowering Bitcoin Adoption Worldwide with the Blink API
+A powerful, cost-effective, and reliable solution for easily integrating Bitcoin into your projects, regardless of your experience level.
 
-Are you ready to revolutionize the way people and businesses embrace Bitcoin? Look no further! The Blink API offers you a powerful, cost-effective, and reliable solution for easily integrating Bitcoin into your projects, regardless of your experience level.
+- 🔗 [**About the Blink API**](#about-the-blink-api)
+- ⚡ [**Feature overview**](#feature-overview)
+- 💲 [**Pricing**](#pricing)
+- 📖 [**Why choose the Blink API**](#why-choose-the-blink-api)
+- ➡️ [**Get started: Register in 2 minutes**](#get-started-register-in-2-minutes)
+- 🧪 [**Interactive tutorials: Try it out**](#interactive-tutorials-try-it-out)
+- 🏠 [**Host it yourself – build with Galoy**](#host-it-yourself-–-build-with-galoy)
 
-## Why use the Lightning Network?
-The Bitcoin Lightning Network is a groundbreaking second-layer solution designed to address the scalability and transaction speed challenges of the Bitcoin blockchain.<br />
-Here's why integrating the Lightning Network through the Blink API is a game-changer:
+## About the Blink API
+🔗 Simple, reliable Bitcoin & Lightning payments
 
-* **Instant Transactions** - no waiting for the funds to arrive
-* **Final settlement** - just like on-chain transactions, Lightning Network transactions are final and cannot be reversed. There is no risk of chargebacks.
-* **Low cost**- by bypassing the main Bitcoin blockchain for most transactions, the Lightning Network significantly reduces associated fees, making it cost-effective for both businesses and users.
-* **Scalability** - the Lightning Network can handle millions of transactions per second, ensuring that as Bitcoin adoption grows, transaction speeds remain swift.
-* **Enhanced Privacy** - transactions on the Lightning Network are not recorded on the main Bitcoin blockchain, offering increased privacy for users.
-* **Micropayment Capabilities** -the ability to conduct microtransactions opens up a plethora of new business models and opportunities, from pay-per-view content to micro-tipping.
-* **Interoperability** - regardless of the currency displayed Lightning invoices are denominated in Bitcoin and can be paid with any Bitcoin Lightning capable wallet.
+Unlock the power of the Lightning Network quickly and reliably with the hosted GraphQL API built on reliable open source infrastructure from Galoy.<br />
+Enable onchain and Layer two Lightning payments denominated in bitcoin or USD in just minutes!
 
-By leveraging the Lightning Network's capabilities through the Blink API, developers can offer users the benefits of Bitcoin without the traditional limitations of the main blockchain. It's a step forward in making Bitcoin a practical choice for daily transactions and broadening its adoption around the globe.
+## Feature overview
+⚡ Unleash the benefits of Bitcoin & Lightning
 
-## Why Choose the Blink API?
+Lightning payments give the power of low-cost instant settlement to every business in the world.<br />
+With the Blink API you can quickly enable Lightning and onchain payments for your business to unlock:
 
-### Bitcoin Focused
-* Built by Bitcoiners for everyone
-* Proudly based in El Salvador, the pioneering nation to embrace Bitcoin as legal tender
+* **Instant transactions** – no waiting for funds to arrive
+* **Final settlement** – no more chargebacks
+* **Low cost** – save 2-5% compared to credit cards
+* **Micropayments** – no minimum payment amount
+* **Interoperability** – permissionless payment network
 
-### Accessible
-* Registration in a minute with a phone number from most countries around the globe
-* Our tools and services prioritize user-friendliness and seamless onboarding
+## Pricing
+💲 Zero fee for Blink-to-Blink transactions!
 
-### Reliable
-* Check our real-time uptime status at [Blink Status Page](https://blink.statuspage.io/)
-* We're dedicated to ensuring a seamless experience with 24/7 technical and end-user support
+Robust infrastructure (built on [Galoy](https://dev.galoy.io)) and well-managed Lightning channels allow us to provide the lowest possible fees, whether for Lightning (LN) payments, on-chain bitcoin transactions, or BTC to Stablesats conversions.
 
-### Cost-Effective
-* **No Extra Charges using Lightning**: Enjoy lightning-fast Bitcoin transactions without worrying about hidden fees. Blink has transparent and affordable [pricing](https://faq.blink.sv/transaction-fees/what-are-the-transaction-fees-for-using-blink-wallet).
-* **Spare the Cost**: Eliminate the complexities of channel management. The Galoy backend handles it all, saving you valuable time and resources.
+* Intraledger (between Blink users) – no fee!
+* Outgoing Lightning – only pay routing fees (~0.02%)
+* Onchain deposit – 0% for payments over 1M sats
+* Stablesats conversion – 0.2% spread, no fees
 
-### Stablesats
-* **Synthetic USD on Bitcoin**: Maintain the stability of your Bitcoin holdings in terms of dollar value.
-* Dive deeper on [stablesats.com](https://stablesats.com/)
+A detailed FAQ entry on [pricing](https://faq.blink.sv/transaction-fees/what-are-the-transaction-fees-for-using-blink-wallet)
 
-### Free Open Source and Self-Hostable
-* **Free Open Source Software**: The Galoy stack, the foundation of Blink API, is open-source and freely available. We're dedicated to fostering a secure and transparent Bitcoin ecosystem.
-* **Host on Your Terms**: When you're ready, you can host the API on your own terms and seamlessly transition everything to your stack.
-* Visit [dev.galoy.io](https://dev.galoy.io) for more information on our open-source offerings.
+## Why choose the Blink API
+📖 Blink makes receiving bitcoin simple whether you sell products in person, receive remittances or donations from abroad, or simply send sats between friends.
+
+* **Bitcoin-only** - Built by Bitcoiners for everyone, Proudly based in El Salvador
+* **Reliable** - Uptime & 24/7 team, check the [Blink Status Page](https://blink.statuspage.io/)
+* **Low fees** – Lightning-first, competitive pricing
+* **Simple to use**: Avoid the cost and the complexities of channel management. The Galoy backend handles it all, saving you valuable time and resources.
+* **Open source** – Transition to self-hosted
+* **USD-enabled** – Synthetic USD via Stablesats. Dive deeper on [stablesats.com](https://stablesats.com/)
+
+## Get started: Register in 2 minutes
+➡️ Registering and logging into the Blink API is simple and can be done in under a minute.
+
+* Register account with phone number (note: unavailable in the US and some other countries)
+* Add email for 2FA
+* Start building!
+
+## Interactive tutorials: Try it out
+🧪 API integration made easy
+
+Sending and receiving Bitcoin and Stablesats via API is simple, and available using both Lightning and onchain. Check out these simple interactive tutorials:
+* **Receive Stablesats USD** ([Lightning](/api/usd-ln-receive) | [Onchain](/api/usd-onchain-receive))
+* **Send Stablesats USD** ([Lightning](/api/usd-ln-send) | [Onchain](/api/usd-onchain-send)
+* **Receive BTC** ([Lightning](/api/btc-ln-receive) | [Onchain](/api/btc-onchain-receive))
+* **Send BTC** ([Lightning](/api/btc-ln-send) | [Onchain](/api/btc-onchain-send))
+
+## Host it yourself – build with Galoy
+🏠 Become a sovereign organization
+
+Blink is built on the Galoy open source bitcoin banking stack.<br />
+When you're ready, you can host the API on your own terms and seamlessly transition everything to your own infrastucture.<br />
+Visit [dev.galoy.io](https://dev.galoy.io) for more information on our open-source offerings.
 
 [Join our Mattermost](https://chat.galoy.io/)
 
