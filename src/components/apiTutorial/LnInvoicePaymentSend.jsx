@@ -73,7 +73,7 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
         <div style={{ fontWeight: 'bold' }}>Set the variables</div>
         <div>
           <label>
-            <div>Invoice</div>
+            <div>Invoice:</div>
             <input
               type="text"
               value={paymentRequest}

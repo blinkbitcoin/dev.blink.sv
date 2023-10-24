@@ -9,6 +9,7 @@ import { SetApiEndpoint } from '/src/components/apiTutorial/SetApiEndpoint';
 import { SetAuthToken } from '/src/components/apiTutorial/SetAuthToken';
 import { GetWalletDataUsd } from '/src/components/apiTutorial/GetWalletDataUsd';
 import { LnUsdInvoiceCreate } from '/src/components/apiTutorial/LnUsdInvoiceCreate';
+import { GetBalance } from '/src/components/apiTutorial/GetBalance';
 
 <AuthProvider>
 
@@ -67,5 +68,26 @@ mutation lnUsdInvoiceCreate($input: LnUsdInvoiceCreateInput!) {
 ```
 
   <LnUsdInvoiceCreate />
+
+---
+
+### Once paid check the balance again
+
+**The body of the GraphQL request**
+
+```graphql
+query Me {
+  me {
+    defaultAccount {
+      wallets {
+        walletCurrency
+        balance
+      }
+    }
+  }
+}
+```
+
+  <GetBalance />
 
 </AuthProvider>

@@ -16,5 +16,6 @@
     * ### BTC
       * ### [Receive BTC onchain](/api/btc-onchain-receive)
       * ### [Send BTC onchain](/api/btc-onchain-receive)
+## [Error handling](/api/errors)
 ## [Postman Collection](/api/postman)
 ## [Learn more](/api/learn-more)

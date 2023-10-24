@@ -43,7 +43,7 @@ function LoginEmail() {
     try {
       const obtainedAuthToken = await emailLogin(authEndpoint, emailLoginIdInput, emailCode);
       setAuthToken(obtainedAuthToken);  // Directly set the obtained authToken
-      setSuccessMessageEmailLogin("Logged in successfully! Copy and save the token to make authenticated requests on the next page.");
+      setSuccessMessageEmailLogin("Logged in successfully!");
     } catch (error) {
       setErrorMessageEmailLogin(error.message);
     } finally {
@@ -140,11 +140,12 @@ function LoginEmail() {
       {
         authToken && (
           <div>
-            <button onClick={toggleShowToken}>Toggle Token Visibility</button>
+            <button onClick={toggleShowToken}>Click to show your Authentication token</button>
             {showToken && <div><strong>Token:</strong> {authToken}</div>}
           </div>
         )
       }
+      <div style={{ marginTop: '20px' }}></div>
     </div >
   );
 }

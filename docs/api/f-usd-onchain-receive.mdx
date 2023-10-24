@@ -9,6 +9,7 @@ import { SetApiEndpoint } from '/src/components/apiTutorial/SetApiEndpoint';
 import { SetAuthToken } from '/src/components/apiTutorial/SetAuthToken';
 import { GetWalletDataUsd } from '/src/components/apiTutorial/GetWalletDataUsd';
 import { OnChainAddressCreateUsd } from '/src/components/apiTutorial/OnChainAddressCreateUsd';
+import { GetBalanceWithPending } from '/src/components/apiTutorial/GetBalanceWithPending';
 
 <AuthProvider>
 
@@ -62,5 +63,30 @@ mutation onChainAddressCreate($input: OnChainAddressCreateInput!) {
 ```
 
   <OnChainAddressCreateUsd />
+
+---
+
+### Once paid check the balance again
+
+The balance will be updated once the transaction is confirmed on the blockchain.<br />
+Until the confirmation the new incoming amount will show in the `pendingIncomingBalance` field.
+
+**The body of the GraphQL request**
+
+```graphql
+query Me {
+  me {
+    defaultAccount {
+      wallets {
+        walletCurrency
+        balance
+        pendingIncomingBalance
+      }
+    }
+  }
+}
+```
+
+  <GetBalanceWithPending />
 
 </AuthProvider>

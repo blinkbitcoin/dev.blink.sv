@@ -9,6 +9,7 @@ import { SetApiEndpoint } from '/src/components/apiTutorial/SetApiEndpoint';
 import { SetAuthToken } from '/src/components/apiTutorial/SetAuthToken';
 import { GetWalletDataBtc } from '/src/components/apiTutorial/GetWalletDataBtc';
 import { LnInvoiceCreate } from '/src/components/apiTutorial/LnInvoiceCreate';
+import { GetBalance } from '/src/components/apiTutorial/GetBalance';
 
 <AuthProvider>
 
@@ -64,5 +65,26 @@ mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
 ```
 
   <LnInvoiceCreate />
+
+---
+
+### Once paid check the balance again
+
+**The body of the GraphQL request**
+
+```graphql
+query Me {
+  me {
+    defaultAccount {
+      wallets {
+        walletCurrency
+        balance
+      }
+    }
+  }
+}
+```
+
+  <GetBalance />
 
 </AuthProvider>
