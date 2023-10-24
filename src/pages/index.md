@@ -2,7 +2,7 @@
 
 A powerful, cost-effective, and reliable solution for easily integrating Bitcoin into your projects, regardless of your experience level.
 
-- 🔗 [**About the Blink API**](#about-the-blink-api)
+- ₿ [**About the Blink API**](#about-the-blink-api)
 - ⚡ [**Feature overview**](#feature-overview)
 - 💲 [**Pricing**](#pricing)
 - 📖 [**Why choose the Blink API**](#why-choose-the-blink-api)
@@ -10,8 +10,8 @@ A powerful, cost-effective, and reliable solution for easily integrating Bitcoin
 - 🧪 [**Interactive tutorials: Try it out**](#interactive-tutorials-try-it-out)
 - 🏠 [**Host it yourself – build with Galoy**](#host-it-yourself-–-build-with-galoy)
 
-## About the Blink API
-🔗 Simple, reliable Bitcoin & Lightning payments
+## About the [Blink API](/api)
+₿ Simple, reliable Bitcoin & Lightning payments
 
 Unlock the power of the Lightning Network quickly and reliably with the hosted GraphQL API built on reliable open source infrastructure from Galoy.<br />
 Enable onchain and Layer two Lightning payments denominated in bitcoin or USD in just minutes!
@@ -40,7 +40,7 @@ Robust infrastructure (built on [Galoy](https://dev.galoy.io)) and well-managed 
 
 A detailed FAQ entry on [pricing](https://faq.blink.sv/transaction-fees/what-are-the-transaction-fees-for-using-blink-wallet)
 
-## Why choose the Blink API
+## Why choose the [Blink API](/api)
 📖 Blink makes receiving bitcoin simple whether you sell products in person, receive remittances or donations from abroad, or simply send sats between friends.
 
 * **Bitcoin-only** - Built by Bitcoiners for everyone, Proudly based in El Salvador
@@ -50,14 +50,14 @@ A detailed FAQ entry on [pricing](https://faq.blink.sv/transaction-fees/what-are
 * **Open source** – Transition to self-hosted
 * **USD-enabled** – Synthetic USD via Stablesats. Dive deeper on [stablesats.com](https://stablesats.com/)
 
-## Get started: Register in 2 minutes
+## Get started: [Register in 2 minutes](/api/start)
 ➡️ Registering and logging into the Blink API is simple and can be done in under a minute.
 
 * Register account with phone number (note: unavailable in the US and some other countries)
 * Add email for 2FA
 * Start building!
 
-## Interactive tutorials: Try it out
+## Interactive tutorials: [Try it out](/api#-tutorials)
 🧪 API integration made easy
 
 Sending and receiving Bitcoin and Stablesats via API is simple, and available using both Lightning and onchain. Check out these simple interactive tutorials:
@@ -66,7 +66,7 @@ Sending and receiving Bitcoin and Stablesats via API is simple, and available us
 * **Receive BTC** ([Lightning](/api/btc-ln-receive) | [Onchain](/api/btc-onchain-receive))
 * **Send BTC** ([Lightning](/api/btc-ln-send) | [Onchain](/api/btc-onchain-send))
 
-## Host it yourself – build with Galoy
+## Host it yourself – [build with Galoy](https://dev.galoy.io)
 🏠 Become a sovereign organization
 
 Blink is built on the Galoy open source bitcoin banking stack.<br />

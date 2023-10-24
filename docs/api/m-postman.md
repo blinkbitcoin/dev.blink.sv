@@ -3,16 +3,10 @@ id: postman
 title: Postman collection
 slug: /api/postman
 ---
-## Online docs
+## API requests in multiple programming languages
 
 To browse the API requests in multiple programming languages visit the [Galoy API Postman collection](https://documenter.getpostman.com/view/29391384/2s9YCAQq3z#66c6973a-3e06-410b-b035-df2cb2e986bd). <br />
 Go ahead and fork the collection together with the public environment variables to work in your own Postman workspace.
-
-## API access
-
-Follow the links to register and get an authentication token:
-* [Start with Blink](/api)
-* [Get an auth token](/api/auth)
 
 ## Local development
 

@@ -154,10 +154,12 @@ const config = {
         '@docusaurus/plugin-client-redirects',
         {
           redirects: [
+            /*
             {
               to: '/api/start',
               from: ['/api'],
             }
+            */
           ],
         },
       ],
