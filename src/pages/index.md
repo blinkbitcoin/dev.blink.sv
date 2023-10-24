@@ -62,7 +62,7 @@ A detailed FAQ entry on [pricing](https://faq.blink.sv/transaction-fees/what-are
 
 Sending and receiving Bitcoin and Stablesats via API is simple, and available using both Lightning and onchain. Check out these simple interactive tutorials:
 * **Receive Stablesats USD** ([Lightning](/api/usd-ln-receive) | [Onchain](/api/usd-onchain-receive))
-* **Send Stablesats USD** ([Lightning](/api/usd-ln-send) | [Onchain](/api/usd-onchain-send)
+* **Send Stablesats USD** ([Lightning](/api/usd-ln-send) | [Onchain](/api/usd-onchain-send))
 * **Receive BTC** ([Lightning](/api/btc-ln-receive) | [Onchain](/api/btc-onchain-receive))
 * **Send BTC** ([Lightning](/api/btc-ln-send) | [Onchain](/api/btc-onchain-send))
 

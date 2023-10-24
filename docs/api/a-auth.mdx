@@ -11,11 +11,20 @@ There are multiple ways to obtain an auth token to be used with the API.
 
 ## Log in with email through the REST API
 
+:::tip
+Make sure you have [registered your email address](/api/start#set-up-the-email-login) in the Blink app to use this method.
+:::
+
 <AuthProvider>
 
   <LoginEmail />
 
 </AuthProvider>
+
+:::caution
+The authentication token provides access to your wallet balance.
+Save it securely as a password and use it to make authenticated requests on the next pages.
+:::
 
 ## Copy the token from the Blink app
 

@@ -24,6 +24,10 @@ slug: /api/start
 * now can delete the phone number if desired
 
 ## For testing and development connect to our Staging environment
+:::note
+New registrations to the staging environment are currently limited. Please contact us on our Community Mattermost Server on [chat.galoy.io](https://chat.galoy.io) to request access.
+:::
+
 * more info on the [staging environment](https://dev.galoy.io/deployment/staging-environment)
 * more info on [testing on signet](https://dev.galoy.io/deployment/signet)
 
