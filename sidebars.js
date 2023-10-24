@@ -88,6 +88,7 @@ const sidebars = {
         },
       ],
     },
+    'api/errors',
     'api/postman',
     'api/learn-more'
   ],
