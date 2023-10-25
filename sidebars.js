@@ -90,6 +90,7 @@ const sidebars = {
         'api/errors',
       ],
     },
+    'api/webhooks',
     'api/postman',
     'api/learn-more'
   ],
