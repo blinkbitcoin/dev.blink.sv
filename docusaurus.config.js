@@ -71,18 +71,12 @@ const config = {
       // Replace with your project's social card
       image: 'img/blink-logo.jpg',
       navbar: {
-        title: 'Developer Documentation',
+        title: 'API Documentation',
         logo: {
           alt: 'Blink logo',
           src: 'img/blink-logo-orange.svg',
         },
         items: [
-          {
-            type: 'docSidebar',
-            sidebarId: 'apiSidebar',
-            position: 'left',
-            label: 'Hosted API',
-          },
           {
             href: 'https://chat.galoy.io',
             label: 'Join the Community',
@@ -94,11 +88,19 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Follow us',
             items: [
               {
-                label: 'Hosted API',
-                to: '/api',
+                label: 'GitHub',
+                href: 'https://github.com/GaloyMoney',
+              },
+              {
+                label: 'X/Twitter',
+                href: 'https://twitter.com/blinkbtc',
+              },
+              {
+                label: 'Nostr',
+                href: 'https://snort.social/p/community@blink.sv',
               },
             ],
           },
@@ -106,20 +108,12 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/blinkbtc',
+                label: 'Galoy Mattermost',
+                href: 'https://chat.galoy.io',
               },
               {
                 label: 'Telegram',
                 href: 'https://t.me/blinkbtc',
-              },
-              {
-                label: 'Nostr',
-                href: 'https://snort.social/p/community@blink.sv',
-              },
-              {
-                label: 'Galoy Mattermost',
-                href: 'https://chat.galoy.io',
               },
             ],
           },
@@ -131,8 +125,12 @@ const config = {
                 href: 'https://www.blink.sv',
               },
               {
-                label: 'GitHub',
-                href: 'https://github.com/GaloyMoney',
+                label: 'Status page',
+                href: 'https://blink.statuspage.io',
+              },
+              {
+                label: 'About Galoy',
+                href: 'https://galoy.io',
               },
             ],
           },
@@ -149,21 +147,25 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
-    plugins: [
-      [
-        '@docusaurus/plugin-client-redirects',
-        {
-          redirects: [
-            /*
-            {
-              to: '/api/start',
-              from: ['/api'],
-            }
-            */
-          ],
-        },
-      ],
+  plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        redirects: [
+          {
+            to: '/api/start',
+            from: ['/api'],
+          },
+          /*
+          {
+            to: '/api/start',
+            from: ['/api'],
+          }
+          */
+        ],
+      },
     ],
-  };
+  ],
+};
 
 module.exports = config;

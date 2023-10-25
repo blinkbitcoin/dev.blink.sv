@@ -1,3 +1,9 @@
+---
+id: overview
+title: Blink API Overview
+slug: /api/overview
+---
+
 # Blink API Overview
 
 ### ₿ [Start with Blink](/api/start) to register an account

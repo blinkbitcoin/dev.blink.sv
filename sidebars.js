@@ -29,6 +29,7 @@ const sidebars = {
   ],
    */
   apiSidebar: [
+    'intro',
     'api/start',
     'api/auth',
     {
@@ -43,20 +44,20 @@ const sidebars = {
           items: [
             {
               type: 'category',
-              label: 'USD',
-              collapsed: true,
-              items: [
-                'api/usd-ln-receive',
-                'api/usd-ln-send',
-              ],
-            },
-            {
-              type: 'category',
               label: 'BTC',
               collapsed: true,
               items: [
                 'api/btc-ln-receive',
                 'api/btc-ln-send',
+              ],
+            },
+            {
+              type: 'category',
+              label: 'USD',
+              collapsed: true,
+              items: [
+                'api/usd-ln-receive',
+                'api/usd-ln-send',
               ],
             },
           ],
@@ -68,15 +69,6 @@ const sidebars = {
           items: [
             {
               type: 'category',
-              label: 'USD',
-              collapsed: true,
-              items: [
-                'api/usd-onchain-receive',
-                'api/usd-onchain-send',
-              ],
-            },
-            {
-              type: 'category',
               label: 'BTC',
               collapsed: true,
               items: [
@@ -84,11 +76,20 @@ const sidebars = {
                 'api/btc-onchain-send',
               ],
             },
+            {
+              type: 'category',
+              label: 'USD',
+              collapsed: true,
+              items: [
+                'api/usd-onchain-receive',
+                'api/usd-onchain-send',
+              ],
+            },
           ],
         },
+        'api/errors',
       ],
     },
-    'api/errors',
     'api/postman',
     'api/learn-more'
   ],
