@@ -5,7 +5,7 @@ slug: /api/postman
 ---
 ## API requests in multiple programming languages
 
-To browse the API requests in multiple programming languages visit the [Galoy API Postman collection](https://documenter.getpostman.com/view/29391384/2s9YCAQq3z#66c6973a-3e06-410b-b035-df2cb2e986bd). <br />
+To browse the API requests in multiple programming languages visit the [Galoy API Postman collection](https://documenter.getpostman.com/view/29391384/2s9YCAQq3z#f3e8e86e-67c1-411d-8208-03220fd1ed43). <br />
 Go ahead and fork the collection together with the public environment variables to work in your own Postman workspace.
 
 ## Local development
