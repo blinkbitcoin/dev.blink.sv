@@ -7,11 +7,9 @@ import { generateCurlCommand } from './curlCommandGenerators';
 export function GetBalance() {
   const { authToken, apiEndpoint } = useAuth();
 
-  const [curlCommandWallet, setCurlCommandWallet] = useState('');
+  const [curlCommand, setCurlCommand] = useState('');
   const [response, setResponse] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
-
-  const walletCurrency = 'BTC';
 
   const operation = `\
   query Me {
@@ -34,8 +32,7 @@ export function GetBalance() {
 
       generateCurlCommand({
         operation: operation,
-        type: 'wallet',
-        setCurlCommand: setCurlCommandWallet,
+        setCurlCommand: setCurlCommand,
         authToken: authToken,
         apiEndpoint: apiEndpoint,
       });
@@ -47,7 +44,7 @@ export function GetBalance() {
   useEffect(() => {
     generateCurlCommand({
       operation: operation,
-      setCurlCommand: setCurlCommandWallet,
+      setCurlCommand: setCurlCommand,
       authToken: authToken,
       apiEndpoint: apiEndpoint,
     });
@@ -70,7 +67,7 @@ export function GetBalance() {
           overflowX: 'auto',
           whiteSpace: 'pre-wrap'
         }}>
-          {curlCommandWallet}
+          {curlCommand}
         </pre>
       </div>
     </div>

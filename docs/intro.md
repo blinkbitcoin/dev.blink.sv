@@ -1,19 +1,13 @@
+---
+id: intro
+title: Intro
+slug: /
+hide_table_of_contents: false
+---
 # Welcome to the Blink API Documentation
 
-A powerful, cost-effective, and reliable solution for easily integrating Bitcoin into your projects, regardless of your experience level.
+A powerful, cost-effective, and reliable solution for easily integrating simple, reliable Bitcoin & Lightning payments into your projects, regardless of your experience level.
 
-- ₿ [**About the Blink API**](#about-the-blink-api)
-- ⚡ [**Feature overview**](#feature-overview)
-- 💲 [**Pricing**](#pricing)
-- 📖 [**Why choose the Blink API**](#why-choose-the-blink-api)
-- ➡️ [**Get started: Register in 2 minutes**](#get-started-register-in-2-minutes)
-- 🧪 [**Interactive tutorials: Try it out**](#interactive-tutorials-try-it-out)
-- 🏠 [**Host it yourself – build with Galoy**](#host-it-yourself-–-build-with-galoy)
-
-## About the [Blink API](/api)
-₿ Simple, reliable Bitcoin & Lightning payments
-
-Unlock the power of the Lightning Network quickly and reliably with the hosted GraphQL API built on reliable open source infrastructure from Galoy.<br />
 Enable onchain and Layer two Lightning payments denominated in bitcoin or USD in just minutes!
 
 ## Feature overview

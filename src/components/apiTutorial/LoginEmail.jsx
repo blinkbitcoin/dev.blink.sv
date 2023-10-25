@@ -24,7 +24,7 @@ function LoginEmail() {
     try {
       const obtainedEmailLoginId = await requestEmailCode(authEndpoint, emailAddress);
       setEmailLoginIdInput(obtainedEmailLoginId); // Autofill the input
-      setSuccessMessageEmailCode(`The emailLoginId: ${obtainedEmailLoginId} was obtained successfully!`);
+      setSuccessMessageEmailCode(`The emailLoginId: ${obtainedEmailLoginId} was obtained successfully! Check your email for the code.`);
     } catch (error) {
       setErrorMessageEmailCode(error.message);
     }
@@ -43,7 +43,7 @@ function LoginEmail() {
     try {
       const obtainedAuthToken = await emailLogin(authEndpoint, emailLoginIdInput, emailCode);
       setAuthToken(obtainedAuthToken);  // Directly set the obtained authToken
-      setSuccessMessageEmailLogin("Logged in successfully!");
+      setSuccessMessageEmailLogin("Logged in successfully! Find your token below.");
     } catch (error) {
       setErrorMessageEmailLogin(error.message);
     } finally {
@@ -114,10 +114,10 @@ function LoginEmail() {
               style={{ width: '50%', marginBottom: '10px' }}
             />
             <div></div>
-            <input type="text" placeholder="Fill in the 2FA code from the email" value={emailCode} onChange={e => setEmailCode(e.target.value)} style={{ width: '50%', marginBottom: '10px' }} />
+            <input type="text" placeholder="Fill in the code from the email" value={emailCode} onChange={e => setEmailCode(e.target.value)} style={{ width: '50%', marginBottom: '10px' }} />
           </div>
           <button onClick={handleEmailLogin} disabled={isLoading}>
-            {isLoading ? "Logging in..." : "Log in"}
+            {isLoading ? "Logging in..." : "Log in to get your token"}
           </button>
         </div>
       )
