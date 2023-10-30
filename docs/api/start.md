@@ -12,13 +12,16 @@ slug: /api/start
 
 ---
 
-## Set up the email login
-### Upgrade the account with a phone number
-* select the menu on the top right and tap `Account`
-* `Backup/upgrade account`
-* complete the Account set up with a phone number
+## Add a phone number
+* `Create a new account` with a phone number
+* or if you have started with a `Trial account`
+  * select the menu on the top right and tap `Account`
+  * select `Backup/upgrade account`
+  * complete the account set up with a phone number
 
-### Add an email address for login
+---
+
+## Add an email address
 * only available if a phone number was added previously
 * select the menu on the top right and tap `Account`
 * select `Email (for login)`
