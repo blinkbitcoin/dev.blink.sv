@@ -44,14 +44,14 @@ A detailed FAQ entry on [pricing](https://faq.blink.sv/transaction-fees/what-are
 * **Open source** – Transition to self-hosted
 * **USD-enabled** – Synthetic USD via Stablesats. Dive deeper on [stablesats.com](https://stablesats.com/)
 
-## Get started: [Register in 2 minutes](/api/start)
+## Get started: [register in 2 minutes](/api/start)
 ➡️ Registering and logging into the Blink API is simple and can be done in under a minute.
 
 * Register account with phone number (note: unavailable in the US and some other countries)
 * Add email for 2FA
 * Start building!
 
-## Interactive tutorials: [Try it out](/api#-tutorials)
+## Interactive tutorials: [try it out](/api#-tutorials)
 🧪 API integration made easy
 
 Sending and receiving Bitcoin and Stablesats via API is simple, and available using both Lightning and onchain. Check out these simple interactive tutorials:
@@ -67,8 +67,6 @@ Blink is built on the Galoy open source bitcoin banking stack.<br />
 When you're ready, you can host the API on your own terms and seamlessly transition everything to your own infrastructure.<br />
 Visit [dev.galoy.io](https://dev.galoy.io) for more information on our open-source offerings.
 
-[Join our Mattermost](https://chat.galoy.io/)
-
-[Start with the API](https://dev.blink.sv/api/start)
+## [Join our Mattermost](https://chat.galoy.io/)
 
 Join us in enabling a Bitcoin-powered future with the Blink API powered by Galoy!
