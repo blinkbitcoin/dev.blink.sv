@@ -10,18 +10,25 @@ slug: /api/start
 * visit [get.blink.sv](https://get.blink.sv) for the App Store / Google Play / App Gallery links
 * or download the Android apk from [github.com/GaloyMoney/galoy-mobile/releases](https://github.com/GaloyMoney/galoy-mobile/releases)
 
-## Set up the email login
-### Upgrade the account with a phone number
-* select the menu on the top right and tap `Account`
-* `Backup/upgrade account`
-* complete the Account set up with a phone number
+---
 
-### Add an email address for login
+## Add a phone number
+* `Create a new account` with a phone number
+* or if you have started with a `Trial account`
+  * select the menu on the top right and tap `Account`
+  * select `Backup/upgrade account`
+  * complete the account set up with a phone number
+
+---
+
+## Add an email address
 * only available if a phone number was added previously
 * select the menu on the top right and tap `Account`
 * select `Email (for login)`
 * enter an email address and complete the verification to enable login with email
 * now can delete the phone number if desired
+
+---
 
 ## For testing and development connect to our Staging environment
 :::note

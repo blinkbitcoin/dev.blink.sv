@@ -1,6 +1,6 @@
 ---
 id: auth
-title: Get an authentication token
+title: Authentication
 slug: /api/auth
 ---
 
@@ -12,7 +12,7 @@ There are multiple ways to obtain an auth token to be used with the API.
 ## Log in with email through the REST API
 
 :::tip
-Make sure you have [registered your email address](/api/start#set-up-the-email-login) in the Blink app to use this method.
+Make sure you have [registered your email address](/api/start#add-an-email-address) in the Blink app to use this method.
 :::
 
 <AuthProvider>
@@ -26,7 +26,9 @@ The authentication token provides access to your wallet balance, save it securel
 Use it to make authenticated requests on the next pages or set it in the header as `Authorization` `Bearer <ory_token>`.
 :::
 
-## Copy the token from the Blink app
+---
+
+## Copy the authentication token from the Blink app
 
 * `Create new account`, `Start with trial account` or `Log back in with Phone or Email`
 * tap the menu on the top right and scroll down
