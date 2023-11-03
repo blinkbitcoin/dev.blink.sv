@@ -4,7 +4,7 @@ title: Pagination
 slug: /api/pagination
 ---
 
-When you access the list of transactions all items will have an associated cursor position. This cursor can be used to paginate through the list by defining the `after` and / or `before` variable in the GraphQL request.
+When you access the list of transactions all items will have an associated cursor position. This cursor can be used to paginate through the list by defining the `after` variable in the GraphQL request.
 
 ## Example request with pagination
 
@@ -12,8 +12,6 @@ Note the `pageInfo` object containing the cursor and page values. The `edges` ob
 
 * `endCursor`: When paginating forwards, the cursor to continue.
 * `hasNextPage`: When paginating forwards, are there more items?
-* `hasPreviousPage`: When paginating backwards, are there more items?
-* `startCursor`: When paginating backwards, the cursor to continue.
 
 ```graphql
 query transactionsForAccount($walletIds: [WalletId], $first: Int, $after: String) {
@@ -24,8 +22,6 @@ query transactionsForAccount($walletIds: [WalletId], $first: Int, $after: String
         pageInfo {
           endCursor
           hasNextPage
-          hasPreviousPage
-          startCursor
         }
         edges {
           cursor
@@ -34,6 +30,7 @@ query transactionsForAccount($walletIds: [WalletId], $first: Int, $after: String
             settlementCurrency
             settlementDisplayAmount
             status
+            createdAt
           }
         }
       }
@@ -44,12 +41,10 @@ query transactionsForAccount($walletIds: [WalletId], $first: Int, $after: String
 
 ## Variables
 
-* `first`: Returns the first n items from the list.
-* `after`: Returns the items in the list that come after the specified cursor.
-* `last`: Returns the last n items from the list.
-* `before`: Returns the items in the list that come before the specified cursor.
+* `first` (Int): Returns the first n items from the list.
+* `after` (String): Returns the items in the list that come after the specified cursor.
 
-The variables used in the request to show the first 2 transactions for the default account:
+The variables used in the request to show the first 3 transactions for the default account:
 
 ```json
 {
@@ -58,7 +53,7 @@ The variables used in the request to show the first 2 transactions for the defau
 }
 ```
 
-Sample response showing the first 2 transactions:
+Sample response showing the first 3 transactions:
 ```json
 {
     "data": {
@@ -67,10 +62,8 @@ Sample response showing the first 2 transactions:
             "defaultAccount": {
                 "transactions": {
                     "pageInfo": {
-                        "endCursor": "6538b68c491e13fd6416722d",
-                        "hasNextPage": true,
-                        "hasPreviousPage": false,
-                        "startCursor": "6538bda9491e13fd6416b5f3"
+                        "endCursor": "653787e933905fc03c13e2bc",
+                        "hasNextPage": true
                     },
                     "edges": [
                         {
@@ -79,7 +72,8 @@ Sample response showing the first 2 transactions:
                                 "direction": "RECEIVE",
                                 "settlementCurrency": "USD",
                                 "settlementDisplayAmount": "0.01",
-                                "status": "SUCCESS"
+                                "status": "SUCCESS",
+                                "createdAt": 1698217385
                             }
                         },
                         {
@@ -88,7 +82,18 @@ Sample response showing the first 2 transactions:
                                 "direction": "RECEIVE",
                                 "settlementCurrency": "USD",
                                 "settlementDisplayAmount": "1.00",
-                                "status": "SUCCESS"
+                                "status": "SUCCESS",
+                                "createdAt": 1698215564
+                            }
+                        },
+                        {
+                            "cursor": "653787e933905fc03c13e2bc",
+                            "node": {
+                                "direction": "RECEIVE",
+                                "settlementCurrency": "BTC",
+                                "settlementDisplayAmount": "0.47",
+                                "status": "SUCCESS",
+                                "createdAt": 1698138089
                             }
                         }
                     ]
@@ -120,9 +125,7 @@ Response showing the next two transactions:
                 "transactions": {
                     "pageInfo": {
                         "endCursor": "653787c033905fc03c13e0a3",
-                        "hasNextPage": true,
-                        "hasPreviousPage": false,
-                        "startCursor": "653787e933905fc03c13e286"
+                        "hasNextPage": true
                     },
                     "edges": [
                         {
@@ -131,7 +134,8 @@ Response showing the next two transactions:
                                 "direction": "SEND",
                                 "settlementCurrency": "BTC",
                                 "settlementDisplayAmount": "-0.47",
-                                "status": "SUCCESS"
+                                "status": "SUCCESS",
+                                "createdAt": 1698138089
                             }
                         },
                         {
@@ -140,7 +144,8 @@ Response showing the next two transactions:
                                 "direction": "SEND",
                                 "settlementCurrency": "BTC",
                                 "settlementDisplayAmount": "-0.47",
-                                "status": "SUCCESS"
+                                "status": "SUCCESS",
+                                "createdAt": 1698138048
                             }
                         }
                     ]
