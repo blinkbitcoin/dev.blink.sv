@@ -87,10 +87,11 @@ const sidebars = {
             },
           ],
         },
+        'api/pagination',
+        'api/webhooks',
         'api/errors',
       ],
     },
-    'api/webhooks',
     'api/postman',
     'api/learn-more'
   ],
