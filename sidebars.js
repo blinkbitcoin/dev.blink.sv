@@ -30,7 +30,6 @@ const sidebars = {
    */
   apiSidebar: [
     'intro',
-    'api/start',
     'api/auth',
     {
       type: 'category',
@@ -95,6 +94,7 @@ const sidebars = {
           label: 'Using the legacy token',
           collapsed: true,
           items: [
+            'api/legacy/start',
             'api/legacy/auth',
             {
               type: 'category',

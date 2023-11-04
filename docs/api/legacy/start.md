@@ -1,7 +1,7 @@
 ---
 id: start
 title: Start with Blink
-slug: /api/start
+slug: /api/legacy/start
 ---
 
 # Start with Blink
