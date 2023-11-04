@@ -66,9 +66,11 @@ function LoginPhone() {
           <option value="https://api.staging.galoy.io/graphql">Staging (signet) - https://api.staging.galoy.io/graphql</option>
         </select>
 
+        <div></div>
         <input type="text" placeholder="Phone" value={phone} onChange={handlePhoneChange} />
+        <div></div>
         <input type="text" placeholder="Code" value={code} onChange={handleCodeChange} />
-
+        <div></div>
         <button onClick={handleLogin}>Log in</button>
       </div>
 
