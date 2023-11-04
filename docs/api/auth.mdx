@@ -1,25 +1,21 @@
 ---
 id: auth
-title: Authentication
+title: Authenticate in the Blink Dashboard
 slug: /api/auth
 ---
 
-## Blink Dashboard
-
-:::tip
-[Register a new account in the Blink app](/api/start) and use the same credentials to log in to the dashboard.
-:::
-
-Log in with your registered email or phone number and copy the token from the `API` tab.
-
 Available at:
-* [dashboard.blink.sv](https://dashboard.blink.sv/api/auth/signin?callbackUrl=%2F) for mainnet
-* [dashboard.staging.galoy.io](https://dashboard.staging.galoy.io/api/auth/signin?callbackUrl=%2F) for staging (signet)
 
-:::caution
-The authentication token provides access to your wallet balance, save it securely as a password.
-Use it to make authenticated requests on the next pages or set it in the header as `X-API-KEY` `blink_...`.
-:::
+[dashboard.blink.sv](https://dashboard.blink.sv/api/auth/signin?callbackUrl=%2F) for mainnet
+
+[dashboard.staging.galoy.io](https://dashboard.staging.galoy.io/api/auth/signin?callbackUrl=%2F) for staging (signet)
+
+* log in with your registered email or phone number
+* select `API Keys` in the menu on the left
+* create an API key with the `+` button
+* copy the API key and save it securely as a password
+* use it to make authenticated requests on the next pages
+* set it in the header of authenticated requests as `X-API-KEY` `blink_...`
 
 :::note
 To use the legacy authentication token you can visit the [/api/legacy/auth](/api/legacy/auth) folder.
