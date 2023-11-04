@@ -4,33 +4,23 @@ title: Authentication
 slug: /api/auth
 ---
 
-import { AuthProvider } from '/src/components/apiTutorial/AuthContext';
-import LoginEmail from '/src/components/apiTutorial/LoginEmail';
-
-There are multiple ways to obtain an auth token to be used with the API.
-
-## Log in with email through the REST API
+## Blink Dashboard
 
 :::tip
-Make sure you have [registered your email address](/api/start#add-an-email-address) in the Blink app to use this method.
+[Register a new account in the Blink app](/api/start) and use the same credentials to log in to the dashboard.
 :::
 
-<AuthProvider>
+Log in with your registered email or phone number and copy the token from the `API` tab.
 
-  <LoginEmail />
-
-</AuthProvider>
+Available at:
+* [dashboard.blink.sv](https://dashboard.blink.sv/api/auth/signin?callbackUrl=%2F) for mainnet
+* [dashboard.staging.galoy.io](https://dashboard.staging.galoy.io/api/auth/signin?callbackUrl=%2F) for staging (signet)
 
 :::caution
 The authentication token provides access to your wallet balance, save it securely as a password.
-Use it to make authenticated requests on the next pages or set it in the header as `Authorization` `Bearer <ory_token>`.
+Use it to make authenticated requests on the next pages or set it in the header as `X-API-KEY` `blink_...`.
 :::
 
----
-
-## Copy the authentication token from the Blink app
-
-* `Create new account`, `Start with trial account` or `Log back in with Phone or Email`
-* tap the menu on the top right and scroll down
-* select the build number on the bottom 3 times
-* select `Copy access token` to save the token to your phone clipboard
+:::note
+To use the legacy authentication token you can visit the [/api/legacy/auth](/api/legacy/auth) folder.
+:::
