@@ -1,22 +1,40 @@
 ---
 id: auth
-title: Authenticate in the Blink Dashboard
+title: Start with the Blink Dashboard
 slug: /api/auth
 ---
 
-Available at:
+# Start with the [Blink Dashboard](https://dashboard.blink.sv)
 
-[dashboard.blink.sv](https://dashboard.blink.sv/api/auth/signin?callbackUrl=%2F) for mainnet
+Register with a phone number or log in with your existing Blink account on [dashboard.blink.sv](https://dashboard.blink.sv).<br />
+Use the same credentials as with the [Blink wallet app](https://gt.blink.sv).
 
-[dashboard.staging.galoy.io](https://dashboard.staging.galoy.io/api/auth/signin?callbackUrl=%2F) for staging (signet)
+## Create an API key
 
-* log in with your registered email or phone number
+* log in with your registered email or a phone number
 * select `API Keys` in the menu on the left
 * create an API key with the `+` button
 * copy the API key and save it securely as a password
-* use it to make authenticated requests on the next pages
-* set it in the header of authenticated requests as `X-API-KEY` `blink_...`
+
+## Use the API key
+* try the interactive API tutorial on the next pages
+* for your custom requests set the API key in the header as:
+  ```
+  "X-API-KEY" "blink_..."
+  ```
+* visit the GraphQL Playground at [api.blink.sv/graphql](https://api.blink.sv/graphql)
+* check out the [Galoy API Postman collection](https://documenter.getpostman.com/view/29391384/2s9YCAQq3z#f3e8e86e-67c1-411d-8208-03220fd1ed43)
 
 :::note
-To use the legacy authentication token you can visit the [/api/legacy/auth](/api/legacy/auth) folder.
+To use the legacy authentication token visit the [/api/legacy/auth](/api/legacy/auth) folder.
 :::
+
+---
+
+## For testing and development connect to the Galoy Staging environment
+:::note
+New registrations to the staging environment are currently limited. Please contact us on our Community Mattermost Server on [chat.galoy.io](https://chat.galoy.io) to request access.
+:::
+
+* Staging Dashboard: [dashboard.staging.galoy.io](https://dashboard.staging.galoy.io)
+* Staging GraphQL playground and API endpoint: [api.staging.galoy.io/graphql](https://api.staging.galoy.io/graphql)

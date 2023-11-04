@@ -4,6 +4,7 @@ title: Intro
 slug: /
 hide_table_of_contents: false
 ---
+
 # Welcome to the Blink API Documentation
 
 A powerful, cost-effective, and reliable solution for easily integrating simple, reliable Bitcoin & Lightning payments into your projects, regardless of your experience level.
@@ -44,11 +45,11 @@ A detailed FAQ entry on [pricing](https://faq.blink.sv/transaction-fees/what-are
 * **Open source** – Transition to self-hosted
 * **USD-enabled** – Synthetic USD via Stablesats. Dive deeper on [stablesats.com](https://stablesats.com/)
 
-## Get started: [register in 2 minutes](/api/start)
+## Get started: [register in 2 minutes](/api/auth)
 ➡️ Registering and logging into the Blink API is simple and can be done in under a minute.
 
-* Register account with phone number (note: unavailable in the US and some other countries)
-* Add email for 2FA
+* Register an account with a phone number (note: unavailable in the US and some other countries)
+* Add an email for login
 * Start building!
 
 ## Interactive tutorials: [try it out](/api#-tutorials)
