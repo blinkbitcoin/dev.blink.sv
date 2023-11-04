@@ -90,6 +90,64 @@ const sidebars = {
         'api/pagination',
         'api/webhooks',
         'api/errors',
+        {
+          type: 'category',
+          label: 'Using the legacy token',
+          collapsed: true,
+          items: [
+            'api/legacy/auth',
+            {
+              type: 'category',
+              label: 'Lightning',
+              collapsed: false,
+              items: [
+                {
+                  type: 'category',
+                  label: 'BTC',
+                  collapsed: true,
+                  items: [
+                    'api/legacy/btc-ln-receive',
+                    'api/legacy/btc-ln-send',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'USD',
+                  collapsed: true,
+                  items: [
+                    'api/legacy/usd-ln-receive',
+                    'api/legacy/usd-ln-send',
+                  ],
+                },
+              ],
+            },
+            {
+              type: 'category',
+              label: 'Onchain',
+              collapsed: false,
+              items: [
+                {
+                  type: 'category',
+                  label: 'BTC',
+                  collapsed: true,
+                  items: [
+                    'api/legacy/btc-onchain-receive',
+                    'api/legacy/btc-onchain-send',
+                  ],
+                },
+                {
+                  type: 'category',
+                  label: 'USD',
+                  collapsed: true,
+                  items: [
+                    'api/legacy/usd-onchain-receive',
+                    'api/legacy/usd-onchain-send',
+                  ],
+                },
+              ],
+            },
+          ],
+        },
       ],
     },
     'api/postman',

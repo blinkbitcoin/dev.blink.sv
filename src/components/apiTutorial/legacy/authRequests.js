@@ -13,7 +13,7 @@ const handleAuthenticatedRequest = async (token, apiEndpoint, graphqlQuery, vari
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
-        'X-API-KEY': `${token}`
+        'Authorization': `bearer ${token}`
       },
       body: JSON.stringify({
         query: graphqlQuery,
