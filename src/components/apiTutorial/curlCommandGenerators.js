@@ -60,8 +60,8 @@ export function generateCurlCommand({
   };
 
   const authHeader = authToken
-    ? `--header 'Authorization: Bearer ${authToken}'`
-    : "--header 'Authorization: Bearer <YOUR_AUTH_TOKEN_HERE>'";
+    ? `--header 'X-API-KEY: ${authToken}'`
+    : "--header 'X-API-KEY: <YOUR_AUTH_TOKEN_HERE>'";
 
   if (type === 'invoice') {
     requestBody.variables.input = {
