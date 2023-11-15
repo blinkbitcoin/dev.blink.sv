@@ -8,11 +8,6 @@ export function OnChainUsdTxFee() {
   const { authToken, apiEndpoint, accountWalletId, setAccountWalletId } = useAuth();
   const [address, setAddress] = useState();
 
-  //const authToken = 'ory_st_dTvijkAo3i8zI7RScEBHRvrrGYfbL6eh';
-  //const apiEndpoint = 'https://api.staging.galoy.io/graphql';
-  //const [accountWalletId, setAccountWalletId] = useState('bdb24c45-ce2c-4bf2-be71-ea4a8e9166fb');
-  //const [address, setAddress] = useState('tb1qghtsxhx0e4z8k39vhhenzg9mhzgvr9vcz4l8fd');
-
   const [amount, setAmount] = useState(100);
 
   const [curlCommand, setCurlCommand] = useState('');
