@@ -35,7 +35,14 @@ To test the GraphQL requests further use the GraphQL playground at [api.blink.sv
 Check out the [Galoy API Postman collection](https://documenter.getpostman.com/view/29391384/2s9YCAQq3z#0be26540-d31c-4d0e-b7ac-400fc73bdb80) to find examples in multiple programming languages.
 :::
 
-## Add a callback endpoint
+## Using the Blink Dashboard to manage webhooks
+
+Log in to the [Blink Dashboard](https://dashboard.blink.sv) and select the `Callback Endpoints` page to add or remove the webhooks.
+
+![Webhooks](../images/webhooks_dashboard.png)
+
+## Using the API to manage webhooks
+### Add a callback endpoint
 
 Use the graphql mutation `callbackEndpointAdd` to add a callback endpoint to the account.
 
@@ -61,7 +68,7 @@ Variables to use (change to your own endpoint):
 }
 ```
 
-## List the configured callback endpoints
+### List the configured callback endpoints
 
 Use the graphql query `callbackEndpoints` to list the callback endpoints configured for the account.
 
@@ -96,7 +103,7 @@ Example response:
 }
 ```
 
-## Delete a callback endpoint
+### Delete a callback endpoint
 
 Use the graphql mutation `callbackEndpointDelete` to delete a callback endpoint from the account.
 
