@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import { useAuth } from './apiTutorial/AuthContext';
+import useScript from '../hooks/useScript';
 
 export function DecodeInvoice() {
   const { paymentRequest, setPaymentRequest } = useAuth();
   const [decodedInvoice, setDecodedInvoice] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const status = useScript('/js/bolt11.min.js');
+  if (status === 'loading') {
+    return <p>Loading script...</p>;
+  }
+  if (status === 'error') {
+    return <p>Error loading script.</p>;
+  }
 
   const handleDecode = () => {
     try {
