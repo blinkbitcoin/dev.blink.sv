@@ -1,3 +1,7 @@
 [default.extend-words]
 # don't correct these false positives
 Ba = "Ba"
+
+[files]
+# skip these files
+extend-exclude = ["bolt11.min.js"]
