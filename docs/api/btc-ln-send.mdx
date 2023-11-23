@@ -10,6 +10,7 @@ import { SetAuthToken } from '/src/components/apiTutorial/SetAuthToken';
 import { GetWalletDataBtc } from '/src/components/apiTutorial/GetWalletDataBtc';
 import { LnInvoiceFeeProbe } from '/src/components/apiTutorial/LnInvoiceFeeProbe';
 import { LnInvoicePaymentSend } from '/src/components/apiTutorial/LnInvoicePaymentSend';
+import { DecodeInvoice } from '/src/components/DecodeInvoice';
 
 <AuthProvider>
 
@@ -39,6 +40,14 @@ query Me {
 }
 ```
   <GetWalletDataBtc />
+
+---
+
+### Inspect a lightning invoice
+
+This is not an API call, but using the [bolt11 nodejs package](https://www.npmjs.com/package/bolt11) in the browser.
+
+  <DecodeInvoice />
 
 ---
 

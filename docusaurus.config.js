@@ -163,6 +163,7 @@ const config = {
         ],
       },
     ],
+    './plugins/inject-script',
   ],
 };
 
