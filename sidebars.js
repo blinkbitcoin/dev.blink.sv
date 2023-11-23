@@ -151,7 +151,8 @@ const sidebars = {
       ],
     },
     'api/postman',
-    'api/learn-more'
+    'api/learn-more',
+    'decode'
   ],
 };
 
