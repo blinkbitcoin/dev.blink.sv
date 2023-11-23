@@ -47,11 +47,10 @@ export function DecodeInvoice() {
 
   return (
     <div>
-      <input
-        type="text"
+      <textarea
         value={paymentRequest}
         onChange={(e) => setPaymentRequest(e.target.value)}
-        style={{ marginLeft: '10px', width: '50%' }}
+        style={{ width: '100%', height: '5em' }} // Set height to 5 lines
         placeholder="Paste a lightning invoice"
       />
       <div style={{ marginTop: '10px' }}></div>
@@ -61,8 +60,8 @@ export function DecodeInvoice() {
         {errorMessage && <div style={{ color: 'red' }}>Error: {errorMessage}</div>}
         {decodedInvoice && (
           <div>
-            <strong>Decoded Invoice:</strong>
-            <pre style={{ marginLeft: '10px' }}>{JSON.stringify(decodedInvoice, null, 2)}</pre>
+            <strong>Decoded invoice:</strong>
+            <pre style={{ marginLeft: '10px', marginTop: '10px' }}>{JSON.stringify(decodedInvoice, null, 2)}</pre>
           </div>
         )}
       </div>

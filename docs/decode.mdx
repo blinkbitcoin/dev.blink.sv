@@ -1,0 +1,16 @@
+---
+id: decode
+title: Decode a lightning invoice
+slug: /decode
+---
+
+import { AuthProvider } from '/src/components/apiTutorial/AuthContext';
+import {DecodeInvoice} from '/src/components/DecodeInvoice';
+
+<AuthProvider>
+
+Using the [bolt11 nodejs package](https://www.npmjs.com/package/bolt11) in the browser locally.
+
+  <DecodeInvoice />
+
+</AuthProvider>
