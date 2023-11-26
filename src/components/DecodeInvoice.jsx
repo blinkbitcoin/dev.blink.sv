@@ -16,6 +16,11 @@ export function DecodeInvoice() {
     return <p>Error loading script.</p>;
   }
 
+  const findTagData = (tagName) => {
+    const tag = rawData?.tags?.find(t => t.tagName === tagName);
+    return tag ? tag.data : '';
+  };
+
   const handleDecode = () => {
     try {
       let networkName;
@@ -48,7 +53,7 @@ export function DecodeInvoice() {
         throw new Error('Invalid invoice prefix.');
       }
 
-      const decoded = lightningPayReq.decode(paymentRequest, customNetwork); // Use the global object
+      const decoded = lightningPayReq.decode(paymentRequest, customNetwork);
       setRawData(decoded);
 
       setDecodedInvoice({
@@ -56,6 +61,7 @@ export function DecodeInvoice() {
         payeeNodeKey: decoded.payeeNodeKey,
         satoshis: decoded.satoshis,
         timestampString: new Date(decoded.timestamp * 1000).toISOString(),
+        expire_time: decoded.tags.find((tag) => tag.tagName === 'expire_time')?.data,
         link: generateLink(decoded.payeeNodeKey, networkName)
       });
       setErrorMessage(null);
@@ -120,12 +126,20 @@ export function DecodeInvoice() {
                   <div>{decodedInvoice.network}</div>
                 </div>
                 <div style={flexContainerStyle}>
-                  <div style={labelStyle}>amount (sats):</div>
-                  <div>{decodedInvoice.satoshis}</div>
+                  <div style={labelStyle}>amount:</div>
+                  <div>{decodedInvoice.satoshis} sats</div>
+                </div>
+                <div style={flexContainerStyle}>
+                  <div style={labelStyle}>description:</div>
+                  <div>{findTagData('description')}</div>
                 </div>
                 <div style={flexContainerStyle}>
                   <div style={labelStyle}>timestamp:</div>
                   <div>{decodedInvoice.timestampString}</div>
+                </div>
+                <div style={flexContainerStyle}>
+                  <div style={labelStyle}>expire time:</div>
+                  <div>{findTagData('expire_time') ? `${findTagData('expire_time') / 60} minutes` : 'N/A'}</div>
                 </div>
                 <div style={flexContainerStyle}>
                   <div style={labelStyle}>payee node key:</div>
