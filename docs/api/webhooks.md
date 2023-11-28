@@ -11,8 +11,11 @@ The Blink API offers a selection of webhooks (or callbacks), allowing external a
 The currently available webhook events are:
 
 * `receive.lightning`
+* `send.lightning`
 * `receive.intraledger`
-
+* `send.intraledger`
+* `receive.onchain`
+* `send.onchain`
 
 ## Create a webhook endpoint to receive events
 Visit [play.svix.com](https://play.svix.com/) to quickly set up a webhook endpoint for testing.
