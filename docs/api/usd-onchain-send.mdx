@@ -68,8 +68,8 @@ The satoshi amount will be calculated based on the current exchange rate.
 **The body of the GraphQL request**
 
 ```graphql
-mutation onChainPaymentSend($input: OnChainPaymentSendInput!) {
-  onChainPaymentSend(input: $input) {
+mutation onChainUsdPaymentSend($input: OnChainUsdPaymentSendInput!) {
+  onChainUsdPaymentSend(input: $input) {
     errors {
       message
     }
