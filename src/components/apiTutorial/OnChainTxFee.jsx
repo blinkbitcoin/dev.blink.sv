@@ -107,7 +107,7 @@ query onChainTxFee($walletId: WalletId!, $address: OnChainAddress!, $amount: Sat
             value={accountWalletId}
             onChange={handleWalletIdChange}
             style={{ marginLeft: '10px', width: '50%' }}
-            placeholder="Paste the USD wallet ID from the response above"
+            placeholder="Paste the BTC wallet ID from the response above"
           />
         </label>
       </div>
