@@ -152,7 +152,15 @@ const sidebars = {
     },
     'api/postman',
     'api/learn-more',
-    'decode'
+    {
+      type: 'category',
+      label: 'API usage examples',
+      collapsed: false,
+      items: [
+        'examples/lightning-atm',
+      ]
+    },
+    'decode',
   ],
 };
 
