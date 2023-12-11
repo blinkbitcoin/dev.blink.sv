@@ -1,12 +1,19 @@
-import React, { useState } from 'react';
-import { useAuth } from './apiTutorial/AuthContext';
+import React, { useState, useEffect } from 'react';
 import useScript from '../hooks/useScript';
 
 export function DecodeInvoice() {
-  const { paymentRequest, setPaymentRequest } = useAuth();
+  const [paymentRequestFromUrl, setPaymentRequestFromUrl] = useState('');
+  const [paymentRequest, setPaymentRequest] = useState('');
   const [rawData, setRawData] = useState(null);
-  const [decodedInvoice, setDecodedInvoice] = useState({}); //
+  const [decodedInvoice, setDecodedInvoice] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
+
+  useEffect(() => {
+    // This code runs after component mount, window is available here
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentRequestFromUrl = urlParams.get('invoice') || '';
+    setPaymentRequestFromUrl(paymentRequestFromUrl);
+  }, []);
 
   const status = useScript('/js/bolt11.min.js');
   if (status === 'loading') {
@@ -21,7 +28,7 @@ export function DecodeInvoice() {
     return tag ? tag.data : '';
   };
 
-  const handleDecode = () => {
+  const handleDecode = (invoice) => {
     try {
       let networkName;
       let customNetwork;
@@ -57,6 +64,7 @@ export function DecodeInvoice() {
       setRawData(decoded);
 
       setDecodedInvoice({
+        invoice: decoded.paymentRequest,
         network: networkName,
         payeeNodeKey: decoded.payeeNodeKey,
         satoshis: decoded.satoshis,
@@ -103,15 +111,37 @@ export function DecodeInvoice() {
     fontWeight: 'bold'
   };
 
+  if (paymentRequestFromUrl && !rawData) {
+    const decodeInvoice = (invoice) => {
+      // Set the payment request and then decode
+      setPaymentRequest(invoice);
+      handleDecode(invoice);
+    };
+    decodeInvoice(paymentRequestFromUrl);
+  }
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(() => {
+      alert('Invoice copied to clipboard!');
+    }, (err) => {
+      console.error('Could not copy text: ', err);
+    });
+  }
+
   return (
     <div>
-      <textarea
-        value={paymentRequest}
-        onChange={(e) => setPaymentRequest(e.target.value)}
-        style={{ width: '100%', height: '5em' }}
-        placeholder="Paste a lightning invoice"
-      />
-      <button onClick={handleDecode}>Decode</button>
+
+      {paymentRequestFromUrl === '' && (
+        <div>
+          <textarea
+            value={paymentRequest}
+            onChange={(e) => setPaymentRequest(e.target.value)}
+            style={{ width: '100%', height: '5em' }}
+            placeholder="Paste a lightning invoice"
+          />
+          <button onClick={handleDecode}>Decode</button>
+        </div>
+      )}
 
       <div style={{ marginTop: '10px' }}>
         {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
@@ -119,7 +149,7 @@ export function DecodeInvoice() {
           <div>
             {decodedInvoice && (
               <>
-                <strong>Decoded Invoice Data</strong><br />
+                <h2>Data</h2>
                 <div style={{ marginTop: '10px' }}></div>
                 <div style={flexContainerStyle}>
                   <div style={labelStyle}>network:</div>
@@ -155,9 +185,22 @@ export function DecodeInvoice() {
                 ))}
               </>
             )}
+            <div style={labelStyle}>invoice:</div>
+            <div style={flexContainerStyle}>
+              <div
+                style={{
+                  width: "100%",
+                  cursor: 'pointer',
+                }}
+                onClick={() => copyToClipboard(decodedInvoice.invoice)}
+                title="Click to copy"
+              >
+                {decodedInvoice.invoice}
+              </div>
+            </div>
             <div>
               <div style={{ marginTop: '20px' }}>
-                <strong>Raw Data</strong>
+                <h2>Raw Data</h2>
                 <pre style={{ marginLeft: '10px', marginTop: '10px' }}>
                   {JSON.stringify(rawData, null, 2)}
                 </pre>
