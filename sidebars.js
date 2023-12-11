@@ -87,6 +87,7 @@ const sidebars = {
           ],
         },
         'api/pagination',
+        `api/proof-of-payment`,
         'api/webhooks',
         'api/websocket',
         'api/errors',
