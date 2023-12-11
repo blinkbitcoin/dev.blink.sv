@@ -39,12 +39,12 @@ query transactionsForAccount($walletIds: [WalletId], $first: Int, $after: String
 }
 ```
 
-## Variables
+### Variables
 
 * `first` (Int): Returns the first n items from the list.
 * `after` (String): Returns the items in the list that come after the specified cursor.
 
-The variables used in the request to show the first 3 transactions for the default account:
+The variables used in the request to show the 3 most recent transactions for the default account:
 
 ```json
 {
@@ -53,58 +53,58 @@ The variables used in the request to show the first 3 transactions for the defau
 }
 ```
 
-Sample response showing the first 3 transactions:
+### Sample response showing the first 3 transactions
 ```json
 {
-    "data": {
-        "me": {
-            "id": "dd3771d0-66b2-4b28-8757-b1a5db0f8fcf",
-            "defaultAccount": {
-                "transactions": {
-                    "pageInfo": {
-                        "endCursor": "653787e933905fc03c13e2bc",
-                        "hasNextPage": true
-                    },
-                    "edges": [
-                        {
-                            "cursor": "6538bda9491e13fd6416b5f3",
-                            "node": {
-                                "direction": "RECEIVE",
-                                "settlementCurrency": "USD",
-                                "settlementDisplayAmount": "0.01",
-                                "status": "SUCCESS",
-                                "createdAt": 1698217385
-                            }
-                        },
-                        {
-                            "cursor": "6538b68c491e13fd6416722d",
-                            "node": {
-                                "direction": "RECEIVE",
-                                "settlementCurrency": "USD",
-                                "settlementDisplayAmount": "1.00",
-                                "status": "SUCCESS",
-                                "createdAt": 1698215564
-                            }
-                        },
-                        {
-                            "cursor": "653787e933905fc03c13e2bc",
-                            "node": {
-                                "direction": "RECEIVE",
-                                "settlementCurrency": "BTC",
-                                "settlementDisplayAmount": "0.47",
-                                "status": "SUCCESS",
-                                "createdAt": 1698138089
-                            }
-                        }
-                    ]
-                }
+  "data": {
+    "me": {
+      "id": "dd3771d0-66b2-4b28-8757-b1a5db0f8fcf",
+      "defaultAccount": {
+        "transactions": {
+          "pageInfo": {
+            "endCursor": "653787e933905fc03c13e2bc",
+            "hasNextPage": true
+          },
+          "edges": [
+            {
+              "cursor": "6538bda9491e13fd6416b5f3",
+              "node": {
+                "direction": "RECEIVE",
+                "settlementCurrency": "USD",
+                "settlementDisplayAmount": "0.01",
+                "status": "SUCCESS",
+                "createdAt": 1698217385
+              }
+            },
+            {
+              "cursor": "6538b68c491e13fd6416722d",
+              "node": {
+                "direction": "RECEIVE",
+                "settlementCurrency": "USD",
+                "settlementDisplayAmount": "1.00",
+                "status": "SUCCESS",
+                "createdAt": 1698215564
+              }
+            },
+            {
+              "cursor": "653787e933905fc03c13e2bc",
+              "node": {
+                "direction": "RECEIVE",
+                "settlementCurrency": "BTC",
+                "settlementDisplayAmount": "0.47",
+                "status": "SUCCESS",
+                "createdAt": 1698138089
+              }
             }
+          ]
         }
+      }
     }
+  }
 }
 ```
 
-## Request to show the next two transactions
+## Variables to show the next two transactions
 
 To show the next two transactions the `endCursor` value from the previous response is used as the `after` variable in the next request:
 
@@ -115,44 +115,44 @@ To show the next two transactions the `endCursor` value from the previous respon
 }
 ```
 
-Response showing the next two transactions:
+### Sample response showing the next two transactions
 ```json
 {
-    "data": {
-        "me": {
-            "id": "dd3771d0-66b2-4b28-8757-b1a5db0f8fcf",
-            "defaultAccount": {
-                "transactions": {
-                    "pageInfo": {
-                        "endCursor": "653787c033905fc03c13e0a3",
-                        "hasNextPage": true
-                    },
-                    "edges": [
-                        {
-                            "cursor": "653787e933905fc03c13e286",
-                            "node": {
-                                "direction": "SEND",
-                                "settlementCurrency": "BTC",
-                                "settlementDisplayAmount": "-0.47",
-                                "status": "SUCCESS",
-                                "createdAt": 1698138089
-                            }
-                        },
-                        {
-                            "cursor": "653787c033905fc03c13e0a3",
-                            "node": {
-                                "direction": "SEND",
-                                "settlementCurrency": "BTC",
-                                "settlementDisplayAmount": "-0.47",
-                                "status": "SUCCESS",
-                                "createdAt": 1698138048
-                            }
-                        }
-                    ]
-                }
+  "data": {
+    "me": {
+      "id": "dd3771d0-66b2-4b28-8757-b1a5db0f8fcf",
+      "defaultAccount": {
+        "transactions": {
+          "pageInfo": {
+            "endCursor": "653787c033905fc03c13e0a3",
+            "hasNextPage": true
+          },
+          "edges": [
+            {
+              "cursor": "653787e933905fc03c13e286",
+              "node": {
+                "direction": "SEND",
+                "settlementCurrency": "BTC",
+                "settlementDisplayAmount": "-0.47",
+                "status": "SUCCESS",
+                "createdAt": 1698138089
+              }
+            },
+            {
+              "cursor": "653787c033905fc03c13e0a3",
+              "node": {
+                "direction": "SEND",
+                "settlementCurrency": "BTC",
+                "settlementDisplayAmount": "-0.47",
+                "status": "SUCCESS",
+                "createdAt": 1698138048
+              }
             }
+          ]
         }
+      }
     }
+  }
 }
 ```
 
