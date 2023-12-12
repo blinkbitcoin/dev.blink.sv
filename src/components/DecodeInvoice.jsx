@@ -7,6 +7,8 @@ export function DecodeInvoice() {
   const [rawData, setRawData] = useState(null);
   const [decodedInvoice, setDecodedInvoice] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
+  const [notification, setNotification] = useState('');
+  const [showRawData, setShowRawData] = useState(false);
 
   useEffect(() => {
     // This code runs after component mount, window is available here
@@ -84,7 +86,6 @@ export function DecodeInvoice() {
       } else {
         expirationStatus = 'N/A';
       }
-  
 
       setDecodedInvoice({
         invoice: decoded.paymentRequest,
@@ -141,11 +142,31 @@ export function DecodeInvoice() {
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text).then(() => {
-      alert('Copied to clipboard!');
+      setNotification('copied to clipboard');
+      setTimeout(() => {
+        setNotification('');
+      }, 2000); // Notification disappears after 2 seconds
     }, (err) => {
       console.error('Could not copy text: ', err);
+      setNotification('Failed to copy to clipboard.');
+      setTimeout(() => {
+        setNotification('');
+      }, 2000);
     });
-  }
+  };
+
+  const toggleRawData = () => {
+    setShowRawData(!showRawData);
+  };
+
+  const clearData = () => {
+    setPaymentRequest('');
+    setRawData(null);
+    setDecodedInvoice({});
+    setErrorMessage(null);
+    setShowRawData(false);
+    setPaymentRequestFromUrl('');
+  };
 
   return (
     <div>
@@ -228,12 +249,44 @@ export function DecodeInvoice() {
                 {decodedInvoice.invoice}
               </div>
             </div>
+            {/* Notification Bubble */}
+            {notification && (
+              <div style={{
+                position: 'fixed',
+                top: '20px',       // Position at the top
+                left: '50%',       // Center horizontally
+                transform: 'translateX(-50%)', // Adjust for exact centering
+                backgroundColor: 'orange',
+                color: 'black',    // Black text color
+                padding: '10px',
+                borderRadius: '10px',
+                zIndex: 1000,      // Ensure it's above other elements
+              }}>
+                {notification}
+              </div>
+            )}
             <div>
+
               <div style={{ marginTop: '20px' }}>
-                <h3>Raw Data</h3>
-                <pre style={{ marginLeft: '10px', marginTop: '10px' }}>
-                  {JSON.stringify(rawData, null, 2)}
-                </pre>
+                {/* Button to toggle raw data */}
+                <button onClick={toggleRawData}>
+                  {showRawData ? 'Hide Raw Data' : 'Show Raw Data'}
+                </button>
+
+                {/* Conditionally rendered Raw Data section */}
+                {showRawData && (
+                  <div style={{ marginTop: '20px' }}>
+                    <h3>Raw Data</h3>
+                    <pre style={{ marginLeft: '10px', marginTop: '10px' }}>
+                      {JSON.stringify(rawData, null, 2)}
+                    </pre>
+                  </div>
+                )}
+
+                {/* Button to clear data and decode new invoice */}
+                <div style={{ marginTop: '20px' }}>
+                  <button onClick={clearData}>Clear</button>
+                </div>
               </div>
             </div>
           </div>
