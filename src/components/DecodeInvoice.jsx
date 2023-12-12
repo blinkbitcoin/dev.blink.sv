@@ -199,7 +199,7 @@ export function DecodeInvoice() {
           <textarea
             value={paymentRequest}
             onChange={(e) => setPaymentRequest(e.target.value)}
-            style={{ width: '50%', height: '10em', marginBottom: '10px' }}
+            style={{ width: '75%', height: '8em', marginBottom: '10px' }}
             placeholder="Paste a lightning invoice"
           />
           <br />
@@ -210,7 +210,7 @@ export function DecodeInvoice() {
         <div>
           <textarea
             value={paymentRequestFromUrl}
-            style={{ width: '50%', height: '5em' }}
+            style={{ width: '75%', height: '5em' }}
           />
         </div>
       )}
