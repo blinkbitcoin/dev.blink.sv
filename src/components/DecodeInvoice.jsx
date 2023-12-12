@@ -25,11 +25,6 @@ export function DecodeInvoice() {
     return <p>Error loading script.</p>;
   }
 
-  const findTagData = (tagName) => {
-    const tag = rawData?.tags?.find(t => t.tagName === tagName);
-    return tag ? tag.data : '';
-  };
-
   const handleDecode = (invoice) => {
     try {
       let networkName;
@@ -87,6 +82,8 @@ export function DecodeInvoice() {
         expirationStatus = 'N/A';
       }
 
+      const memo = (decoded.tags?.find(t => t.tagName === 'description')?.data) || '';
+
       setDecodedInvoice({
         invoice: decoded.paymentRequest,
         network: networkName,
@@ -94,6 +91,7 @@ export function DecodeInvoice() {
         satoshis: decoded.satoshis,
         timestampString,
         expirationStatus,
+        memo,
         link: generateLink(decoded.payeeNodeKey, networkName)
       });
       setErrorMessage(null);
@@ -106,7 +104,7 @@ export function DecodeInvoice() {
   const generateLink = (payeeNodeKey, network) => {
     const links = {
       mainnet: [
-        { url: `https://amboss.space/node/${payeeNodeKey}`, name: 'amboss.space' },
+        //{ url: `https://amboss.space/node/${payeeNodeKey}`, name: 'amboss.space' },
         { url: `https://mempool.space/lightning/node/${payeeNodeKey}`, name: 'mempool.space' },
         { url: `https://1ml.com/node/${payeeNodeKey}`, name: '1ml.com' },
         { url: `https://lightningnetwork.plus/nodes/${payeeNodeKey}`, name: 'lightningnetwork.plus' },
@@ -200,10 +198,12 @@ export function DecodeInvoice() {
                   <div style={labelStyle}>amount:</div>
                   <div>{decodedInvoice.satoshis} sats</div>
                 </div>
-                <div style={flexContainerStyle}>
-                  <div style={labelStyle}>description:</div>
-                  <div>{findTagData('description')}</div>
-                </div>
+                {decodedInvoice.memo !== '' && (
+                  <div style={flexContainerStyle}>
+                    <div style={labelStyle}>description:</div>
+                    <div>{decodedInvoice.memo}</div>
+                  </div>
+                )}
                 <div style={flexContainerStyle}>
                   <div style={labelStyle}>expiry:</div>
                   <div>{decodedInvoice.expirationStatus}</div>
@@ -212,7 +212,7 @@ export function DecodeInvoice() {
                   <div style={labelStyle}>created at:</div>
                   <div>{decodedInvoice.timestampString}</div>
                 </div>
-                <div style={labelStyle}>payee node key:</div>
+                <div style={labelStyle}>destination node public key:</div>
                 <div style={flexContainerStyle}>
                   <div
                     style={{
@@ -229,8 +229,23 @@ export function DecodeInvoice() {
                 <div style={flexContainerStyle}>
                   <div style={labelStyle}>explore:</div>
                 </div>
+                {decodedInvoice.network === 'mainnet' && (
+                  <div>
+                    {/* Image for mainnet node */}
+                    <div style={{ marginTop: '10px', paddingLeft: '10px' }}>
+                      <a href={`https://amboss.space/node/${decodedInvoice.payeeNodeKey}`}
+                        target="_blank" rel="noopener noreferrer">
+                        <img
+                          src={`https://opengraph.amboss.space/node/${decodedInvoice.payeeNodeKey}`}
+                          alt="Node Visualization"
+                          style={{ width: '200px', height: 'auto' }}
+                        />
+                      </a>
+                    </div>
+                  </div>
+                )}
                 {generateLink(decodedInvoice.payeeNodeKey, decodedInvoice.network).map((link, index) => (
-                  <div key={index}>
+                  <div key={index} style={{ paddingLeft: '10px' }}>
                     <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a><br />
                   </div>
                 ))}
