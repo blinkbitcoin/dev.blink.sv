@@ -160,7 +160,6 @@ const sidebars = {
         'examples/lightning-atm',
       ]
     },
-    'decode',
   ],
 };
 
