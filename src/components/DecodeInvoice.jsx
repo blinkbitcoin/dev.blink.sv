@@ -61,6 +61,8 @@ export function DecodeInvoice() {
       const decoded = lightningPayReq.decode(paymentRequest, customNetwork);
       setRawData(decoded);
 
+      const paymentHash = decoded.tags.find((tag) => tag.tagName === 'payment_hash')?.data;
+
       // Format timestamp to exclude milliseconds
       const timestamp = new Date(decoded.timestamp * 1000);
       const timestampString = timestamp.toISOString().replace('T', ' ').replace(/\.\d{3}Z$/, 'Z');
@@ -90,6 +92,7 @@ export function DecodeInvoice() {
         network: networkName,
         payeeNodeKey: decoded.payeeNodeKey,
         satoshis: decoded.satoshis,
+        paymentHash,
         timestampString,
         expirationStatus,
         memo,
@@ -246,6 +249,21 @@ export function DecodeInvoice() {
                   <div>{decodedInvoice.timestampString}</div>
                 </div>
 
+                <div style={labelStyle}>payment hash:</div>
+                <div style={flexContainerStyle}>
+                  <div
+                    style={{
+                      width: "100%",
+                      cursor: 'pointer',
+                      marginLeft: '10px',
+                    }}
+                    onClick={() => copyToClipboard(decodedInvoice.payeeNodeKey)}
+                    title="Click to copy"
+                  >
+                    {decodedInvoice.paymentHash}
+                  </div>
+                </div>
+
                 {rawNodeData && (
                   <div style={{ marginTop: '20px' }}>
                     <h3>Destination node data</h3>
@@ -273,6 +291,7 @@ export function DecodeInvoice() {
                     style={{
                       width: "100%",
                       cursor: 'pointer',
+                      marginLeft: '10px',
                     }}
                     onClick={() => copyToClipboard(decodedInvoice.payeeNodeKey)}
                     title="Click to copy"
