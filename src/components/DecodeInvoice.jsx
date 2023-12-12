@@ -259,7 +259,7 @@ export function DecodeInvoice() {
                     </div>
                     <div style={flexContainerStyle}>
                       <div style={labelStyle}>public capacity:</div>
-                      <div>{rawNodeData.capacity}</div>
+                      <div>{(rawNodeData.capacity / 100000000)} bitcoin</div>
                     </div>
                     <div style={flexContainerStyle}>
                       <div style={labelStyle}>last update:</div>
