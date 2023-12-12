@@ -78,6 +78,12 @@ const config = {
         },
         items: [
           {
+            type: 'doc',
+            docId: 'decode',
+            label: 'LN invoice decoder',
+            position: 'left',
+          },
+          {
             href: 'https://chat.galoy.io',
             label: 'Join the Community',
             position: 'right',
