@@ -63,13 +63,36 @@ export function DecodeInvoice() {
       const decoded = lightningPayReq.decode(paymentRequest, customNetwork);
       setRawData(decoded);
 
+      // Format timestamp to exclude milliseconds
+      const timestamp = new Date(decoded.timestamp * 1000);
+      const timestampString = timestamp.toISOString().replace('T', ' ').replace(/\.\d{3}Z$/, 'Z');
+
+      // Calculate expiration status
+      const expireTime = decoded.tags.find((tag) => tag.tagName === 'expire_time')?.data;
+      let expirationStatus;
+      if (expireTime) {
+        const expirationDate = new Date(timestamp.getTime() + expireTime * 1000);
+        const now = new Date();
+        if (expirationDate < now) {
+          const expiredSinceMinutes = Math.round((now - expirationDate) / 60000);
+          expirationStatus = `expired since ${expiredSinceMinutes} minutes`;
+        } else {
+          const expiryInMinutes = Math.round(expireTime / 60);
+          const minutesLeft = Math.round((expirationDate - now) / 60000);
+          expirationStatus = `${minutesLeft} minutes remaining out of ${expiryInMinutes}`;
+        }
+      } else {
+        expirationStatus = 'N/A';
+      }
+  
+
       setDecodedInvoice({
         invoice: decoded.paymentRequest,
         network: networkName,
         payeeNodeKey: decoded.payeeNodeKey,
         satoshis: decoded.satoshis,
-        timestampString: new Date(decoded.timestamp * 1000).toISOString(),
-        expire_time: decoded.tags.find((tag) => tag.tagName === 'expire_time')?.data,
+        timestampString,
+        expirationStatus,
         link: generateLink(decoded.payeeNodeKey, networkName)
       });
       setErrorMessage(null);
@@ -80,25 +103,21 @@ export function DecodeInvoice() {
   };
 
   const generateLink = (payeeNodeKey, network) => {
-    switch (network) {
-      case 'mainnet':
-        return [
-          `https://amboss.space/node/${payeeNodeKey}`,
-          `https://mempool.space/lightning/node/${payeeNodeKey}`,
-          `https://1ml.com/node/${payeeNodeKey}`
-        ];
-      case 'testnet':
-        return [
-          `https://mempool.space/${network}/lightning/node/${payeeNodeKey}`,
-          `https://1ml.com/testnet/node/${payeeNodeKey}`
-        ];
-      case 'signet':
-        return [
-          `https://mempool.space/${network}/lightning/node/${payeeNodeKey}`,
-        ];
-      default:
-        return [];
-    }
+    const links = {
+      mainnet: [
+        { url: `https://amboss.space/node/${payeeNodeKey}`, name: 'amboss.space' },
+        { url: `https://mempool.space/lightning/node/${payeeNodeKey}`, name: 'mempool.space' },
+        { url: `https://1ml.com/node/${payeeNodeKey}`, name: '1ml.com' }
+      ],
+      testnet: [
+        { url: `https://mempool.space/${network}/lightning/node/${payeeNodeKey}`, name: 'mempool.space/testnet' },
+        { url: `https://1ml.com/testnet/node/${payeeNodeKey}`, name: '1ml.com/testnet' }
+      ],
+      signet: [
+        { url: `https://mempool.space/${network}/lightning/node/${payeeNodeKey}`, name: 'mempool.space/signet' }
+      ]
+    };
+    return links[network] || [];
   };
 
   const flexContainerStyle = {
@@ -122,7 +141,7 @@ export function DecodeInvoice() {
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text).then(() => {
-      alert('Invoice copied to clipboard!');
+      alert('Copied to clipboard!');
     }, (err) => {
       console.error('Could not copy text: ', err);
     });
@@ -149,7 +168,7 @@ export function DecodeInvoice() {
           <div>
             {decodedInvoice && (
               <>
-                <h2>Data</h2>
+                <h3>Data</h3>
                 <div style={{ marginTop: '10px' }}></div>
                 <div style={flexContainerStyle}>
                   <div style={labelStyle}>network:</div>
@@ -164,27 +183,38 @@ export function DecodeInvoice() {
                   <div>{findTagData('description')}</div>
                 </div>
                 <div style={flexContainerStyle}>
-                  <div style={labelStyle}>timestamp:</div>
+                  <div style={labelStyle}>expiry:</div>
+                  <div>{decodedInvoice.expirationStatus}</div>
+                </div>
+                <div style={flexContainerStyle}>
+                  <div style={labelStyle}>created at:</div>
                   <div>{decodedInvoice.timestampString}</div>
                 </div>
+                <div style={labelStyle}>payee node key:</div>
                 <div style={flexContainerStyle}>
-                  <div style={labelStyle}>expire time:</div>
-                  <div>{findTagData('expire_time') ? `${findTagData('expire_time') / 60} minutes` : 'N/A'}</div>
+                  <div
+                    style={{
+                      width: "100%",
+                      cursor: 'pointer',
+                    }}
+                    onClick={() => copyToClipboard(decodedInvoice.payeeNodeKey)}
+                    title="Click to copy"
+                  >
+                    {decodedInvoice.payeeNodeKey}
+                  </div>
                 </div>
-                <div style={flexContainerStyle}>
-                  <div style={labelStyle}>payee node key:</div>
-                  <div>{decodedInvoice.payeeNodeKey}</div>
-                </div>
+
                 <div style={flexContainerStyle}>
                   <div style={labelStyle}>explore:</div>
                 </div>
                 {generateLink(decodedInvoice.payeeNodeKey, decodedInvoice.network).map((link, index) => (
                   <div key={index}>
-                    <a href={link} target="_blank" rel="noopener noreferrer">{link}</a><br />
+                    <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a><br />
                   </div>
                 ))}
               </>
             )}
+
             <div style={labelStyle}>invoice:</div>
             <div style={flexContainerStyle}>
               <div
@@ -200,7 +230,7 @@ export function DecodeInvoice() {
             </div>
             <div>
               <div style={{ marginTop: '20px' }}>
-                <h2>Raw Data</h2>
+                <h3>Raw Data</h3>
                 <pre style={{ marginLeft: '10px', marginTop: '10px' }}>
                   {JSON.stringify(rawData, null, 2)}
                 </pre>
