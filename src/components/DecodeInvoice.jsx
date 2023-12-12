@@ -5,6 +5,7 @@ export function DecodeInvoice() {
   const [paymentRequestFromUrl, setPaymentRequestFromUrl] = useState('');
   const [paymentRequest, setPaymentRequest] = useState('');
   const [rawData, setRawData] = useState(null);
+  const [rawNodeData, setRawNodeData] = useState(null);
   const [decodedInvoice, setDecodedInvoice] = useState({});
   const [errorMessage, setErrorMessage] = useState(null);
   const [notification, setNotification] = useState('');
@@ -94,6 +95,14 @@ export function DecodeInvoice() {
         memo,
         link: generateLink(decoded.payeeNodeKey, networkName)
       });
+
+      // If the network is 'mainnet', fetch additional node data
+      if (networkName === 'mainnet' && decoded.payeeNodeKey) {
+        fetchNodeData(decoded.payeeNodeKey);
+      } else {
+        setRawNodeData(null);
+      }
+
       setErrorMessage(null);
     } catch (error) {
       setDecodedInvoice({});
@@ -104,7 +113,7 @@ export function DecodeInvoice() {
   const generateLink = (payeeNodeKey, network) => {
     const links = {
       mainnet: [
-        //{ url: `https://amboss.space/node/${payeeNodeKey}`, name: 'amboss.space' },
+        { url: `https://amboss.space/node/${payeeNodeKey}`, name: 'amboss.space' },
         { url: `https://mempool.space/lightning/node/${payeeNodeKey}`, name: 'mempool.space' },
         { url: `https://1ml.com/node/${payeeNodeKey}`, name: '1ml.com' },
         { url: `https://lightningnetwork.plus/nodes/${payeeNodeKey}`, name: 'lightningnetwork.plus' },
@@ -118,6 +127,20 @@ export function DecodeInvoice() {
       ]
     };
     return links[network] || [];
+  };
+
+  const fetchNodeData = async (nodePubkey) => {
+    try {
+      const response = await fetch(`https://mempool.space/api/v1/lightning/nodes/${nodePubkey}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setRawNodeData(data); // Save the node data to state
+    } catch (error) {
+      console.error('Failed to fetch node data:', error);
+      setRawNodeData(null);
+    }
   };
 
   const flexContainerStyle = {
@@ -161,6 +184,7 @@ export function DecodeInvoice() {
   const clearData = () => {
     setPaymentRequest('');
     setRawData(null);
+    setRawNodeData(null);
     setDecodedInvoice({});
     setErrorMessage(null);
     setShowRawData(false);
@@ -175,10 +199,19 @@ export function DecodeInvoice() {
           <textarea
             value={paymentRequest}
             onChange={(e) => setPaymentRequest(e.target.value)}
-            style={{ width: '100%', height: '5em' }}
+            style={{ width: '50%', height: '10em', marginBottom: '10px' }}
             placeholder="Paste a lightning invoice"
           />
+          <br />
           <button onClick={handleDecode}>Decode</button>
+        </div>
+      )}
+      {paymentRequestFromUrl && (
+        <div>
+          <textarea
+            value={paymentRequestFromUrl}
+            style={{ width: '50%', height: '5em' }}
+          />
         </div>
       )}
 
@@ -188,7 +221,7 @@ export function DecodeInvoice() {
           <div>
             {decodedInvoice && (
               <>
-                <h3>Data</h3>
+                <h3>Invoice data</h3>
                 <div style={{ marginTop: '10px' }}></div>
                 <div style={flexContainerStyle}>
                   <div style={labelStyle}>network:</div>
@@ -212,7 +245,29 @@ export function DecodeInvoice() {
                   <div style={labelStyle}>created at:</div>
                   <div>{decodedInvoice.timestampString}</div>
                 </div>
-                <div style={labelStyle}>destination node public key:</div>
+
+                {rawNodeData && (
+                  <div style={{ marginTop: '20px' }}>
+                    <h3>Destination node data</h3>
+                    <div style={flexContainerStyle}>
+                      <div style={labelStyle}>alias:</div>
+                      <div>{rawNodeData.alias}</div>
+                    </div>
+                    <div style={flexContainerStyle}>
+                      <div style={labelStyle}>public channels:</div>
+                      <div>{rawNodeData.active_channel_count}</div>
+                    </div>
+                    <div style={flexContainerStyle}>
+                      <div style={labelStyle}>public capacity:</div>
+                      <div>{rawNodeData.capacity}</div>
+                    </div>
+                    <div style={flexContainerStyle}>
+                      <div style={labelStyle}>last update:</div>
+                      <div>{Math.round(((Date.now() / 1000) - rawNodeData.updated_at) / 60)} minutes ago</div>
+                    </div>
+                  </div>
+                )}
+                <div style={labelStyle}>public key:</div>
                 <div style={flexContainerStyle}>
                   <div
                     style={{
@@ -229,21 +284,6 @@ export function DecodeInvoice() {
                 <div style={flexContainerStyle}>
                   <div style={labelStyle}>explore:</div>
                 </div>
-                {decodedInvoice.network === 'mainnet' && (
-                  <div>
-                    {/* Image for mainnet node */}
-                    <div style={{ marginTop: '10px', paddingLeft: '10px' }}>
-                      <a href={`https://amboss.space/node/${decodedInvoice.payeeNodeKey}`}
-                        target="_blank" rel="noopener noreferrer">
-                        <img
-                          src={`https://opengraph.amboss.space/node/${decodedInvoice.payeeNodeKey}`}
-                          alt="Node Visualization"
-                          style={{ width: '200px', height: 'auto' }}
-                        />
-                      </a>
-                    </div>
-                  </div>
-                )}
                 {generateLink(decodedInvoice.payeeNodeKey, decodedInvoice.network).map((link, index) => (
                   <div key={index} style={{ paddingLeft: '10px' }}>
                     <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a><br />
@@ -252,31 +292,18 @@ export function DecodeInvoice() {
               </>
             )}
 
-            <div style={labelStyle}>invoice:</div>
-            <div style={flexContainerStyle}>
-              <div
-                style={{
-                  width: "100%",
-                  cursor: 'pointer',
-                }}
-                onClick={() => copyToClipboard(decodedInvoice.invoice)}
-                title="Click to copy"
-              >
-                {decodedInvoice.invoice}
-              </div>
-            </div>
             {/* Notification Bubble */}
             {notification && (
               <div style={{
                 position: 'fixed',
-                top: '20px',       // Position at the top
-                left: '50%',       // Center horizontally
-                transform: 'translateX(-50%)', // Adjust for exact centering
+                top: '20px',
+                left: '50%',
+                transform: 'translateX(-50%)',
                 backgroundColor: 'orange',
-                color: 'black',    // Black text color
+                color: 'black',
                 padding: '10px',
                 borderRadius: '10px',
-                zIndex: 1000,      // Ensure it's above other elements
+                zIndex: 1000,
               }}>
                 {notification}
               </div>
@@ -289,13 +316,21 @@ export function DecodeInvoice() {
                   {showRawData ? 'Hide Raw Data' : 'Show Raw Data'}
                 </button>
 
-                {/* Conditionally rendered Raw Data section */}
+                {/* Conditionally rendered raw data section */}
                 {showRawData && (
                   <div style={{ marginTop: '20px' }}>
-                    <h3>Raw Data</h3>
+                    <h3>Raw Invoice Data</h3>
                     <pre style={{ marginLeft: '10px', marginTop: '10px' }}>
                       {JSON.stringify(rawData, null, 2)}
                     </pre>
+                    {rawNodeData && (
+                      <div>
+                        <h3>Raw Node Data</h3>
+                        <pre style={{ marginLeft: '10px', marginTop: '10px' }}>
+                          {JSON.stringify(rawNodeData, null, 2)}
+                        </pre>
+                      </div>
+                    )}
                   </div>
                 )}
 
