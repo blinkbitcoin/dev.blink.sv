@@ -108,7 +108,8 @@ export function DecodeInvoice() {
       mainnet: [
         { url: `https://amboss.space/node/${payeeNodeKey}`, name: 'amboss.space' },
         { url: `https://mempool.space/lightning/node/${payeeNodeKey}`, name: 'mempool.space' },
-        { url: `https://1ml.com/node/${payeeNodeKey}`, name: '1ml.com' }
+        { url: `https://1ml.com/node/${payeeNodeKey}`, name: '1ml.com' },
+        { url: `https://lightningnetwork.plus/nodes/${payeeNodeKey}`, name: 'lightningnetwork.plus' },
       ],
       testnet: [
         { url: `https://mempool.space/${network}/lightning/node/${payeeNodeKey}`, name: 'mempool.space/testnet' },
