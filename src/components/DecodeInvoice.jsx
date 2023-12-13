@@ -178,7 +178,8 @@ export function DecodeInvoice() {
 
   const labelStyle = {
     minWidth: '130px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginLeft: '10px'
   };
 
   const copyToClipboard = (text) => {
@@ -219,7 +220,7 @@ export function DecodeInvoice() {
           <textarea
             value={paymentRequest}
             onChange={(e) => setPaymentRequest(e.target.value)}
-            style={{ width: '75%', height: '7em' }}
+            style={{ width: '400px', height: '7em', overflow: 'auto' }}
             placeholder="Paste a lightning invoice"
           />
           <br />
@@ -233,7 +234,7 @@ export function DecodeInvoice() {
         <div>
           <textarea
             value={invoiceFromUrl}
-            style={{ width: '75%', height: '7em' }}
+            style={{ width: '75%', height: '3em' }}
             readOnly
           />
           <br />
@@ -278,9 +279,9 @@ export function DecodeInvoice() {
                 <div style={flexContainerStyle}>
                   <div
                     style={{
-                      width: "100%",
+                      width: '100%',
                       cursor: 'pointer',
-                      marginLeft: '10px',
+                      marginLeft: '20px',
                     }}
                     onClick={() => copyToClipboard(decodedInvoice.payeeNodeKey)}
                     title="Click to copy"
@@ -289,9 +290,10 @@ export function DecodeInvoice() {
                   </div>
                 </div>
 
+                <div style={{ marginTop: '10px' }}></div>
+                <h3>Destination node data</h3>
                 {rawNodeData && (
-                  <div style={{ marginTop: '20px' }}>
-                    <h3>Destination node data</h3>
+                  <div>
                     <div style={flexContainerStyle}>
                       <div style={labelStyle}>alias:</div>
                       <div>{rawNodeData.alias}</div>
@@ -316,7 +318,7 @@ export function DecodeInvoice() {
                     style={{
                       width: "100%",
                       cursor: 'pointer',
-                      marginLeft: '10px',
+                      marginLeft: '20px',
                     }}
                     onClick={() => copyToClipboard(decodedInvoice.payeeNodeKey)}
                     title="Click to copy"
@@ -329,7 +331,7 @@ export function DecodeInvoice() {
                   <div style={labelStyle}>explore:</div>
                 </div>
                 {generateLink(decodedInvoice.payeeNodeKey, decodedInvoice.network).map((link, index) => (
-                  <div key={index} style={{ paddingLeft: '10px' }}>
+                  <div key={index} style={{ paddingLeft: '20px' }}>
                     <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a><br />
                   </div>
                 ))}
