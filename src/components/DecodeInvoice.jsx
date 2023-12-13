@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useScript from '../hooks/useScript';
 
 export function DecodeInvoice() {
-  const [paymentRequestFromUrl, setPaymentRequestFromUrl] = useState('');
+  const [invoiceFromUrl, setInvoiceFromUrl] = useState('');
   const [paymentRequest, setPaymentRequest] = useState('');
   const [rawData, setRawData] = useState(null);
   const [rawNodeData, setRawNodeData] = useState(null);
@@ -10,13 +10,22 @@ export function DecodeInvoice() {
   const [errorMessage, setErrorMessage] = useState(null);
   const [notification, setNotification] = useState('');
   const [showRawData, setShowRawData] = useState(false);
+  const [decodingSuccessful, setDecodingSuccessful] = useState(true);
 
   useEffect(() => {
     // This code runs after component mount, window is available here
     const urlParams = new URLSearchParams(window.location.search);
-    const paymentRequestFromUrl = urlParams.get('invoice') || '';
-    setPaymentRequestFromUrl(paymentRequestFromUrl);
+    const invoiceParam = urlParams.get('invoice') || '';
+    setInvoiceFromUrl(invoiceParam);
   }, []);
+
+  useEffect(() => {
+    if (paymentRequest) {
+      if (invoiceFromUrl !== '' && paymentRequest) {
+        decodeInvoice(paymentRequest);
+      }
+    }
+  }, [paymentRequest]);
 
   const status = useScript('/js/bolt11.min.js');
   if (status === 'loading') {
@@ -26,7 +35,7 @@ export function DecodeInvoice() {
     return <p>Error loading script.</p>;
   }
 
-  const handleDecode = (invoice) => {
+  const decodeInvoice = () => {
     try {
       let networkName;
       let customNetwork;
@@ -54,59 +63,66 @@ export function DecodeInvoice() {
           scriptHash: 0xff,
           validWitnessVersions: [0, 2, 3, 4, 5]
         };
-      } else {
-        throw new Error('Invalid invoice prefix.');
       }
 
-      const decoded = lightningPayReq.decode(paymentRequest, customNetwork);
-      setRawData(decoded);
+      let decoded;
+      try {
+        decoded = lightningPayReq.decode(paymentRequest, customNetwork);
 
-      const paymentHash = decoded.tags.find((tag) => tag.tagName === 'payment_hash')?.data;
+        setRawData(decoded);
 
-      // Format timestamp to exclude milliseconds
-      const timestamp = new Date(decoded.timestamp * 1000);
-      const timestampString = timestamp.toISOString().replace('T', ' ').replace(/\.\d{3}Z$/, 'Z');
+        const paymentHash = decoded.tags.find((tag) => tag.tagName === 'payment_hash')?.data;
 
-      // Calculate expiration status
-      const expireTime = decoded.tags.find((tag) => tag.tagName === 'expire_time')?.data;
-      let expirationStatus;
-      if (expireTime) {
-        const expirationDate = new Date(timestamp.getTime() + expireTime * 1000);
-        const now = new Date();
-        if (expirationDate < now) {
-          const expiredSinceMinutes = Math.round((now - expirationDate) / 60000);
-          expirationStatus = `expired since ${expiredSinceMinutes} minutes`;
+        // Format timestamp to exclude milliseconds
+        const timestamp = new Date(decoded.timestamp * 1000);
+        const timestampString = timestamp.toISOString().replace('T', ' ').replace(/\.\d{3}Z$/, 'Z');
+
+        // Calculate expiration status
+        const expireTime = decoded.tags.find((tag) => tag.tagName === 'expire_time')?.data;
+        let expirationStatus;
+        if (expireTime) {
+          const expirationDate = new Date(timestamp.getTime() + expireTime * 1000);
+          const now = new Date();
+          if (expirationDate < now) {
+            const expiredSinceMinutes = Math.round((now - expirationDate) / 60000);
+            expirationStatus = `expired since ${expiredSinceMinutes} minutes`;
+          } else {
+            const expiryInMinutes = Math.round(expireTime / 60);
+            const minutesLeft = Math.round((expirationDate - now) / 60000);
+            expirationStatus = `${minutesLeft} minutes remaining out of ${expiryInMinutes}`;
+          }
         } else {
-          const expiryInMinutes = Math.round(expireTime / 60);
-          const minutesLeft = Math.round((expirationDate - now) / 60000);
-          expirationStatus = `${minutesLeft} minutes remaining out of ${expiryInMinutes}`;
+          expirationStatus = 'N/A';
         }
-      } else {
-        expirationStatus = 'N/A';
+
+        const memo = (decoded.tags?.find(t => t.tagName === 'description')?.data) || '';
+
+        setDecodedInvoice({
+          invoice: decoded.paymentRequest,
+          network: networkName,
+          payeeNodeKey: decoded.payeeNodeKey,
+          satoshis: decoded.satoshis,
+          paymentHash,
+          timestampString,
+          expirationStatus,
+          memo,
+          link: generateLink(decoded.payeeNodeKey, networkName)
+        });
+
+        // If the network is 'mainnet', fetch additional node data
+        if (networkName === 'mainnet' && decoded.payeeNodeKey) {
+          fetchNodeData(decoded.payeeNodeKey);
+        } else {
+          setRawNodeData(null);
+        }
+
+        setErrorMessage(null);
+      } catch (decodeError) {
+        setDecodingSuccessful(false)  // Set to false if decoding fails
+        console.error("Decoding failed: ", decodeError.message);
+        setErrorMessage("Decoding failed: " + decodeError.message);
       }
 
-      const memo = (decoded.tags?.find(t => t.tagName === 'description')?.data) || '';
-
-      setDecodedInvoice({
-        invoice: decoded.paymentRequest,
-        network: networkName,
-        payeeNodeKey: decoded.payeeNodeKey,
-        satoshis: decoded.satoshis,
-        paymentHash,
-        timestampString,
-        expirationStatus,
-        memo,
-        link: generateLink(decoded.payeeNodeKey, networkName)
-      });
-
-      // If the network is 'mainnet', fetch additional node data
-      if (networkName === 'mainnet' && decoded.payeeNodeKey) {
-        fetchNodeData(decoded.payeeNodeKey);
-      } else {
-        setRawNodeData(null);
-      }
-
-      setErrorMessage(null);
     } catch (error) {
       setDecodedInvoice({});
       setErrorMessage('Failed to decode invoice. Please check the format.');
@@ -146,6 +162,15 @@ export function DecodeInvoice() {
     }
   };
 
+  // handle the invoice from URL parameter (unless cannot be decoded)
+  if (invoiceFromUrl && !rawData && decodingSuccessful) {
+    const decodeUrlInvoice = (invoice) => {
+      setPaymentRequest(invoice);
+      decodeInvoice(invoice);
+    };
+    decodeUrlInvoice(invoiceFromUrl);
+  }
+
   const flexContainerStyle = {
     display: 'flex',
     marginBottom: '5px'
@@ -153,21 +178,13 @@ export function DecodeInvoice() {
 
   const labelStyle = {
     minWidth: '130px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    marginLeft: '10px'
   };
-
-  if (paymentRequestFromUrl && !rawData) {
-    const decodeInvoice = (invoice) => {
-      // Set the payment request and then decode
-      setPaymentRequest(invoice);
-      handleDecode(invoice);
-    };
-    decodeInvoice(paymentRequestFromUrl);
-  }
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text).then(() => {
-      setNotification('copied to clipboard');
+      setNotification('Copied to clipboard');
       setTimeout(() => {
         setNotification('');
       }, 2000); // Notification disappears after 2 seconds
@@ -191,33 +208,42 @@ export function DecodeInvoice() {
     setDecodedInvoice({});
     setErrorMessage(null);
     setShowRawData(false);
-    setPaymentRequestFromUrl('');
+    setInvoiceFromUrl('');
+    setDecodingSuccessful(true);
   };
 
   return (
     <div>
 
-      {paymentRequestFromUrl === '' && (
+      {invoiceFromUrl === '' && (
         <div>
           <textarea
             value={paymentRequest}
             onChange={(e) => setPaymentRequest(e.target.value)}
-            style={{ width: '75%', height: '8em', marginBottom: '10px' }}
+            style={{ width: '400px', height: '7em', overflow: 'auto' }}
             placeholder="Paste a lightning invoice"
           />
           <br />
-          <button onClick={handleDecode}>Decode</button>
+          <button onClick={decodeInvoice}>Decode</button>
+          {paymentRequest && (
+            <button style={{ marginLeft: '10px' }} onClick={clearData}>Clear</button>
+          )}
         </div>
       )}
-      {paymentRequestFromUrl && (
+      {invoiceFromUrl && (
         <div>
           <textarea
-            value={paymentRequestFromUrl}
-            style={{ width: '75%', height: '5em' }}
+            value={invoiceFromUrl}
+            style={{ width: '75%', height: '3em' }}
+            readOnly
           />
+          <br />
+          {!errorMessage && (
+            <button onClick={() => copyToClipboard(invoiceFromUrl)}>Copy to clipboard</button>
+          )}
+          <button style={{ marginLeft: '10px' }} onClick={clearData}>Clear</button>
         </div>
       )}
-
       <div style={{ marginTop: '10px' }}>
         {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
         {rawData && (
@@ -253,9 +279,9 @@ export function DecodeInvoice() {
                 <div style={flexContainerStyle}>
                   <div
                     style={{
-                      width: "100%",
+                      width: '100%',
                       cursor: 'pointer',
-                      marginLeft: '10px',
+                      marginLeft: '20px',
                     }}
                     onClick={() => copyToClipboard(decodedInvoice.payeeNodeKey)}
                     title="Click to copy"
@@ -264,9 +290,10 @@ export function DecodeInvoice() {
                   </div>
                 </div>
 
+                <div style={{ marginTop: '10px' }}></div>
+                <h3>Destination node data</h3>
                 {rawNodeData && (
-                  <div style={{ marginTop: '20px' }}>
-                    <h3>Destination node data</h3>
+                  <div>
                     <div style={flexContainerStyle}>
                       <div style={labelStyle}>alias:</div>
                       <div>{rawNodeData.alias}</div>
@@ -291,7 +318,7 @@ export function DecodeInvoice() {
                     style={{
                       width: "100%",
                       cursor: 'pointer',
-                      marginLeft: '10px',
+                      marginLeft: '20px',
                     }}
                     onClick={() => copyToClipboard(decodedInvoice.payeeNodeKey)}
                     title="Click to copy"
@@ -304,7 +331,7 @@ export function DecodeInvoice() {
                   <div style={labelStyle}>explore:</div>
                 </div>
                 {generateLink(decodedInvoice.payeeNodeKey, decodedInvoice.network).map((link, index) => (
-                  <div key={index} style={{ paddingLeft: '10px' }}>
+                  <div key={index} style={{ paddingLeft: '20px' }}>
                     <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a><br />
                   </div>
                 ))}
@@ -352,11 +379,6 @@ export function DecodeInvoice() {
                     )}
                   </div>
                 )}
-
-                {/* Button to clear data and decode new invoice */}
-                <div style={{ marginTop: '20px' }}>
-                  <button onClick={clearData}>Clear</button>
-                </div>
               </div>
             </div>
           </div>
