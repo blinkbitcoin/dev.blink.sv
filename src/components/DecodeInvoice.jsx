@@ -167,7 +167,7 @@ export function DecodeInvoice() {
 
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text).then(() => {
-      setNotification('copied to clipboard');
+      setNotification('Copied to clipboard');
       setTimeout(() => {
         setNotification('');
       }, 2000); // Notification disappears after 2 seconds
@@ -202,22 +202,28 @@ export function DecodeInvoice() {
           <textarea
             value={paymentRequest}
             onChange={(e) => setPaymentRequest(e.target.value)}
-            style={{ width: '75%', height: '8em', marginBottom: '10px' }}
+            style={{ width: '75%', height: '7em' }}
             placeholder="Paste a lightning invoice"
           />
           <br />
           <button onClick={handleDecode}>Decode</button>
+          {paymentRequest && (
+            <button style={{ marginLeft: '10px' }} onClick={clearData}>Clear</button>
+          )}
         </div>
       )}
       {paymentRequestFromUrl && (
         <div>
           <textarea
             value={paymentRequestFromUrl}
-            style={{ width: '75%', height: '5em' }}
+            style={{ width: '75%', height: '7em' }}
+            readOnly
           />
+          <br />
+          <button onClick={() => copyToClipboard(paymentRequestFromUrl)}>Copy to clipboard</button>
+          <button style={{ marginLeft: '10px' }} onClick={clearData}>Clear</button>
         </div>
       )}
-
       <div style={{ marginTop: '10px' }}>
         {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
         {rawData && (
@@ -352,11 +358,6 @@ export function DecodeInvoice() {
                     )}
                   </div>
                 )}
-
-                {/* Button to clear data and decode new invoice */}
-                <div style={{ marginTop: '20px' }}>
-                  <button onClick={clearData}>Clear</button>
-                </div>
               </div>
             </div>
           </div>
