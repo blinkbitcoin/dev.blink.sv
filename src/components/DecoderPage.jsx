@@ -1,7 +1,8 @@
+// DecoderPage.jsx
 import React, { useState, useEffect } from 'react';
 import useScript from '../hooks/useScript';
 
-export function DecodeInvoice() {
+export function DecoderPage() {
   const [invoiceFromUrl, setInvoiceFromUrl] = useState('');
   const [paymentRequest, setPaymentRequest] = useState('');
   const [rawData, setRawData] = useState(null);
