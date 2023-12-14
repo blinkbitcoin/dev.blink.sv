@@ -12,6 +12,7 @@ export function DecoderPage() {
   const [notification, setNotification] = useState('');
   const [showRawData, setShowRawData] = useState(false);
   const [decodingSuccessful, setDecodingSuccessful] = useState(true);
+  const [routingHintData, setRoutingHintData] = useState([]);
 
   useEffect(() => {
     // This code runs after component mount, window is available here
@@ -98,6 +99,16 @@ export function DecoderPage() {
 
         const memo = (decoded.tags?.find(t => t.tagName === 'description')?.data) || '';
 
+        // Check if there is any 'routing_info' tag with data in the decoded object
+        const hasRoutingInfo = decoded.tags?.some(tag => tag.tagName === 'routing_info' && tag.data && tag.data.length > 0);
+        let routingHints = [];
+        if (hasRoutingInfo) {
+          // Extract pubkeys from routing_info
+          routingHints = decoded.tags
+            .filter(tag => tag.tagName === 'routing_info')
+            .flatMap(tag => tag.data.map(info => info.pubkey));
+        }
+
         setDecodedInvoice({
           invoice: decoded.paymentRequest,
           network: networkName,
@@ -107,7 +118,8 @@ export function DecoderPage() {
           timestampString,
           expirationStatus,
           memo,
-          link: generateLink(decoded.payeeNodeKey, networkName)
+          link: generateLink(decoded.payeeNodeKey, networkName),
+          routingHintPubKeys: routingHints,
         });
 
         // If the network is 'mainnet', fetch additional node data
@@ -115,6 +127,13 @@ export function DecoderPage() {
           fetchNodeData(decoded.payeeNodeKey);
         } else {
           setRawNodeData(null);
+        }
+
+        if (networkName === 'mainnet' && routingHints.length > 0) {
+          setRoutingHintData([]); // Reset routing hint data
+          routingHints.forEach(pubkey => fetchRoutingHintData(pubkey));
+        } else {
+          setRoutingHintData([]);
         }
 
         setErrorMessage(null);
@@ -153,13 +172,38 @@ export function DecoderPage() {
     try {
       const response = await fetch(`https://mempool.space/api/v1/lightning/nodes/${nodePubkey}`);
       if (!response.ok) {
+        setRawNodeData(null)
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
-      setRawNodeData(data); // Save the node data to state
+      if (data.message === "This node does not exist, or our node is not seeing it yet") {
+        setRawNodeData(null);
+      } else {
+        setRawNodeData(data);
+      }
     } catch (error) {
       console.error('Failed to fetch node data:', error);
       setRawNodeData(null);
+    }
+  };
+
+  const fetchRoutingHintData = async (hintPubkey) => {
+    try {
+      console.log(`Fetching routing hint data for ${hintPubkey}`);
+      const response = await fetch(`https://mempool.space/api/v1/lightning/nodes/${hintPubkey}`);
+      if (!response.ok) {
+        setRoutingHintData(prevData => [...prevData, { hintPubkey, message: "Network response was not ok" }]);
+        return; // Similar to above, return here
+      }
+      const data = await response.json();
+      if (data.message === "This node does not exist, or our node is not seeing it yet") {
+        setRoutingHintData(prevData => [...prevData, { hintPubkey, message: "This node does not exist or the mempool.space node is not seeing it yet" }]);
+      } else {
+        setRoutingHintData(prevData => [...prevData, { hintPubkey, ...data }]);
+      }
+    } catch (error) {
+      console.error('Failed to fetch routing hint data:', error);
+      setRoutingHintData(prevData => [...prevData, { hintPubkey, message: `Failed to fetch routing hint data: ${error.toString()}` }]);
     }
   };
 
@@ -211,6 +255,7 @@ export function DecoderPage() {
     setShowRawData(false);
     setInvoiceFromUrl('');
     setDecodingSuccessful(true);
+    setRoutingHintData([]);
   };
 
   return (
@@ -291,6 +336,73 @@ export function DecoderPage() {
                   </div>
                 </div>
 
+                {routingHintData && routingHintData.length > 0 && (
+                  <div style={{ marginTop: '10px' }}>
+                    <h3>Routing Hint Data</h3>
+                    {routingHintData.map((hint, index) => (
+                      <div style={{ marginBottom: '20px' }} key={index}>
+
+                        {!hint.message && (
+                          <>
+                            <div style={flexContainerStyle}>
+                              <div style={labelStyle}>alias:</div>
+                              <div>{hint.alias}</div>
+                            </div>
+                            <div style={flexContainerStyle}>
+                              <div style={labelStyle}>public channels:</div>
+                              <div>{hint.active_channel_count}</div>
+                            </div>
+                            <div style={flexContainerStyle}>
+                              <div style={labelStyle}>public capacity:</div>
+                              <div>{(hint.capacity / 100000000)} btc</div>
+                            </div>
+                            <div style={flexContainerStyle}>
+                              <div style={labelStyle}>last update:</div>
+                              <div>{Math.round(((Date.now() / 1000) - hint.updated_at) / 60)} minutes ago</div>
+                            </div>
+                            <div style={flexContainerStyle}>
+                              <div style={labelStyle}>explore:</div>
+                            </div>
+                          </>
+                        )}
+                        <div style={flexContainerStyle}>
+                          <div style={labelStyle}>pubkey:</div>
+                          <div>{hint.hintPubkey}</div>
+                        </div>
+
+                        <div style={labelStyle}>public key:</div>
+                        <div style={flexContainerStyle}>
+                          <div
+                            style={{
+                              width: "100%",
+                              cursor: 'pointer',
+                              marginLeft: '20px',
+                            }}
+                            onClick={() => copyToClipboard(hint.hintPubkey)}
+                            title="Click to copy"
+                          >
+                            {hint.hintPubkey}
+                          </div>
+                        </div>
+
+                        {hint.message ? (
+                          <div style={flexContainerStyle}>
+                            <div>{hint.message}</div>
+                          </div>
+                        ) : (
+                          <div>
+                            {generateLink(hint.hintPubkey, decodedInvoice.network).map((link, index) => (
+                              <div key={index} style={{ display: 'inline-block', paddingLeft: '20px' }}>
+                                <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                )}
+
                 <div style={{ marginTop: '10px' }}></div>
                 <h3>Destination node data</h3>
                 {rawNodeData && (
@@ -305,7 +417,7 @@ export function DecoderPage() {
                     </div>
                     <div style={flexContainerStyle}>
                       <div style={labelStyle}>public capacity:</div>
-                      <div>{(rawNodeData.capacity / 100000000)} bitcoin</div>
+                      <div>{(rawNodeData.capacity / 100000000)} btc</div>
                     </div>
                     <div style={flexContainerStyle}>
                       <div style={labelStyle}>last update:</div>
@@ -328,33 +440,43 @@ export function DecoderPage() {
                   </div>
                 </div>
 
-                <div style={flexContainerStyle}>
-                  <div style={labelStyle}>explore:</div>
-                </div>
-                {generateLink(decodedInvoice.payeeNodeKey, decodedInvoice.network).map((link, index) => (
-                  <div key={index} style={{ paddingLeft: '20px' }}>
-                    <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a><br />
+                {rawNodeData ? (
+                  <div>
+                    <div style={flexContainerStyle}>
+                      <div style={labelStyle}>explore:</div>
+                    </div>
+                    {generateLink(decodedInvoice.payeeNodeKey, decodedInvoice.network).map((link, index) => (
+                      <div key={index} style={{ display: 'inline-block', paddingLeft: '20px' }}>
+                        <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a>
+                      </div>
+                    ))}
                   </div>
-                ))}
+                ) : (
+                  <div style={{ marginLeft: '10px' }} >No public data is available</div>
+                )
+                }
               </>
-            )}
+            )
+            }
 
             {/* Notification Bubble */}
-            {notification && (
-              <div style={{
-                position: 'fixed',
-                top: '20px',
-                left: '50%',
-                transform: 'translateX(-50%)',
-                backgroundColor: 'orange',
-                color: 'black',
-                padding: '10px',
-                borderRadius: '10px',
-                zIndex: 1000,
-              }}>
-                {notification}
-              </div>
-            )}
+            {
+              notification && (
+                <div style={{
+                  position: 'fixed',
+                  top: '20px',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  backgroundColor: 'orange',
+                  color: 'black',
+                  padding: '10px',
+                  borderRadius: '10px',
+                  zIndex: 1000,
+                }}>
+                  {notification}
+                </div>
+              )
+            }
             <div>
 
               <div style={{ marginTop: '20px' }}>
@@ -378,13 +500,22 @@ export function DecoderPage() {
                         </pre>
                       </div>
                     )}
+                    {routingHintData && routingHintData.length > 0
+                      && (
+                        <div>
+                          <h3>Raw Routing Hint Data</h3>
+                          <pre style={{ marginLeft: '10px', marginTop: '10px' }}>
+                            {JSON.stringify(routingHintData, null, 2)}
+                          </pre>
+                        </div>
+                      )}
                   </div>
                 )}
               </div>
             </div>
-          </div>
+          </div >
         )}
-      </div>
-    </div>
+      </div >
+    </div >
   );
 }
