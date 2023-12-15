@@ -385,16 +385,28 @@ export function DecoderPage() {
                           title="Click to copy and scroll"
                         />
 
-                        {/* Note for specific pubkey */}
+                        {/* Note for specific pubkeys */}
                         {hint.hintPubkey === "038f8f113c580048d847d6949371726653e02b928196bad310e3eda39ff61723f6" && (
-                          <div style={{ color: 'blue', marginTop: '10px' }}>
-                            Note: This pubkey is likely associated with the Muun wallet.
+                          <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>
+                            This invoice was likely generated with Muun wallet.
+                          </div>
+                        )}
+
+                        {hint.hintPubkey === "03a6ce61fcaacd38d31d4e3ce2d506602818e3856b4b44faff1dde9642ba705976" && (
+                          <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>
+                            This invoice was likely generated with Muun wallet.
+                          </div>
+                        )}
+
+                        {hint.hintPubkey === "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f" && (
+                          <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>
+                            This invoice was likely generated with Phoenix wallet.
                           </div>
                         )}
 
                         {hint.hintPubkey === "03933884aaf1d6b108397e5efe5c86bcf2d8ca8d2f700eda99db9214fc2712b134" && (
-                          <div style={{ marginLeft: '10px', marginTop: '10px' }}>
-                            Note: This pubkey is likely associated with the Phoenix wallet on testnet.
+                          <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>
+                            This invoice was likely generated with Phoenix wallet on testnet.
                           </div>
                         )}
 
@@ -421,7 +433,7 @@ export function DecoderPage() {
 
                 <div style={{ marginTop: '10px' }}></div>
                 <h3>Destination node data</h3>
-                {rawNodeData ? (
+                {rawNodeData && (
                   !rawNodeData.message && (
                     <div>
                       <div style={flexContainerStyle}>
@@ -442,8 +454,6 @@ export function DecoderPage() {
                       </div>
                     </div>
                   )
-                ) : (
-                  <div style={{ marginLeft: '10px' }} >No public data is available</div>
                 )}
 
                 <div style={labelStyle}>public key:</div>
@@ -472,7 +482,7 @@ export function DecoderPage() {
                     ))}
                   </div>
                 ) : (
-                  <div style={{ marginLeft: '10px' }} >No public data is available</div>
+                  <div style={{ marginLeft: '10px', marginTop: '10px' }} >No public data is available about this node</div>
                 )
                 }
               </>
