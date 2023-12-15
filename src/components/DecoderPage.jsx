@@ -125,13 +125,17 @@ export function DecoderPage() {
         // If the network is 'mainnet', fetch additional node data
         if (networkName === 'mainnet' && decoded.payeeNodeKey) {
           fetchNodeData(decoded.payeeNodeKey);
+        } else if (decoded.payeeNodeKey) {
+          setRawNodeData({ message: `No more details are fetched for ${networkName}` });
         } else {
           setRawNodeData(null);
         }
 
         if (networkName === 'mainnet' && routingHints.length > 0) {
           setRoutingHintData([]); // Reset routing hint data
-          routingHints.forEach(pubkey => fetchRoutingHintData(pubkey));
+          routingHints.forEach(hintPubkey => fetchRoutingHintData(hintPubkey));
+        } else if (routingHints.length > 0) {
+          routingHints.forEach(hintPubkey => setRoutingHintData(prevData => [...prevData, { hintPubkey, message: `No more details are fetched for ${networkName}` }]));
         } else {
           setRoutingHintData([]);
         }
@@ -170,6 +174,7 @@ export function DecoderPage() {
 
   const fetchNodeData = async (nodePubkey) => {
     try {
+      console.log(`Fetching node data for ${nodePubkey}`);
       const response = await fetch(`https://mempool.space/api/v1/lightning/nodes/${nodePubkey}`);
       if (!response.ok) {
         setRawNodeData(null)
@@ -227,6 +232,20 @@ export function DecoderPage() {
     marginLeft: '10px'
   };
 
+  const oneLineStyle = {
+    border: 'none',
+    background: 'none',
+    width: '100%',
+    maxWidth: '500px',
+    overflow: 'auto',
+    whiteSpace: 'nowrap',
+    fontSize: 'inherit',
+    fontFamily: 'inherit',
+    cursor: 'pointer',
+    outline: 'none', // Hide the highlight border
+    textOverflow: 'ellipsis',  // Add ellipsis at the end of the overflow
+  }
+
   const copyToClipboard = (text) => {
     navigator.clipboard.writeText(text).then(() => {
       setNotification('Copied to clipboard');
@@ -266,7 +285,7 @@ export function DecoderPage() {
           <textarea
             value={paymentRequest}
             onChange={(e) => setPaymentRequest(e.target.value)}
-            style={{ width: '400px', height: '7em', overflow: 'auto' }}
+            style={{ width: '100%', maxWidth: '500px', height: '7em', overflow: 'auto' }}
             placeholder="Paste a lightning invoice"
           />
           <br />
@@ -278,15 +297,15 @@ export function DecoderPage() {
       )}
       {invoiceFromUrl && (
         <div>
-          <textarea
+          <input
+            type="text"
             value={invoiceFromUrl}
-            style={{ width: '75%', height: '3em' }}
+            style={oneLineStyle}
             readOnly
+            onClick={() => copyToClipboard(invoiceFromUrl)}
+            title="Click to copy"
           />
           <br />
-          {!errorMessage && (
-            <button onClick={() => copyToClipboard(invoiceFromUrl)}>Copy to clipboard</button>
-          )}
           <button style={{ marginLeft: '10px' }} onClick={clearData}>Clear</button>
         </div>
       )}
@@ -322,26 +341,20 @@ export function DecoderPage() {
                 </div>
 
                 <div style={labelStyle}>payment hash:</div>
-                <div style={flexContainerStyle}>
-                  <div
-                    style={{
-                      width: '100%',
-                      cursor: 'pointer',
-                      marginLeft: '20px',
-                    }}
-                    onClick={() => copyToClipboard(decodedInvoice.payeeNodeKey)}
-                    title="Click to copy"
-                  >
-                    {decodedInvoice.paymentHash}
-                  </div>
-                </div>
+                <input
+                  type="text"
+                  value={decodedInvoice.paymentHash}
+                  style={{ ...oneLineStyle, marginLeft: '20px' }}
+                  readOnly
+                  onClick={() => copyToClipboard(decodedInvoice.paymentHash)}
+                  title="Click to copy and scroll"
+                />
 
                 {routingHintData && routingHintData.length > 0 && (
                   <div style={{ marginTop: '10px' }}>
                     <h3>Routing Hint Data</h3>
                     {routingHintData.map((hint, index) => (
                       <div style={{ marginBottom: '20px' }} key={index}>
-
                         {!hint.message && (
                           <>
                             <div style={flexContainerStyle}>
@@ -360,44 +373,47 @@ export function DecoderPage() {
                               <div style={labelStyle}>last update:</div>
                               <div>{Math.round(((Date.now() / 1000) - hint.updated_at) / 60)} minutes ago</div>
                             </div>
-                            <div style={flexContainerStyle}>
-                              <div style={labelStyle}>explore:</div>
-                            </div>
                           </>
                         )}
-                        <div style={flexContainerStyle}>
-                          <div style={labelStyle}>pubkey:</div>
-                          <div>{hint.hintPubkey}</div>
-                        </div>
-
                         <div style={labelStyle}>public key:</div>
-                        <div style={flexContainerStyle}>
-                          <div
-                            style={{
-                              width: "100%",
-                              cursor: 'pointer',
-                              marginLeft: '20px',
-                            }}
-                            onClick={() => copyToClipboard(hint.hintPubkey)}
-                            title="Click to copy"
-                          >
-                            {hint.hintPubkey}
-                          </div>
-                        </div>
+                        <input
+                          type="text"
+                          value={hint.hintPubkey}
+                          style={{ ...oneLineStyle, marginLeft: '20px' }}
+                          readOnly
+                          onClick={() => copyToClipboard(hint.hintPubkey)}
+                          title="Click to copy and scroll"
+                        />
 
-                        {hint.message ? (
-                          <div style={flexContainerStyle}>
-                            <div>{hint.message}</div>
-                          </div>
-                        ) : (
-                          <div>
-                            {generateLink(hint.hintPubkey, decodedInvoice.network).map((link, index) => (
-                              <div key={index} style={{ display: 'inline-block', paddingLeft: '20px' }}>
-                                <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a>
-                              </div>
-                            ))}
+                        {/* Note for specific pubkey */}
+                        {hint.hintPubkey === "038f8f113c580048d847d6949371726653e02b928196bad310e3eda39ff61723f6" && (
+                          <div style={{ color: 'blue', marginTop: '10px' }}>
+                            Note: This pubkey is likely associated with the Muun wallet.
                           </div>
                         )}
+
+                        {hint.hintPubkey === "03933884aaf1d6b108397e5efe5c86bcf2d8ca8d2f700eda99db9214fc2712b134" && (
+                          <div style={{ marginLeft: '10px', marginTop: '10px' }}>
+                            Note: This pubkey is likely associated with the Phoenix wallet on testnet.
+                          </div>
+                        )}
+
+                        {hint.message && (
+                          <div style={flexContainerStyle}>
+                            <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }} >{hint.message}</div>
+                          </div>
+                        )}
+                        <div style={flexContainerStyle}>
+                          <div style={labelStyle}>explore:</div>
+                        </div>
+                        <div>
+                          {generateLink(hint.hintPubkey, decodedInvoice.network).map((link, index) => (
+                            <div key={index} style={{ display: 'inline-block', paddingLeft: '20px' }}>
+                              <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a>
+                            </div>
+                          ))}
+                        </div>
+
                       </div>
                     ))}
                   </div>
@@ -405,40 +421,44 @@ export function DecoderPage() {
 
                 <div style={{ marginTop: '10px' }}></div>
                 <h3>Destination node data</h3>
-                {rawNodeData && (
-                  <div>
-                    <div style={flexContainerStyle}>
-                      <div style={labelStyle}>alias:</div>
-                      <div>{rawNodeData.alias}</div>
+                {rawNodeData ? (
+                  !rawNodeData.message && (
+                    <div>
+                      <div style={flexContainerStyle}>
+                        <div style={labelStyle}>alias:</div>
+                        <div>{rawNodeData.alias}</div>
+                      </div>
+                      <div style={flexContainerStyle}>
+                        <div style={labelStyle}>public channels:</div>
+                        <div>{rawNodeData.active_channel_count}</div>
+                      </div>
+                      <div style={flexContainerStyle}>
+                        <div style={labelStyle}>public capacity:</div>
+                        <div>{(rawNodeData.capacity / 100000000)} btc</div>
+                      </div>
+                      <div style={flexContainerStyle}>
+                        <div style={labelStyle}>last update:</div>
+                        <div>{Math.round(((Date.now() / 1000) - rawNodeData.updated_at) / 60)} minutes ago</div>
+                      </div>
                     </div>
-                    <div style={flexContainerStyle}>
-                      <div style={labelStyle}>public channels:</div>
-                      <div>{rawNodeData.active_channel_count}</div>
-                    </div>
-                    <div style={flexContainerStyle}>
-                      <div style={labelStyle}>public capacity:</div>
-                      <div>{(rawNodeData.capacity / 100000000)} btc</div>
-                    </div>
-                    <div style={flexContainerStyle}>
-                      <div style={labelStyle}>last update:</div>
-                      <div>{Math.round(((Date.now() / 1000) - rawNodeData.updated_at) / 60)} minutes ago</div>
-                    </div>
-                  </div>
+                  )
+                ) : (
+                  <div style={{ marginLeft: '10px' }} >No public data is available</div>
                 )}
+
                 <div style={labelStyle}>public key:</div>
-                <div style={flexContainerStyle}>
-                  <div
-                    style={{
-                      width: "100%",
-                      cursor: 'pointer',
-                      marginLeft: '20px',
-                    }}
-                    onClick={() => copyToClipboard(decodedInvoice.payeeNodeKey)}
-                    title="Click to copy"
-                  >
-                    {decodedInvoice.payeeNodeKey}
-                  </div>
-                </div>
+                <input
+                  type="text"
+                  value={decodedInvoice.payeeNodeKey}
+                  style={{ ...oneLineStyle, marginLeft: '20px' }}
+                  readOnly
+                  onClick={() => copyToClipboard(decodedInvoice.payeeNodeKey)}
+                  title="Click to copy and scroll"
+                />
+
+                {rawNodeData && rawNodeData.message && (
+                  <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>{rawNodeData.message}</div>
+                )}
 
                 {rawNodeData ? (
                   <div>
