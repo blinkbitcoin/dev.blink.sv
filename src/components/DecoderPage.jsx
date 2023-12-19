@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import useScript from '../hooks/useScript';
 
 export function DecoderPage() {
-  const [invoiceFromUrl, setInvoiceFromUrl] = useState('');
-  const [paymentRequest, setPaymentRequest] = useState('');
+  const [dataFromUrl, setDataFromUrl] = useState('');
+  const [decodeInput, setDecodeInput] = useState('');
   const [rawData, setRawData] = useState(null);
   const [rawNodeData, setRawNodeData] = useState(null);
   const [decodedInvoice, setDecodedInvoice] = useState({});
@@ -13,21 +13,30 @@ export function DecoderPage() {
   const [showRawData, setShowRawData] = useState(false);
   const [decodingSuccessful, setDecodingSuccessful] = useState(true);
   const [routingHintData, setRoutingHintData] = useState([]);
+  const [lnaddressData, setLnaddressData] = useState(null);
+
 
   useEffect(() => {
     // This code runs after component mount, window is available here
     const urlParams = new URLSearchParams(window.location.search);
+    // Both invoice and lnaddress can be passed as url parameter
+    // with either key 'invoice' or 'lnaddress'
     const invoiceParam = urlParams.get('invoice') || '';
-    setInvoiceFromUrl(invoiceParam);
+    const lnaddressParam = urlParams.get('lnaddress') || '';
+    if (invoiceParam) {
+      setDataFromUrl(invoiceParam);
+    } else if (lnaddressParam) {
+      setDataFromUrl(lnaddressParam);
+    }
   }, []);
 
   useEffect(() => {
-    if (paymentRequest) {
-      if (invoiceFromUrl !== '' && paymentRequest) {
-        decodeInvoice(paymentRequest);
+    if (decodeInput) {
+      if (dataFromUrl !== '' && decodeInput) {
+        handleInput(decodeInput);
       }
     }
-  }, [paymentRequest]);
+  }, [decodeInput, dataFromUrl]);
 
   const status = useScript('/js/bolt11.min.js');
   if (status === 'loading') {
@@ -41,7 +50,7 @@ export function DecoderPage() {
     try {
       let networkName;
       let customNetwork;
-      if (paymentRequest.startsWith('lnbc')) {
+      if (decodeInput.startsWith('lnbc')) {
         networkName = "mainnet";
         customNetwork = {
           bech32: 'bc', // mainnet
@@ -49,7 +58,7 @@ export function DecoderPage() {
           scriptHash: 0xff,
           validWitnessVersions: [0, 2, 3, 4, 5]
         };
-      } else if (paymentRequest.startsWith('lntbs')) {
+      } else if (decodeInput.startsWith('lntbs')) {
         networkName = "signet";
         customNetwork = {
           bech32: 'tbs', // signet
@@ -57,7 +66,7 @@ export function DecoderPage() {
           scriptHash: 0xff,
           validWitnessVersions: [0, 2, 3, 4, 5]
         };
-      } else if (paymentRequest.startsWith('lntb')) {
+      } else if (decodeInput.startsWith('lntb')) {
         networkName = "testnet";
         customNetwork = {
           bech32: 'tb', // testnet
@@ -69,7 +78,7 @@ export function DecoderPage() {
 
       let decoded;
       try {
-        decoded = lightningPayReq.decode(paymentRequest, customNetwork);
+        decoded = lightningPayReq.decode(decodeInput, customNetwork);
 
         setRawData(decoded);
 
@@ -212,14 +221,95 @@ export function DecoderPage() {
     }
   };
 
-  // handle the invoice from URL parameter (unless cannot be decoded)
-  if (invoiceFromUrl && !rawData && decodingSuccessful) {
-    const decodeUrlInvoice = (invoice) => {
-      setPaymentRequest(invoice);
-      decodeInvoice(invoice);
+  const resolveLnAddress = async (lnaddress) => {
+    try {
+      const [username, domain] = lnaddress.split('@');
+      const response = await fetch(`https://${domain}/.well-known/lnurlp/${username}`);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setLnaddressData(data);
+    } catch (error) {
+      console.error('Failed to resolve lightning address:', error);
+      setErrorMessage('Failed to resolve lightning address: ' + error.message);
+      setLnaddressData(null);
+    }
+  };
+
+  const renderLnaddressData = () => {
+    if (!lnaddressData) return null;
+
+    const lnaddresslabelStyle = {
+      minWidth: '150px',
+      fontWeight: 'bold',
+      marginLeft: '10px'
     };
-    decodeUrlInvoice(invoiceFromUrl);
-  }
+
+    let metadataObj = {};
+    try {
+      const metadataArray = JSON.parse(lnaddressData.metadata);
+      metadataArray.forEach(item => {
+        if (item[0] === 'text/plain') {
+          metadataObj.description = item[1];
+        } else if (item[0] === 'text/identifier') {
+          metadataObj.lnaddress = item[1];
+        }
+      });
+    } catch (error) {
+      console.error('Error parsing metadata:', error);
+    }
+
+    return (
+      <>
+        <h3>Lightning Address Data</h3>
+        <div style={flexContainerStyle}>
+          <div style={lnaddresslabelStyle}>Callback URL:</div>
+          <div>{lnaddressData.callback}</div>
+        </div>
+        <div style={flexContainerStyle}>
+          <div style={lnaddresslabelStyle}>Min Sendable:</div>
+          <div>{lnaddressData.minSendable / 1000} sats</div>
+        </div>
+        <div style={flexContainerStyle}>
+          <div style={lnaddresslabelStyle}>Max Sendable:</div>
+          <div>{lnaddressData.maxSendable / 1000} sats</div>
+        </div>
+        {metadataObj.description && (
+          <div style={flexContainerStyle}>
+            <div style={lnaddresslabelStyle}>Description:</div>
+            <div>{metadataObj.description}</div>
+          </div>
+        )}
+        {metadataObj.lnaddress && (
+          <div style={flexContainerStyle}>
+            <div style={lnaddresslabelStyle}>Lightning Address:</div>
+            <div>{metadataObj.lnaddress}</div>
+          </div>
+        )}
+        <div style={flexContainerStyle}>
+          <div style={lnaddresslabelStyle}>Comment Allowed:</div>
+          <div>{lnaddressData.commentAllowed} characters</div>
+        </div>
+        <div style={flexContainerStyle}>
+          <div style={lnaddresslabelStyle}>Tag:</div>
+          <div>{lnaddressData.tag}</div>
+        </div>
+        {lnaddressData.allowsNostr && (
+          <div style={flexContainerStyle}>
+            <div style={lnaddresslabelStyle}>Nostr:</div>
+            <div>Allowed</div>
+          </div>
+        )}
+        {lnaddressData.nostrPubkey && (
+          <div style={flexContainerStyle}>
+            <div style={lnaddresslabelStyle}>Nostr Pubkey:</div>
+            <div>{lnaddressData.nostrPubkey}</div>
+          </div>
+        )}
+      </>
+    );
+  };
 
   const flexContainerStyle = {
     display: 'flex',
@@ -266,284 +356,324 @@ export function DecoderPage() {
   };
 
   const clearData = () => {
-    setPaymentRequest('');
     setRawData(null);
     setRawNodeData(null);
     setDecodedInvoice({});
     setErrorMessage(null);
     setShowRawData(false);
-    setInvoiceFromUrl('');
     setDecodingSuccessful(true);
     setRoutingHintData([]);
+    setLnaddressData(null);
   };
+
+  const clearInput = () => {
+    setDecodeInput('');
+    setDataFromUrl('');
+    clearData();
+  };
+
+  const handleInput = () => {
+    clearData();
+    if (decodeInput.startsWith('ln')) {
+      decodeInvoice(decodeInput);
+    } else if (decodeInput.includes('@')) {
+      resolveLnAddress(decodeInput);
+    } else {
+      setErrorMessage('Invalid input. Please enter a valid lightning invoice or lightning address.');
+    }
+  };
+
+  // handle the invoice from URL parameter (unless cannot be decoded)
+  if (dataFromUrl && !rawData && decodingSuccessful && !lnaddressData) {
+    const decodeUrlInvoice = (invoice) => {
+      if (invoice.startsWith('ln')) {
+        setDecodeInput(invoice);
+        decodeInvoice(invoice);
+      } else if (invoice.includes('@')) {
+        resolveLnAddress(invoice);
+      }
+    };
+    decodeUrlInvoice(dataFromUrl);
+  }
 
   return (
     <div>
-
-      {invoiceFromUrl === '' && (
+      {dataFromUrl === '' && (
         <div>
           <textarea
-            value={paymentRequest}
-            onChange={(e) => setPaymentRequest(e.target.value)}
+            value={decodeInput}
+            onChange={(e) => setDecodeInput(e.target.value)}
             style={{ width: '100%', maxWidth: '500px', height: '7em', overflow: 'auto' }}
-            placeholder="Paste a lightning invoice"
+            placeholder="Paste a lightning invoice or a lightning address"
           />
           <br />
-          <button onClick={decodeInvoice}>Decode</button>
-          {paymentRequest && (
-            <button style={{ marginLeft: '10px' }} onClick={clearData}>Clear</button>
+          <button onClick={handleInput}>Decode</button>
+          {decodeInput && (
+            <button style={{ marginLeft: '10px' }} onClick={clearInput}>Clear</button>
           )}
         </div>
       )}
-      {invoiceFromUrl && (
+      {dataFromUrl && (
         <div>
           <input
             type="text"
-            value={invoiceFromUrl}
+            value={dataFromUrl}
             style={oneLineStyle}
             readOnly
-            onClick={() => copyToClipboard(invoiceFromUrl)}
+            onClick={() => copyToClipboard(dataFromUrl)}
             title="Click to copy"
           />
           <br />
-          <button style={{ marginLeft: '10px' }} onClick={clearData}>Clear</button>
+          <button style={{ marginLeft: '10px' }} onClick={clearInput}>Clear</button>
         </div>
       )}
-      <div style={{ marginTop: '10px' }}>
-        {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
-        {rawData && (
-          <div>
-            {decodedInvoice && (
-              <>
-                <h3>Invoice data</h3>
-                <div style={{ marginTop: '10px' }}></div>
+      <div style={{ marginTop: '10px' }} />
+
+      {/* Display lightning address data */}
+      {renderLnaddressData()}
+
+      {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
+      {rawData && (
+        <div>
+          {decodedInvoice && (
+            <>
+              <h3>Invoice data</h3>
+              <div style={{ marginTop: '10px' }}></div>
+              <div style={flexContainerStyle}>
+                <div style={labelStyle}>network:</div>
+                <div>{decodedInvoice.network}</div>
+              </div>
+              <div style={flexContainerStyle}>
+                <div style={labelStyle}>amount:</div>
+                <div>{decodedInvoice.satoshis} sats</div>
+              </div>
+              {decodedInvoice.memo !== '' && (
                 <div style={flexContainerStyle}>
-                  <div style={labelStyle}>network:</div>
-                  <div>{decodedInvoice.network}</div>
+                  <div style={labelStyle}>description:</div>
+                  <div>{decodedInvoice.memo}</div>
                 </div>
-                <div style={flexContainerStyle}>
-                  <div style={labelStyle}>amount:</div>
-                  <div>{decodedInvoice.satoshis} sats</div>
-                </div>
-                {decodedInvoice.memo !== '' && (
-                  <div style={flexContainerStyle}>
-                    <div style={labelStyle}>description:</div>
-                    <div>{decodedInvoice.memo}</div>
-                  </div>
-                )}
-                <div style={flexContainerStyle}>
-                  <div style={labelStyle}>expiry:</div>
-                  <div>{decodedInvoice.expirationStatus}</div>
-                </div>
-                <div style={flexContainerStyle}>
-                  <div style={labelStyle}>created at:</div>
-                  <div>{decodedInvoice.timestampString}</div>
-                </div>
+              )}
+              <div style={flexContainerStyle}>
+                <div style={labelStyle}>expiry:</div>
+                <div>{decodedInvoice.expirationStatus}</div>
+              </div>
+              <div style={flexContainerStyle}>
+                <div style={labelStyle}>created at:</div>
+                <div>{decodedInvoice.timestampString}</div>
+              </div>
 
-                <div style={labelStyle}>payment hash:</div>
-                <input
-                  type="text"
-                  value={decodedInvoice.paymentHash}
-                  style={{ ...oneLineStyle, marginLeft: '20px' }}
-                  readOnly
-                  onClick={() => copyToClipboard(decodedInvoice.paymentHash)}
-                  title="Click to copy and scroll"
-                />
+              <div style={labelStyle}>payment hash:</div>
+              <input
+                type="text"
+                value={decodedInvoice.paymentHash}
+                style={{ ...oneLineStyle, marginLeft: '20px' }}
+                readOnly
+                onClick={() => copyToClipboard(decodedInvoice.paymentHash)}
+                title="Click to copy and scroll"
+              />
 
-                {routingHintData && routingHintData.length > 0 && (
-                  <div style={{ marginTop: '10px' }}>
-                    <h3>Routing Hint Data</h3>
-                    {routingHintData.map((hint, index) => (
-                      <div style={{ marginBottom: '20px' }} key={index}>
-                        {!hint.message && (
-                          <>
-                            <div style={flexContainerStyle}>
-                              <div style={labelStyle}>alias:</div>
-                              <div>{hint.alias}</div>
-                            </div>
-                            <div style={flexContainerStyle}>
-                              <div style={labelStyle}>public channels:</div>
-                              <div>{hint.active_channel_count}</div>
-                            </div>
-                            <div style={flexContainerStyle}>
-                              <div style={labelStyle}>public capacity:</div>
-                              <div>{(hint.capacity / 100000000)} btc</div>
-                            </div>
-                            <div style={flexContainerStyle}>
-                              <div style={labelStyle}>last update:</div>
-                              <div>{Math.round(((Date.now() / 1000) - hint.updated_at) / 60)} minutes ago</div>
-                            </div>
-                          </>
-                        )}
-                        <div style={labelStyle}>public key:</div>
-                        <input
-                          type="text"
-                          value={hint.hintPubkey}
-                          style={{ ...oneLineStyle, marginLeft: '20px' }}
-                          readOnly
-                          onClick={() => copyToClipboard(hint.hintPubkey)}
-                          title="Click to copy and scroll"
-                        />
-
-                        {/* Note for specific pubkeys */}
-                        {hint.hintPubkey === "038f8f113c580048d847d6949371726653e02b928196bad310e3eda39ff61723f6" && (
-                          <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>
-                            This invoice was likely generated with Muun wallet.
-                          </div>
-                        )}
-
-                        {hint.hintPubkey === "03a6ce61fcaacd38d31d4e3ce2d506602818e3856b4b44faff1dde9642ba705976" && (
-                          <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>
-                            This invoice was likely generated with Muun wallet.
-                          </div>
-                        )}
-
-                        {hint.hintPubkey === "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f" && (
-                          <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>
-                            This invoice was likely generated with Phoenix wallet.
-                          </div>
-                        )}
-
-                        {hint.hintPubkey === "03933884aaf1d6b108397e5efe5c86bcf2d8ca8d2f700eda99db9214fc2712b134" && (
-                          <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>
-                            This invoice was likely generated with Phoenix wallet on testnet.
-                          </div>
-                        )}
-
-                        {hint.message && (
+              {routingHintData && routingHintData.length > 0 && (
+                <div style={{ marginTop: '10px' }}>
+                  <h3>Routing Hint Data</h3>
+                  {routingHintData.map((hint, index) => (
+                    <div style={{ marginBottom: '20px' }} key={index}>
+                      {!hint.message && (
+                        <>
                           <div style={flexContainerStyle}>
-                            <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }} >{hint.message}</div>
+                            <div style={labelStyle}>alias:</div>
+                            <div>{hint.alias}</div>
                           </div>
-                        )}
-                        <div style={flexContainerStyle}>
-                          <div style={labelStyle}>explore:</div>
-                        </div>
-                        <div>
-                          {generateLink(hint.hintPubkey, decodedInvoice.network).map((link, index) => (
-                            <div key={index} style={{ display: 'inline-block', paddingLeft: '20px' }}>
-                              <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a>
-                            </div>
-                          ))}
-                        </div>
+                          <div style={flexContainerStyle}>
+                            <div style={labelStyle}>public channels:</div>
+                            <div>{hint.active_channel_count}</div>
+                          </div>
+                          <div style={flexContainerStyle}>
+                            <div style={labelStyle}>public capacity:</div>
+                            <div>{(hint.capacity / 100000000)} btc</div>
+                          </div>
+                          <div style={flexContainerStyle}>
+                            <div style={labelStyle}>last update:</div>
+                            <div>{Math.round(((Date.now() / 1000) - hint.updated_at) / 60)} minutes ago</div>
+                          </div>
+                        </>
+                      )}
+                      <div style={labelStyle}>public key:</div>
+                      <input
+                        type="text"
+                        value={hint.hintPubkey}
+                        style={{ ...oneLineStyle, marginLeft: '20px' }}
+                        readOnly
+                        onClick={() => copyToClipboard(hint.hintPubkey)}
+                        title="Click to copy and scroll"
+                      />
 
-                      </div>
-                    ))}
-                  </div>
-                )}
-
-                <div style={{ marginTop: '10px' }}></div>
-                <h3>Destination node data</h3>
-                {rawNodeData && (
-                  !rawNodeData.message && (
-                    <div>
-                      <div style={flexContainerStyle}>
-                        <div style={labelStyle}>alias:</div>
-                        <div>{rawNodeData.alias}</div>
-                      </div>
-                      <div style={flexContainerStyle}>
-                        <div style={labelStyle}>public channels:</div>
-                        <div>{rawNodeData.active_channel_count}</div>
-                      </div>
-                      <div style={flexContainerStyle}>
-                        <div style={labelStyle}>public capacity:</div>
-                        <div>{(rawNodeData.capacity / 100000000)} btc</div>
-                      </div>
-                      <div style={flexContainerStyle}>
-                        <div style={labelStyle}>last update:</div>
-                        <div>{Math.round(((Date.now() / 1000) - rawNodeData.updated_at) / 60)} minutes ago</div>
-                      </div>
-                    </div>
-                  )
-                )}
-
-                <div style={labelStyle}>public key:</div>
-                <input
-                  type="text"
-                  value={decodedInvoice.payeeNodeKey}
-                  style={{ ...oneLineStyle, marginLeft: '20px' }}
-                  readOnly
-                  onClick={() => copyToClipboard(decodedInvoice.payeeNodeKey)}
-                  title="Click to copy and scroll"
-                />
-
-                {rawNodeData && rawNodeData.message && (
-                  <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>{rawNodeData.message}</div>
-                )}
-
-                {rawNodeData ? (
-                  <div>
-                    <div style={flexContainerStyle}>
-                      <div style={labelStyle}>explore:</div>
-                    </div>
-                    {generateLink(decodedInvoice.payeeNodeKey, decodedInvoice.network).map((link, index) => (
-                      <div key={index} style={{ display: 'inline-block', paddingLeft: '20px' }}>
-                        <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div style={{ marginLeft: '10px', marginTop: '10px' }} >No public data is available about this node</div>
-                )
-                }
-              </>
-            )
-            }
-
-            {/* Notification Bubble */}
-            {
-              notification && (
-                <div style={{
-                  position: 'fixed',
-                  top: '20px',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  backgroundColor: 'orange',
-                  color: 'black',
-                  padding: '10px',
-                  borderRadius: '10px',
-                  zIndex: 1000,
-                }}>
-                  {notification}
-                </div>
-              )
-            }
-            <div>
-
-              <div style={{ marginTop: '20px' }}>
-                {/* Button to toggle raw data */}
-                <button onClick={toggleRawData}>
-                  {showRawData ? 'Hide Raw Data' : 'Show Raw Data'}
-                </button>
-
-                {/* Conditionally rendered raw data section */}
-                {showRawData && (
-                  <div style={{ marginTop: '20px' }}>
-                    <h3>Raw Invoice Data</h3>
-                    <pre style={{ marginLeft: '10px', marginTop: '10px' }}>
-                      {JSON.stringify(rawData, null, 2)}
-                    </pre>
-                    {rawNodeData && (
-                      <div>
-                        <h3>Raw Node Data</h3>
-                        <pre style={{ marginLeft: '10px', marginTop: '10px' }}>
-                          {JSON.stringify(rawNodeData, null, 2)}
-                        </pre>
-                      </div>
-                    )}
-                    {routingHintData && routingHintData.length > 0
-                      && (
-                        <div>
-                          <h3>Raw Routing Hint Data</h3>
-                          <pre style={{ marginLeft: '10px', marginTop: '10px' }}>
-                            {JSON.stringify(routingHintData, null, 2)}
-                          </pre>
+                      {/* Note for specific pubkeys */}
+                      {hint.hintPubkey === "038f8f113c580048d847d6949371726653e02b928196bad310e3eda39ff61723f6" && (
+                        <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>
+                          This invoice was likely generated with Muun wallet.
                         </div>
                       )}
+
+                      {hint.hintPubkey === "03a6ce61fcaacd38d31d4e3ce2d506602818e3856b4b44faff1dde9642ba705976" && (
+                        <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>
+                          This invoice was likely generated with Muun wallet.
+                        </div>
+                      )}
+
+                      {hint.hintPubkey === "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f" && (
+                        <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>
+                          This invoice was likely generated with Phoenix wallet.
+                        </div>
+                      )}
+
+                      {hint.hintPubkey === "03933884aaf1d6b108397e5efe5c86bcf2d8ca8d2f700eda99db9214fc2712b134" && (
+                        <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>
+                          This invoice was likely generated with Phoenix wallet on testnet.
+                        </div>
+                      )}
+
+                      {hint.message && (
+                        <div style={flexContainerStyle}>
+                          <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }} >{hint.message}</div>
+                        </div>
+                      )}
+                      <div style={flexContainerStyle}>
+                        <div style={labelStyle}>explore:</div>
+                      </div>
+                      <div>
+                        {generateLink(hint.hintPubkey, decodedInvoice.network).map((link, index) => (
+                          <div key={index} style={{ display: 'inline-block', paddingLeft: '20px' }}>
+                            <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a>
+                          </div>
+                        ))}
+                      </div>
+
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              <div style={{ marginTop: '10px' }}></div>
+              <h3>Destination node data</h3>
+              {rawNodeData && (
+                !rawNodeData.message && (
+                  <div>
+                    <div style={flexContainerStyle}>
+                      <div style={labelStyle}>alias:</div>
+                      <div>{rawNodeData.alias}</div>
+                    </div>
+                    <div style={flexContainerStyle}>
+                      <div style={labelStyle}>public channels:</div>
+                      <div>{rawNodeData.active_channel_count}</div>
+                    </div>
+                    <div style={flexContainerStyle}>
+                      <div style={labelStyle}>public capacity:</div>
+                      <div>{(rawNodeData.capacity / 100000000)} btc</div>
+                    </div>
+                    <div style={flexContainerStyle}>
+                      <div style={labelStyle}>last update:</div>
+                      <div>{Math.round(((Date.now() / 1000) - rawNodeData.updated_at) / 60)} minutes ago</div>
+                    </div>
                   </div>
-                )}
-              </div>
+                )
+              )}
+
+              <div style={labelStyle}>public key:</div>
+              <input
+                type="text"
+                value={decodedInvoice.payeeNodeKey}
+                style={{ ...oneLineStyle, marginLeft: '20px' }}
+                readOnly
+                onClick={() => copyToClipboard(decodedInvoice.payeeNodeKey)}
+                title="Click to copy and scroll"
+              />
+
+              {rawNodeData && rawNodeData.message && (
+                <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>{rawNodeData.message}</div>
+              )}
+
+              {rawNodeData ? (
+                <div>
+                  <div style={flexContainerStyle}>
+                    <div style={labelStyle}>explore:</div>
+                  </div>
+                  {generateLink(decodedInvoice.payeeNodeKey, decodedInvoice.network).map((link, index) => (
+                    <div key={index} style={{ display: 'inline-block', paddingLeft: '20px' }}>
+                      <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div style={{ marginLeft: '10px', marginTop: '10px' }} >No public data is available about this node</div>
+              )
+              }
+            </>
+          )}
+
+          {/* Notification Bubble */}
+          {notification && (
+            <div style={{
+              position: 'fixed',
+              top: '20px',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              backgroundColor: 'orange',
+              color: 'black',
+              padding: '10px',
+              borderRadius: '10px',
+              zIndex: 1000,
+            }}>
+              {notification}
             </div>
-          </div >
+          )}
+        </div >
+      )}
+
+      <div style={{ marginTop: '20px' }}>
+
+        {/* Conditionally render the button to toggle raw data */}
+        {(rawData || lnaddressData) && (
+          <button onClick={toggleRawData}>
+            {showRawData ? 'Hide Raw Data' : 'Show Raw Data'}
+          </button>
+        )}
+
+        {/* Conditionally rendered raw data section */}
+        {showRawData && (
+          <div style={{ marginTop: '20px' }}>
+            {rawData && (
+              <div>
+                <h3>Raw Invoice Data</h3>
+                <pre style={{ marginLeft: '10px', marginTop: '10px' }}>
+                  {JSON.stringify(rawData, null, 2)}
+                </pre>
+              </div>
+            )}
+            {rawNodeData && (
+              <div>
+                <h3>Raw Node Data</h3>
+                <pre style={{ marginLeft: '10px', marginTop: '10px' }}>
+                  {JSON.stringify(rawNodeData, null, 2)}
+                </pre>
+              </div>
+            )}
+            {routingHintData && routingHintData.length > 0 && (
+              <div>
+                <h3>Raw Routing Hint Data</h3>
+                <pre style={{ marginLeft: '10px', marginTop: '10px' }}>
+                  {JSON.stringify(routingHintData, null, 2)}
+                </pre>
+              </div>
+            )}
+            {lnaddressData && (
+              <div>
+                <h3>Raw Lightning Address Data</h3>
+                <pre style={{ marginLeft: '10px', marginTop: '10px' }}>
+                  {JSON.stringify(lnaddressData, null, 2)}
+                </pre>
+              </div>
+            )}
+          </div>
         )}
       </div >
     </div >
