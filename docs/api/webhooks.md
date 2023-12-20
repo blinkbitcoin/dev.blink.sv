@@ -8,7 +8,7 @@ slug: /api/webhooks
 
 The Blink API offers a selection of webhooks (or callbacks), allowing external applications to receive instantaneous notifications about activities on your account. For example the webhooks can be used to make a LED light up or a beer tap to open on the receipt of a payment.
 
-The currently available webhook events are:
+## Currently available webhook events
 
 * `send.lightning`
 * `receive.lightning`
@@ -16,6 +16,10 @@ The currently available webhook events are:
 * `receive.intraledger`
 * `send.onchain`
 * `receive.onchain`
+
+## Retries
+
+If the callback endpoint is not available the message is scheduled for retries with an exponential backoff. Read about the schedule details in the [Svix documentation](https://docs.svix.com/retries) which is the service module used to send the webhooks.
 
 ## Create a webhook endpoint to receive events
 Visit [play.svix.com](https://play.svix.com/) to quickly set up a webhook endpoint for testing.
@@ -56,13 +60,6 @@ Example payload sent on a `receive.lightning` event:
    }
 }
 ```
-
-The calls to register, list and remove webhooks are made through the GraphQL API as described below.
-
-:::tip
-To test the GraphQL requests further use the GraphQL playground at [api.blink.sv/graphql](https://api.blink.sv/graphql) for mainnet or [api.staging.galoy.io/graphql](https://api.staging.galoy.io/graphql) for staging.<br />
-Check out the [Galoy API Postman collection](https://documenter.getpostman.com/view/29391384/2s9YCAQq3z#0be26540-d31c-4d0e-b7ac-400fc73bdb80) to find examples in multiple programming languages.
-:::
 
 ## Using the Blink Dashboard to manage webhooks
 
@@ -157,3 +154,7 @@ Variables to use (change to the endpoint id you want to delete):
   }
 }
 ```
+:::tip
+To test the GraphQL requests further use the GraphQL playground at [api.blink.sv/graphql](https://api.blink.sv/graphql) for mainnet or [api.staging.galoy.io/graphql](https://api.staging.galoy.io/graphql) for staging.<br />
+Check out the [Galoy API Postman collection](https://documenter.getpostman.com/view/29391384/2s9YCAQq3z#0be26540-d31c-4d0e-b7ac-400fc73bdb80) to find examples in multiple programming languages.
+:::
