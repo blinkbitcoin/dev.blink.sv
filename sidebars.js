@@ -88,6 +88,7 @@ const sidebars = {
         },
         'api/pagination',
         'api/webhooks',
+        'api/websocket',
         'api/errors',
         {
           type: 'category',
