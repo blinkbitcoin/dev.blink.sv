@@ -10,6 +10,7 @@ import { SetAuthToken } from '/src/components/apiTutorial/SetAuthToken';
 import { GetWalletDataUsd } from '/src/components/apiTutorial/GetWalletDataUsd';
 import { LnUsdInvoiceFeeProbe } from '/src/components/apiTutorial/LnUsdInvoiceFeeProbe';
 import { LnInvoicePaymentSend } from '/src/components/apiTutorial/LnInvoicePaymentSend';
+import { LnAddressPaymentSend } from '/src/components/apiTutorial/LnAddressPaymentSend';
 
 <AuthProvider>
 
@@ -85,6 +86,29 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
 ```
 
   <LnInvoicePaymentSend />
+
+---
+
+### Send to a Lightning Address
+
+Send to a [Lightning Address](https://github.com/lnurl/luds/blob/luds/16.md) from your USD balance.
+
+**The body of the GraphQL request**
+
+```graphql
+mutation LnAddressPaymentSend($input: LnAddressPaymentSendInput!) {
+  lnAddressPaymentSend(input: $input) {
+    status
+    errors {
+      code
+      message
+      path
+    }
+  }
+}
+```
+
+  <LnAddressPaymentSend />
 
 </AuthProvider>
 
