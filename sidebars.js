@@ -160,6 +160,7 @@ const sidebars = {
       items: [
         'examples/lightning-atm',
         'examples/btcpayserver-plugin',
+        'examples/alby-connector',
       ]
     },
   ],
