@@ -1,0 +1,1 @@
+subscription realtimePrice($input: RealtimePriceInput!) { realtimePrice(input: $input) { realtimePrice { id btcSatPrice { base offset } } errors { code message path } }}
