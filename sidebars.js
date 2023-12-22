@@ -159,6 +159,7 @@ const sidebars = {
       collapsed: false,
       items: [
         'examples/lightning-atm',
+        'examples/btcpayserver-plugin',
       ]
     },
   ],
