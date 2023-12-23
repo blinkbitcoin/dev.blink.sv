@@ -52,7 +52,8 @@ export function generateCurlCommand({
   paymentRequest = '',
   walletId = '',
   walletCurrency = '',
-  address
+  address,
+  lnAddress
 }) {
   let requestBody = {
     query: operation.trim(),
@@ -90,6 +91,12 @@ export function generateCurlCommand({
       address: address,
       amount: amount
     };
+  } else if (type === 'lnAddressPaymentSend') {
+    requestBody.variables.input = {
+      walletId,
+      amount,
+      lnAddress
+    }
   }
 
   let queryData = JSON.stringify(requestBody).replace(/\n/g, '');5

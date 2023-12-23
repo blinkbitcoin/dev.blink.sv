@@ -1,35 +1,36 @@
-// LnInvoicePaymentSend.jsx
+// LnAddressPaymentSend.jsx
 import React, { useState, useEffect } from 'react';
 import { handleAuthenticatedRequest } from './authRequests';
 import { useAuth } from './AuthContext';
 import { generateCurlCommand } from './curlCommandGenerators';
 
-export function LnInvoicePaymentSend() {
+export function LnAddressPaymentSend() {
   const { authToken, apiEndpoint, accountWalletId, setAccountWalletId,
-    paymentRequest, setPaymentRequest } = useAuth();
+    amount, setAmount, lnAddress, setLnAddress } = useAuth();
 
-  const [curlCommandLnInvoicePayment, setCurlCommandLnInvoicePayment] = useState('');
+  const [curlCommandLnAddressPaymentSend, setCurlCommandLnAddressPaymentSend] = useState('');
   const [response, setResponse] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
 
   const operation = `\
-mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
-  lnInvoicePaymentSend(input: $input) {
-    status
-    errors {
-      message
-      path
-      code
+  mutation LnAddressPaymentSend($input: LnAddressPaymentSendInput!) {
+    lnAddressPaymentSend(input: $input) {
+      status
+      errors {
+        code
+        message
+        path
+      }
     }
-  }
-}`;
+  }`;
 
   const runOp = async () => {
     setErrorMessage(null);
     setResponse(null);
     const variables = {
       input: {
-        paymentRequest: paymentRequest,
+        amount,
+        lnAddress,
         walletId: accountWalletId
       }
     };
@@ -39,12 +40,13 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
       setResponse(data);
       generateCurlCommand({
         operation: operation,
-        type: 'lnInvoicePaymentSend',
-        setCurlCommand: setCurlCommandLnInvoicePayment,
+        type: 'lnAddressPaymentSend',
+        setCurlCommand: setCurlCommandLnAddressPaymentSend,
         authToken: authToken,
         apiEndpoint: apiEndpoint,
         walletId: accountWalletId,
-        paymentRequest: paymentRequest
+        lnAddress,
+        amount
       });
     } catch (error) {
       setErrorMessage(error.message);
@@ -54,14 +56,15 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
   useEffect(() => {
     generateCurlCommand({
       operation: operation,
-      type: 'lnInvoicePaymentSend',
-      setCurlCommand: setCurlCommandLnInvoicePayment,
+      type: 'lnAddressPaymentSend',
+      setCurlCommand: setCurlCommandLnAddressPaymentSend,
       authToken: authToken,
       apiEndpoint: apiEndpoint,
       walletId: accountWalletId,
-      paymentRequest: paymentRequest,
+      lnAddress,
+      amount
     });
-  }, [authToken, apiEndpoint, paymentRequest, accountWalletId]);
+  }, [authToken, apiEndpoint, lnAddress, amount, accountWalletId]);
 
   const handleWalletIdChange = (e) => {
     setAccountWalletId(e.target.value);
@@ -73,16 +76,26 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
         <div style={{ fontWeight: 'bold' }}>Set the variables</div>
         <div>
           <label>
-            <div>Invoice:</div>
+            <div>Ln Address:</div>
             <input
               type="text"
-              value={paymentRequest}
-              onChange={e => setPaymentRequest(e.target.value)}
+              value={lnAddress}
+              onChange={e => setLnAddress(e.target.value)}
               style={{ marginLeft: '10px', width: '50%' }}
-              placeholder="Paste a lightning invoice"
+              placeholder="Ln Address"
             />
           </label>
         </div>
+        <label>
+            <div>Amount (Satoshis):</div>
+            <input
+              type="number"
+              value={amount}
+              onChange={e => setAmount(e.target.value)}
+              style={{ marginLeft: '10px', width: '50%' }}
+              placeholder="Amount in Satoshis"
+            />
+          </label>
         <label>
           <div>Wallet ID:</div>
           <input
@@ -101,7 +114,7 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
       {response && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(response, null, 2)}</pre></div>}
 
       <div style={{ marginTop: '20px' }}>
-        <div style={{ fontWeight: 'bold' }}>curl command to pay an invoice</div>
+        <div style={{ fontWeight: 'bold' }}>curl command to send to an ln address</div>
         <div style={{ marginTop: '10px' }}></div>
         <pre style={{
           backgroundColor: 'auto',
@@ -110,7 +123,7 @@ mutation LnInvoicePaymentSend($input: LnInvoicePaymentInput!) {
           overflowX: 'auto',
           whiteSpace: 'pre-wrap'
         }}>
-          {curlCommandLnInvoicePayment}
+          {curlCommandLnAddressPaymentSend}
         </pre>
       </div>
 

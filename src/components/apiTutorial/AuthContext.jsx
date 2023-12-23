@@ -12,6 +12,8 @@ export const AuthProvider = ({ children }) => {
   const [apiEndpoint, setApiEndpoint] = useState('https://api.blink.sv/graphql');
   const [accountWalletId, setAccountWalletId] = useState('');
   const [paymentRequest, setPaymentRequest] = useState('');
+  const [lnAddress, setLnAddress ] = useState('');
+  const [amount, setAmount] = useState('');
 
   const value = {
     authToken,
@@ -21,7 +23,11 @@ export const AuthProvider = ({ children }) => {
     accountWalletId,
     setAccountWalletId,
     paymentRequest,
-    setPaymentRequest
+    setPaymentRequest,
+    lnAddress,
+    setLnAddress,
+    amount,
+    setAmount
   };
 
   return (
