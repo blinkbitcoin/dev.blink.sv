@@ -59,5 +59,11 @@ Alternatively:
 
 * Click `Save` to save the connection.
 
+## Enjoy the benefits of using Blink
+  * instant incoming liquidity
+  * no channel management
+  * no need to worry about backups
+  * get notified of the received payments in the Blink app
+
 ## Source code
 [github.com/Kukks/BTCPayServerPlugins/tree/master/Plugins/BTCPayServer.Plugins.Blink](https://github.com/Kukks/BTCPayServerPlugins/tree/master/Plugins/BTCPayServer.Plugins.Blink)
