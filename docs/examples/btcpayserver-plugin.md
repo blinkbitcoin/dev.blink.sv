@@ -46,7 +46,7 @@ Available in BTCPay Server v1.12.0 and later.
 
 * If adding only the API key the default wallet will be used on the Blink server (https://api.blink.sv/graphql).<br />
 Alternatively:
-  * can choose a walletID from the dashboard to use a let
+  * can choose a wallet ID from the dashboard to use a specific wallet other than the default set in your Blink app
   * can specify a custom server (for development or to use an other instance of the Galoy backend)
 
 * Click `Test connection` to verify the connection
