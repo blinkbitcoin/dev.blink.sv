@@ -44,10 +44,21 @@ Available in BTCPay Server v1.12.0 and later.
 
   ![BTCPay Server plugin](../images/btcpayserver_plugin_connect.png)
 
-* If adding only the API key the default wallet will be used on the Blink server (https://api.blink.sv/graphql).<br />
-Alternatively:
-  * can choose a wallet ID from the dashboard to use a specific wallet other than the default set in your Blink app
-  * can specify a custom server (for development or to use an other instance of the Galoy backend)
+* If adding only the API key the default wallet will be used on the Blink server (https://api.blink.sv/graphql).
+* the default wallet can be changed in the Blink app under `Settings` → `Default wallet`, but this would only affect the BTCPay Plugin when the connection string is reloaded.
+
+:::note
+If using the USD wallet the requested invoice amount needs to be at least 1 USDcent even if you are using another fiat denomination or SATS.
+:::
+
+### Specify the BTC or USD wallet (optional)
+* to use a specific wallet (BTC or USD) get the walletID from the Dashboard and use the full connection string as:
+  ```
+  type=blink;server=https://api.blink.sv/graphql;api-key=blink_...;wallet-id=xyz
+  ```
+* can also set a custom server (for development or to use an other instance of the Galoy backend)
+
+### Finalize the connection
 
 * Click `Test connection` to verify the connection
 
