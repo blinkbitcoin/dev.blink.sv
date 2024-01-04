@@ -52,20 +52,24 @@ If using the USD wallet the requested invoice amount needs to be at least 1 USDc
 :::
 
 ### Specify the BTC or USD wallet (optional)
-* to use a specific wallet (BTC or USD) get the walletID from the Dashboard and use the full connection string as:
+* to use a specific wallet (BTC or USD) copy the chosen the Wallet Id from your [dashboard.blink.sv](https://dashboard.blink.sv)
+
+  ![Dashboard wallets](../images/dashboard_wallets.png)
+
+* use the full connection string as:
   ```
   type=blink;server=https://api.blink.sv/graphql;api-key=blink_...;wallet-id=xyz
   ```
-* can also set a custom server (for development or to use an other instance of the Galoy backend)
+* can also set a custom server for development or to use an other instance of the Galoy backend
 
 ### Finalize the connection
 
 * Click `Test connection` to verify the connection
 
   The message:
-  ```
-  Connection to the Lightning node successful, but no public address has been configured
-  ```
+
+  ![BTCPay Server plugin successful](../images/btcpayserver_plugin_successful.png)
+
   is expected as the Blink plugin is connected to a Blink account, not a lightning node directly, but the connection is working.
 
 * Click `Save` to save the connection.
