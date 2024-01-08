@@ -76,24 +76,24 @@ export function LnAddressPaymentSend() {
         <div style={{ fontWeight: 'bold' }}>Set the variables</div>
         <div>
           <label>
-            <div>Ln Address:</div>
+            <div>LN address:</div>
             <input
               type="text"
               value={lnAddress}
               onChange={e => setLnAddress(e.target.value)}
               style={{ marginLeft: '10px', width: '50%' }}
-              placeholder="Ln Address"
+              placeholder="LN address"
             />
           </label>
         </div>
         <label>
-            <div>Amount (Satoshis):</div>
+            <div>Amount (satoshis):</div>
             <input
               type="number"
               value={amount}
               onChange={e => setAmount(e.target.value)}
               style={{ marginLeft: '10px', width: '50%' }}
-              placeholder="Amount in Satoshis"
+              placeholder="Amount in satoshis"
             />
           </label>
         <label>
@@ -114,7 +114,7 @@ export function LnAddressPaymentSend() {
       {response && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(response, null, 2)}</pre></div>}
 
       <div style={{ marginTop: '20px' }}>
-        <div style={{ fontWeight: 'bold' }}>curl command to send to an ln address</div>
+        <div style={{ fontWeight: 'bold' }}>curl command to send to an LN address</div>
         <div style={{ marginTop: '10px' }}></div>
         <pre style={{
           backgroundColor: 'auto',
