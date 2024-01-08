@@ -53,7 +53,8 @@ export function generateCurlCommand({
   walletId = '',
   walletCurrency = '',
   address,
-  lnAddress
+  lnAddress,
+  lnurl
 }) {
   let requestBody = {
     query: operation.trim(),
@@ -96,6 +97,12 @@ export function generateCurlCommand({
       walletId,
       amount,
       lnAddress
+    }
+  } else if (type === 'lnurlPaymentSend') {
+    requestBody.variables.input = {
+      walletId,
+      amount,
+      lnurl
     }
   }
 

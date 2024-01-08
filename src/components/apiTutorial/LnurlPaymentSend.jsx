@@ -1,20 +1,20 @@
-// LnAddressPaymentSend.jsx
+// LnurlPaymentSend.jsx
 import React, { useState, useEffect } from 'react';
 import { handleAuthenticatedRequest } from './authRequests';
 import { useAuth } from './AuthContext';
 import { generateCurlCommand } from './curlCommandGenerators';
 
-export function LnAddressPaymentSend() {
+export function LnurlPaymentSend() {
   const { authToken, apiEndpoint, accountWalletId, setAccountWalletId,
-    amount, setAmount, lnAddress, setLnAddress } = useAuth();
+    amount, setAmount, lnurl, setLnurl } = useAuth();
 
-  const [curlCommandLnAddressPaymentSend, setCurlCommandLnAddressPaymentSend] = useState('');
+  const [curlCommandLnurlPaymentSend, setCurlCommandLnurlPaymentSend] = useState('');
   const [response, setResponse] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
 
   const operation = `\
-  mutation LnAddressPaymentSend($input: LnAddressPaymentSendInput!) {
-    lnAddressPaymentSend(input: $input) {
+  mutation LnurlPaymentSend($input: LnurlPaymentSendInput!) {
+    lnurlPaymentSend(input: $input) {
       status
       errors {
         code
@@ -30,7 +30,7 @@ export function LnAddressPaymentSend() {
     const variables = {
       input: {
         amount,
-        lnAddress,
+        lnurl,
         walletId: accountWalletId
       }
     };
@@ -40,12 +40,12 @@ export function LnAddressPaymentSend() {
       setResponse(data);
       generateCurlCommand({
         operation: operation,
-        type: 'lnAddressPaymentSend',
-        setCurlCommand: setCurlCommandLnAddressPaymentSend,
+        type: 'lnurlPaymentSend',
+        setCurlCommand: setCurlCommandLnurlPaymentSend,
         authToken: authToken,
         apiEndpoint: apiEndpoint,
         walletId: accountWalletId,
-        lnAddress,
+        lnurl,
         amount
       });
     } catch (error) {
@@ -56,15 +56,15 @@ export function LnAddressPaymentSend() {
   useEffect(() => {
     generateCurlCommand({
       operation: operation,
-      type: 'lnAddressPaymentSend',
-      setCurlCommand: setCurlCommandLnAddressPaymentSend,
+      type: 'lnurlPaymentSend',
+      setCurlCommand: setCurlCommandLnurlPaymentSend,
       authToken: authToken,
       apiEndpoint: apiEndpoint,
       walletId: accountWalletId,
-      lnAddress,
+      lnurl,
       amount
     });
-  }, [authToken, apiEndpoint, lnAddress, amount, accountWalletId]);
+  }, [authToken, apiEndpoint, lnurl, amount, accountWalletId]);
 
   const handleWalletIdChange = (e) => {
     setAccountWalletId(e.target.value);
@@ -76,13 +76,13 @@ export function LnAddressPaymentSend() {
         <div style={{ fontWeight: 'bold' }}>Set the variables</div>
         <div>
           <label>
-            <div>LN address:</div>
+            <div>LNURL:</div>
             <input
               type="text"
-              value={lnAddress}
-              onChange={e => setLnAddress(e.target.value)}
+              value={lnurl}
+              onChange={e => setLnurl(e.target.value)}
               style={{ marginLeft: '10px', width: '50%' }}
-              placeholder="LN address"
+              placeholder="LNURL"
             />
           </label>
         </div>
@@ -114,7 +114,7 @@ export function LnAddressPaymentSend() {
       {response && <div><strong>Response:</strong> <pre style={{ marginLeft: '10px' }}>{JSON.stringify(response, null, 2)}</pre></div>}
 
       <div style={{ marginTop: '20px' }}>
-        <div style={{ fontWeight: 'bold' }}>curl command to send to an LN address</div>
+        <div style={{ fontWeight: 'bold' }}>curl command to send to an LNURL</div>
         <div style={{ marginTop: '10px' }}></div>
         <pre style={{
           backgroundColor: 'auto',
@@ -123,7 +123,7 @@ export function LnAddressPaymentSend() {
           overflowX: 'auto',
           whiteSpace: 'pre-wrap'
         }}>
-          {curlCommandLnAddressPaymentSend}
+          {curlCommandLnurlPaymentSend}
         </pre>
       </div>
 
