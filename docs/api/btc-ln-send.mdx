@@ -11,6 +11,7 @@ import { GetWalletDataBtc } from '/src/components/apiTutorial/GetWalletDataBtc';
 import { LnInvoiceFeeProbe } from '/src/components/apiTutorial/LnInvoiceFeeProbe';
 import { LnInvoicePaymentSend } from '/src/components/apiTutorial/LnInvoicePaymentSend';
 import { LnAddressPaymentSend } from '/src/components/apiTutorial/LnAddressPaymentSend';
+import { LnurlPaymentSend } from '/src/components/apiTutorial/LnurlPaymentSend';
 
 <AuthProvider>
 
@@ -108,6 +109,29 @@ mutation LnAddressPaymentSend($input: LnAddressPaymentSendInput!) {
 ```
 
   <LnAddressPaymentSend />
+
+---
+
+### Send to an LNURL
+
+Send to a [static LNURL payRequest](https://github.com/lnurl/luds/blob/luds/06.md) from your BTC balance.
+
+**The body of the GraphQL request**
+
+```graphql
+mutation LnurlPaymentSend($input: LnurlPaymentSendInput!) {
+  lnurlPaymentSend(input: $input) {
+    status
+    errors {
+      code
+      message
+      path
+    }
+  }
+}
+```
+
+  <LnurlPaymentSend />
 
 </AuthProvider>
 

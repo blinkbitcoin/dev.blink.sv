@@ -13,6 +13,7 @@ export const AuthProvider = ({ children }) => {
   const [accountWalletId, setAccountWalletId] = useState('');
   const [paymentRequest, setPaymentRequest] = useState('');
   const [lnAddress, setLnAddress ] = useState('');
+  const [lnurl, setLnurl ] = useState('');
   const [amount, setAmount] = useState('');
 
   const value = {
@@ -26,6 +27,8 @@ export const AuthProvider = ({ children }) => {
     setPaymentRequest,
     lnAddress,
     setLnAddress,
+    lnurl,
+    setLnurl,
     amount,
     setAmount
   };
