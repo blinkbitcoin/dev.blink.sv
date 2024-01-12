@@ -128,7 +128,7 @@ To use the raw websocket protocol in Postman there are a few steps to follow:
 
 * Send the `connection_init` request for authenticated requests
   ```json
-  { "type": "connection_init", "payload": { "X-API-KEY": "${api_key}" } }
+  { "type": "connection_init", "payload": { "X-API-KEY": "blink_xxxx" } }
   ```
 
 * myUpdates subscription message
@@ -147,7 +147,7 @@ To use the raw websocket protocol in Postman there are a few steps to follow:
   [INFO  websocat::stdio_threaded_peer] get_stdio_peer (threaded)
   [INFO  websocat::ws_client_peer] get_ws_client_peer
   [INFO  websocat::ws_client_peer] Connected to ws
-  { "type": "connection_init", "payload": { "X-API-KEY": "galoy_staging_BAMGaY2PPxmAkQwILLNWTlrEJOm1R7cS82CzvviSB9jCrvBumrXwOdjMri41rUCE" } }
+  { "type": "connection_init", "payload": { "X-API-KEY": "blink_xxxx" } }
   {"type":"connection_ack"}
   [INFO  websocat::ws_peer] Received WebSocket ping
   { "id": "1", "type": "subscribe", "payload": { "query": "subscription { myUpdates { update { ... on LnUpdate { transaction { initiationVia { ... on InitiationViaLn { paymentHash } } direction } } } } }", "variables": {} }}
