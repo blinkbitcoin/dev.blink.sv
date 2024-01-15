@@ -43,7 +43,7 @@ mutation LnInvoiceCreateOnBehalfOfRecipient($input: LnInvoiceCreateOnBehalfOfRec
       setResponse(data);
       generateCurlCommand({
         operation: operation,
-        type: 'invoice',
+        type: 'lnInvoiceCreateOnBehalfOfRecipient',
         setCurlCommand: setCurlCommandInvoice,
         authToken: authToken,
         apiEndpoint: apiEndpoint,
@@ -58,7 +58,7 @@ mutation LnInvoiceCreateOnBehalfOfRecipient($input: LnInvoiceCreateOnBehalfOfRec
   useEffect(() => {
     generateCurlCommand({
       operation: operation,
-      type: 'invoice',
+      type: 'lnInvoiceCreateOnBehalfOfRecipient',
       setCurlCommand: setCurlCommandInvoice,
       authToken: authToken,
       apiEndpoint: apiEndpoint,
