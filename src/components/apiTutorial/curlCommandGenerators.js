@@ -51,6 +51,7 @@ export function generateCurlCommand({
   amount,
   paymentRequest = '',
   walletId = '',
+  recipientWalletId = '',
   walletCurrency = '',
   address,
   lnAddress,
@@ -69,6 +70,11 @@ export function generateCurlCommand({
     requestBody.variables.input = {
       amount: amount.toString(),
       walletId: walletId,
+    };
+  } else if (type === 'lnInvoiceCreateOnBehalfOfRecipient') {
+    requestBody.variables.input = {
+      amount: amount.toString(),
+      recipientWalletId: recipientWalletId,
     };
   } else if (type === 'feeProbe') {
     requestBody.variables.input = {
@@ -106,7 +112,7 @@ export function generateCurlCommand({
     }
   }
 
-  let queryData = JSON.stringify(requestBody).replace(/\n/g, '');5
+  let queryData = JSON.stringify(requestBody).replace(/\n/g, '');
 
   const walletCommand = `curl -sS --request POST --header 'content-type: application/json' \\
   ${authHeader} \\
