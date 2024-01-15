@@ -141,7 +141,7 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Galoy Inc.`,
+        copyright: `Copyright © ${new Date().getFullYear()} BBW, S.A. de C.V.`,
       },
       colorMode: {
         defaultMode: 'dark',
