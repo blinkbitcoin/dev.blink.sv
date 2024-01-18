@@ -163,6 +163,7 @@ const sidebars = {
         'examples/alby-connector',
       ]
     },
+    'proofofpayment'
   ],
 };
 
