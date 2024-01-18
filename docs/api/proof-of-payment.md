@@ -11,10 +11,10 @@ Using Lightning even if the data is not recorded on the Bitcoin blockchain there
 
 ## Request the invoices used for lightning payments
 
-Queries the two most recent transactions paid via lightning.
+Queries the two most recent transactions paid via a lightning invoice (could settle over the lightning network or internally).
 
 ```graphql
-query InitiationViaLn($first: Int) {
+query PaymentsWithProof($first: Int) {
   me {
     defaultAccount {
       transactions(first: $first) {
@@ -22,8 +22,16 @@ query InitiationViaLn($first: Int) {
           node {
             initiationVia {
               ... on InitiationViaLn {
-                paymentHash
                 paymentRequest
+                paymentHash
+              }
+            }
+            settlementVia {
+              ... on SettlementViaIntraLedger {
+                preImage
+              }
+              ... on SettlementViaLn {
+                preImage
               }
             }
           }
@@ -31,7 +39,6 @@ query InitiationViaLn($first: Int) {
       }
     }
   }
-}
 ```
 
 ### Variable to show the two most recent transactions
@@ -52,16 +59,22 @@ query InitiationViaLn($first: Int) {
             {
               "node": {
                 "initiationVia": {
-                  "paymentHash": "74de21dc88f9f870fad49a110ec6f8916ebb59eb3b534d9b6ab8f9bb51196a1d",
-                  "paymentRequest": "lntbs1220n1pjklpx5pp5wn0zrhygl8u8p7k5nggsa3hcj9htkk0t8df5mxm2hrumk5gedgwsdq0w3jhxapqd4jk6mccqzpuxqyz5vqsp566v7qag22wnl5spf3zhrfruxyaek5m3uv5pu4dzpwmffk6adykpq9qyyssq62exrk3zcwfeh9c0hnhlpv9lmn33fryz4l9acmq79myp57lgj29390tucf4rycxn3zxtre8fzuzs6acu0w4umuetu9zr04zusa56duspsmsxv5"
+                  "paymentRequest": "lntbs320n1pjehuh8pp5cf6ckqv265qu6ppul0mhv4qpw4zkmd6rcxx080f8cqaz3w5p5m2qhp5ermsf933ju2t2vzpehcndlf8kpjqa780h6kzaa5eevpq6s8a7t9qcqzpuxqyz5vqsp5xs2v586kum4lu7exwskukkf0wjyw29l50293c8scdetlvszdgdds9qyyssqgzxzle9hz6384qt8uzh74wy3ylp6g3yw74q06zelxuhxtgwk9ehxvgtmqh53furqceecm22jsv2aypcangdn2tayl0vl095qx0wh3hqpwrfl8j",
+                  "paymentHash": "c2758b018ad501cd043cfbf776540175456db743c18cf3bd27c03a28ba81a6d4"
+                },
+                "settlementVia": {
+                  "preImage": "9e92a2d24e89c92c93d2c63ffe126605bcd3bf614c727a1f6e3f52064b83c2ec"
                 }
               }
             },
             {
               "node": {
                 "initiationVia": {
-                  "paymentHash": "6cce0fbd9f6df7eb07721bdbf89fa5ca26e30cb41c0bb8f0e78c8ef8bf8bfa33",
-                  "paymentRequest": "lntbs11110n1pjk7l0qpp5dn8ql0vldhm7kpmjr0dl38a9egnwxr95rs9m3u883j8030utlgesdq0w3jhxapqd4jk6mccqzpuxqyz5vqsp5c6s3ny7zexukzgx0nyj2tzscsz8fksglth3cvmrqj8fsns4fldzq9qyyssqvzq3cwhglu6n6arw9hj6jydvznp0w7enhxdm8srgrfukj5xgym2puumjkh6k0y8kg2px4l3072m7nys9lqp4shsw3tfmmeapsnh63xsqxwhlz8"
+                  "paymentRequest": "lntbs10n1pjehukhpp57ngk3ddxtmytqdzcyqa4l2e87ny29rwjsqx46g6m0pvpj7tvp6vshp5at629lcgdgt53gsapw77s59ykxxn7lkxyfk4n7zdx78c65s9502scqzpuxqyz5vqsp5nru4r9hu7asuvn86euyuskzdppl3lt4xue5wl8jxawaxc5rmzynq9qyyssq4c0d6lmszx6udlw8elv6dcawlsu7069fqd60wc4xxc3v6h5lmag45f8ks9lrdwnajysc0ka3lmgchfwrjjlgx4a8dg8g7gjlqaezecgqn706p3",
+                  "paymentHash": "f4d168b5a65ec8b03458203b5fab27f4c8a28dd2800d5d235b785819796c0e99"
+                },
+                "settlementVia": {
+                  "preImage": "f3a2290961be4b91bb230cfe7ae9d8159667dd9da33ca95b7c609bf82034285c"
                 }
               }
             }
@@ -74,7 +87,6 @@ query InitiationViaLn($first: Int) {
 ```
 The invoice can be used to identify the destination node and analyze other contents by decoding it for example in: [dev.blink.sv/decode](https://dev.blink.sv/decode)
 
-## Request the proof of payment
 
 
 :::tip
