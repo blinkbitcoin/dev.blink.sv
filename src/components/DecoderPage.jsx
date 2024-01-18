@@ -1,6 +1,8 @@
 // DecoderPage.jsx
 import React, { useState, useEffect } from 'react';
 import useScript from '../hooks/useScript';
+import CryptoJS from 'crypto-js';
+
 
 export function DecoderPage() {
   const [dataFromUrl, setDataFromUrl] = useState('');
@@ -14,6 +16,10 @@ export function DecoderPage() {
   const [decodingSuccessful, setDecodingSuccessful] = useState(true);
   const [routingHintData, setRoutingHintData] = useState([]);
   const [lnaddressData, setLnaddressData] = useState(null);
+
+  const [preimageInput, setPreimageInput] = useState('');
+  const [paymentStatus, setPaymentStatus] = useState(null);
+  const [primageValid, setPrimageValid] = useState(false);
 
 
   useEffect(() => {
@@ -369,6 +375,8 @@ export function DecoderPage() {
   const clearInput = () => {
     setDecodeInput('');
     setDataFromUrl('');
+    setPreimageInput('');
+    setPrimageValid(false);
     clearData();
   };
 
@@ -395,6 +403,30 @@ export function DecoderPage() {
     };
     decodeUrlInvoice(dataFromUrl);
   }
+
+  const verifyPayment = () => {
+    try {
+      // Assume preimageInput is a hex string, convert it to a WordArray
+      const preimageWordArray = CryptoJS.enc.Hex.parse(preimageInput);
+
+      // Hash the preimage WordArray
+      const hashedPreimage = CryptoJS.SHA256(preimageWordArray).toString(CryptoJS.enc.Hex);
+
+      // Get the payment hash from the decoded invoice
+      const paymentHash = decodedInvoice.paymentHash;
+
+      // Compare the hashes
+      if (hashedPreimage === paymentHash) {
+        setPaymentStatus('The preimage hashed matches the payment hash. This proves that the invoice was paid.');
+        setPrimageValid(true);
+      } else {
+        setPaymentStatus('The preimage hashed does not match the payment hash.');
+        setPrimageValid(false);
+      }
+    } catch (error) {
+      setErrorMessage('Error verifying payment: ' + error.message);
+    }
+  };
 
   return (
     <div>
@@ -676,6 +708,31 @@ export function DecoderPage() {
           </div>
         )}
       </div >
+      {decodedInvoice.paymentHash && (
+        <>
+          <div style={{ marginTop: '20px' }}>
+            <h3>Know the preimage? Verify it below:</h3>
+            <input
+              type="text"
+              value={preimageInput}
+              onChange={(e) => setPreimageInput(e.target.value)}
+              placeholder="Enter the preimage"
+              style={{ width: '100%', maxWidth: '500px' }}
+            />
+            <div></div>
+            <button onClick={verifyPayment}>Verify Payment</button>
+          </div>
+          {paymentStatus && (
+            <div style={{
+              marginTop: '10px',
+              color: primageValid ? 'green' : 'red', // Conditional styling
+              fontWeight: 'bold'
+            }}>
+              {paymentStatus}
+            </div>
+          )}
+        </>
+      )}
     </div >
   );
 }
