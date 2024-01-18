@@ -711,7 +711,7 @@ export function DecoderPage() {
       {decodedInvoice.paymentHash && (
         <>
           <div style={{ marginTop: '20px' }}>
-            <h3>Know the preimage? Verify the payment below:</h3>
+            <h3>Know the preimage? Verify it below:</h3>
             <input
               type="text"
               value={preimageInput}
