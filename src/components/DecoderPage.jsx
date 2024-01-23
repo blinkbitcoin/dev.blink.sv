@@ -56,7 +56,8 @@ export function DecoderPage() {
     try {
       let networkName;
       let customNetwork;
-      if (decodeInput.startsWith('lnbc')) {
+      const lowerCaseDecodeInput = decodeInput.toLowerCase();
+      if (lowerCaseDecodeInput.startsWith('lnbc')) {
         networkName = "mainnet";
         customNetwork = {
           bech32: 'bc', // mainnet
@@ -64,7 +65,7 @@ export function DecoderPage() {
           scriptHash: 0xff,
           validWitnessVersions: [0, 2, 3, 4, 5]
         };
-      } else if (decodeInput.startsWith('lntbs')) {
+      } else if (lowerCaseDecodeInput.startsWith('lntbs')) {
         networkName = "signet";
         customNetwork = {
           bech32: 'tbs', // signet
@@ -72,7 +73,7 @@ export function DecoderPage() {
           scriptHash: 0xff,
           validWitnessVersions: [0, 2, 3, 4, 5]
         };
-      } else if (decodeInput.startsWith('lntb')) {
+      } else if (lowerCaseDecodeInput.startsWith('lntb')) {
         networkName = "testnet";
         customNetwork = {
           bech32: 'tb', // testnet
@@ -382,7 +383,8 @@ export function DecoderPage() {
 
   const handleInput = () => {
     clearData();
-    if (decodeInput.startsWith('ln')) {
+    const lowerCaseDecodeInput = decodeInput.toLowerCase();
+    if (lowerCaseDecodeInput.startsWith('ln')) {
       decodeInvoice(decodeInput);
     } else if (decodeInput.includes('@')) {
       resolveLnAddress(decodeInput);
@@ -394,7 +396,8 @@ export function DecoderPage() {
   // handle the invoice from URL parameter (unless cannot be decoded)
   if (dataFromUrl && !rawData && decodingSuccessful && !lnaddressData) {
     const decodeUrlInvoice = (invoice) => {
-      if (invoice.startsWith('ln')) {
+      const lowerCaseInvoice = invoice.toLowerCase();
+      if (lowerCaseInvoice.startsWith('ln')) {
         setDecodeInput(invoice);
         decodeInvoice(invoice);
       } else if (invoice.includes('@')) {
