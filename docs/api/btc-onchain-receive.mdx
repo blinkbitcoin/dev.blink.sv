@@ -69,7 +69,11 @@ mutation onChainAddressCreate($input: OnChainAddressCreateInput!) {
 The balance will be updated once the transaction is confirmed on the blockchain.<br />
 Until the confirmation the new incoming amount will show in the `pendingIncomingBalance` field.
 
-**The body of the GraphQL request**
+:::tip
+There are multiple ways to get notified on the incoming payments: see [how to use webhooks (callbacks)](webhooks.md) and [websocket subscriptions](websocket.md).
+:::
+
+**The body of the GraphQL request to check the balance including pendingIncomingBalance**
 
 ```graphql
 query Me {

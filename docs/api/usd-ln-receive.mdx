@@ -73,7 +73,12 @@ mutation LnUsdInvoiceCreateOnBehalfOfRecipient($input: LnUsdInvoiceCreateOnBehal
 
 ### Once paid check the balance again
 
-**The body of the GraphQL request**
+:::tip
+There are multiple ways to get notified on the incoming payments: see [how to use webhooks (callbacks)](webhooks.md) and [websocket subscriptions](websocket.md).
+:::
+
+**The body of the GraphQL request to check the balance**
+
 
 ```graphql
 query Me {
