@@ -172,8 +172,8 @@ export function DecoderPage() {
   const generateLink = (payeeNodeKey, network) => {
     const links = {
       mainnet: [
-        { url: `https://amboss.space/node/${payeeNodeKey}`, name: 'amboss.space' },
         { url: `https://mempool.space/lightning/node/${payeeNodeKey}`, name: 'mempool.space' },
+        { url: `https://amboss.space/node/${payeeNodeKey}`, name: 'amboss.space' },
         { url: `https://1ml.com/node/${payeeNodeKey}`, name: '1ml.com' },
         { url: `https://lightningnetwork.plus/nodes/${payeeNodeKey}`, name: 'lightningnetwork.plus' },
       ],
