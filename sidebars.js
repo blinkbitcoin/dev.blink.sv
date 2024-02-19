@@ -104,6 +104,7 @@ const sidebars = {
         'examples/lightning-atm',
         'examples/btcpayserver-plugin',
         'examples/alby-connector',
+        'examples/lamassu-atm'
       ]
     },
   ],
