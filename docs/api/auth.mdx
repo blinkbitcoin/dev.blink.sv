@@ -1,16 +1,14 @@
 ---
 id: auth
-title: Blink Dashboard
+title: Authentication
 slug: /api/auth
 ---
 
-# [Blink Dashboard](https://dashboard.blink.sv)
-
+# Authentication
 Register with a phone number or log in with your existing Blink account on [dashboard.blink.sv](https://dashboard.blink.sv).<br />
 Use the same credentials as with the [Blink wallet app](https://get.blink.sv).
 
 ## Create an API key
-
 * log in with your registered email or a phone number
 * select `API Keys` in the menu on the left
 * create an API key with the `+` button
@@ -27,6 +25,33 @@ Use the same credentials as with the [Blink wallet app](https://get.blink.sv).
   ```
 * open the same URL for the GraphQL Playground: [api.blink.sv/graphql](https://api.blink.sv/graphql)
 * check out the [Galoy API Postman collection](https://documenter.getpostman.com/view/29391384/2s9YCAQq3z#f3e8e86e-67c1-411d-8208-03220fd1ed43)
+
+## Create a new account in the dashboard
+* Open the [Blink Dashboard](https://dashboard.blink.sv)
+
+* Click the `Sign in with Blink button`
+
+  ![](../images/dashboard_sign_in.png)
+
+* Click the `Register Here` link to create a new account using a phone number:
+
+  ![](../images/consent_log_in.png)
+
+* Create a new account on the next page:
+
+  ![](../images/consent_register.png)
+
+* There will be a captcha presented before sending a message to a phone number (there is no captcha when using an email to request the code):
+
+  ![](../images/consent_captcha.png)
+
+* Use the code from the SMS / Whatsapp or email (and your 2FA code is set) to complete the process
+
+  ![](../images/consent_phone_code.png)
+
+* When the registration (or the log in) is completed you will find the Blink Dashboard with access to the wallet info, transaction history, API keys and other features.
+
+  ![](../images/dashboard_new.png)
 
 ---
 
