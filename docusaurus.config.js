@@ -157,7 +157,7 @@ const config = {
         appId: 'W87P4T5P28',
 
         // Public API key: it is safe to commit it
-        apiKey: '811aaf0f41a57a65d3e462f9c21d8c56',
+        apiKey: '5838d46fe4d13a594c70a3c8a700a2f0',
 
         indexName: 'blink',
 
