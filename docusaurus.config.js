@@ -152,11 +152,6 @@ const config = {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
       },
-      algolia: {
-        appId: 'W87P4T5P28',
-        apiKey: 'b729f812dd621998e46d0359b98cbe3d',
-        indexName: 'blink',
-      },
     }),
   plugins: [
     [
