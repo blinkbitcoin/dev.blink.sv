@@ -118,8 +118,8 @@ const config = {
                 href: 'https://chat.galoy.io',
               },
               {
-                label: 'Telegram',
-                href: 'https://t.me/blinkbtc',
+                label: 'BlinkAPI Telegram channel',
+                href: 'https://t.me/+aKn9E5ZIMs8zZmMy',
               },
             ],
           },
