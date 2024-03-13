@@ -13,7 +13,7 @@ Available in BTCPay Server v1.12.0 and later.
 * login to the BTCPay Server instance as an admin user
 * select `Manage Plugins` in the left sidebar and install the Blink plugin:
 
-  ![BTCPay Server plugin](../images/btcpayserver_plugin.png)
+  <img alt="BTCPay Server plugin" src="/img/btcpayserver_plugin.png" width="600"/>
 
 * restart the BTCPay Server instance.
 
@@ -25,11 +25,11 @@ Available in BTCPay Server v1.12.0 and later.
   * create an API key with the + button
   * for the most secure option choose the `Read Only` Scope - using a read only key will allow to create invoices and receive payments to your Blink account, but will not be allowed to send payments with the BTCPay Server plugin.
 
-    ![Read Only API key](../images/auth_api_key_read_only.png)
+    <img alt="Read Only API" key src="/img/auth_api_key_read_only.png" width="800"/>
 
   * copy the API key and save it securely as a password
 
-    ![API key](../images/auth_api_key.png)
+    <img src="/img/auth_api_key.png" alt="API key" width="800"/>
 
 * the option to connect to their Blink will be available for logged in users under:
   * in  case of a new store:<br />
@@ -42,7 +42,7 @@ Available in BTCPay Server v1.12.0 and later.
   type=blink;api-key=blink_...
   ```
 
-  ![BTCPay Server plugin](../images/btcpayserver_plugin_connect.png)
+  <img alt="BTCPay Server plugin" src="/img/btcpayserver_plugin_connect.png" width="800"/>
 
 * If adding only the API key the default wallet will be used on the Blink server (https://api.blink.sv/graphql).
 * the default wallet can be changed in the Blink app under `Settings` → `Default wallet`, but this would only affect the BTCPay Plugin when the connection string is reloaded.
@@ -54,7 +54,7 @@ If using the USD wallet the requested invoice amount needs to be at least 1 USDc
 ### Specify the BTC or USD wallet (optional)
 * to use a specific wallet (BTC or USD) copy the chosen the Wallet Id from your [dashboard.blink.sv](https://dashboard.blink.sv)
 
-  ![Dashboard wallets](../images/dashboard_wallets.png)
+  <img alt="Dashboard wallets" src="/img/dashboard_wallets.png" width="800"/>
 
 * use the full connection string as:
   ```
@@ -68,7 +68,7 @@ If using the USD wallet the requested invoice amount needs to be at least 1 USDc
 
   The message:
 
-  ![BTCPay Server plugin successful](../images/btcpayserver_plugin_successful.png)
+  <img alt="BTCPay Server plugin successful" src="/img/btcpayserver_plugin_successful.png" width="800"/>
 
   is expected as the Blink plugin is connected to a Blink account, not a lightning node directly, but the connection is working.
 

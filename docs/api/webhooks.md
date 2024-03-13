@@ -65,7 +65,7 @@ Example payload sent on a `receive.lightning` event:
 
 Log in to the [Blink Dashboard](https://dashboard.blink.sv) and select the `Callback Endpoints` page to add or remove the webhooks.
 
-![Webhooks](../images/webhooks_dashboard.png)
+<img src="/img/webhooks_dashboard.png" alt="Webhooks" width="800"/>
 
 ## Using the API to manage webhooks
 ### Add a callback endpoint
