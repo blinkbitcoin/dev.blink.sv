@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://www.googletagmanager.com">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-QG87ZX5PS3"></script>
 <script>function gtag(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],gtag("js",new Date),gtag("config","G-QG87ZX5PS3",{anonymize_ip:!0})</script><link rel="stylesheet" href="/assets/css/styles.eddf8e6b.css">
-<script src="/assets/js/runtime~main.5b149b54.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.79d2d98d.js" defer="defer"></script>
 <script src="/assets/js/main.1e451514.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -21,7 +21,7 @@ Add the default wallet or select between BTC and Stablesats.</p>
 </li>
 <li>
 <p>select <code>Manage Plugins</code> in the left sidebar and install the Blink plugin:</p>
-<p><img alt="BTCPay Server plugin" src="/assets/images/btcpayserver_plugin-56ec8aa23c2bc6a4903c74bbc8264567.png" width="730" height="502"></p>
+<img alt="BTCPay Server plugin" src="/img/btcpayserver_plugin.png" width="600">
 </li>
 <li>
 <p>restart the BTCPay Server instance.</p>
@@ -43,11 +43,11 @@ Add the default wallet or select between BTC and Stablesats.</p>
 </li>
 <li>
 <p>for the most secure option choose the <code>Read Only</code> Scope - using a read only key will allow to create invoices and receive payments to your Blink account, but will not be allowed to send payments with the BTCPay Server plugin.</p>
-<p><img alt="Read Only API key" src="/assets/images/auth_api_key_read_only-2e4db065e8f36d487f9b36c4b0b8adf4.png" width="1155" height="844"></p>
+<img alt="Read Only API" src="/img/auth_api_key_read_only.png" width="800">
 </li>
 <li>
 <p>copy the API key and save it securely as a password</p>
-<p><img alt="API key" src="/assets/images/auth_api_key-dc630950efdf93914f74b218ba4d718d.png" width="845" height="577"></p>
+<img src="/img/auth_api_key.png" alt="API key" width="800">
 </li>
 </ul>
 </li>
@@ -64,7 +64,7 @@ Add the default wallet or select between BTC and Stablesats.</p>
 <p>the connection script for BTCPay Server is minimum:</p>
 <pre><code>type=blink;api-key=blink_...
 </code></pre>
-<p><img alt="BTCPay Server plugin" src="/assets/images/btcpayserver_plugin_connect-4363cee61acb2e8fa170431cccd4f0eb.png" width="796" height="1133"></p>
+<img alt="BTCPay Server plugin" src="/img/btcpayserver_plugin_connect.png" width="800">
 </li>
 <li>
 <p>If adding only the API key the default wallet will be used on the Blink server (<a href="https://api.blink.sv/graphql">https://api.blink.sv/graphql</a>).</p>
@@ -78,7 +78,7 @@ Add the default wallet or select between BTC and Stablesats.</p>
 <ul>
 <li>
 <p>to use a specific wallet (BTC or USD) copy the chosen the Wallet Id from your <a href="https://dashboard.blink.sv">dashboard.blink.sv</a></p>
-<p><img alt="Dashboard wallets" src="/assets/images/dashboard_wallets-2752e077e009b2e815129a508245a1fa.png" width="1377" height="448"></p>
+<img alt="Dashboard wallets" src="/img/dashboard_wallets.png" width="800">
 </li>
 <li>
 <p>use the full connection string as:</p>
@@ -94,7 +94,7 @@ Add the default wallet or select between BTC and Stablesats.</p>
 <li>
 <p>Click <code>Test connection</code> to verify the connection</p>
 <p>The message:</p>
-<p><img alt="BTCPay Server plugin successful" src="/assets/images/btcpayserver_plugin_successful-99012415cbb6b461ac64405ab2ea331a.png" width="822" height="62"></p>
+<img alt="BTCPay Server plugin successful" src="/img/btcpayserver_plugin_successful.png" width="800">
 <p>is expected as the Blink plugin is connected to a Blink account, not a lightning node directly, but the connection is working.</p>
 </li>
 <li>
