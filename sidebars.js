@@ -96,7 +96,6 @@ const sidebars = {
       ],
     },
     'api/postman',
-    'api/learn-more',
     {
       type: 'category',
       label: 'API usage examples',
