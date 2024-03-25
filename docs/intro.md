@@ -35,7 +35,7 @@ Robust infrastructure (built on [Galoy](https://dev.galoy.io)) and well-managed 
 
 A detailed FAQ entry on [pricing](https://faq.blink.sv/transaction-fees/what-are-the-transaction-fees-for-using-blink-wallet)
 
-## Why choose the [Blink API](/api)
+## Why choose the [Blink API](/api/auth)
 📖 Blink makes receiving bitcoin simple whether you sell products in person, receive remittances or donations from abroad, or simply send sats between friends.
 
 * **Bitcoin-only** - Built by Bitcoiners for everyone, Proudly based in El Salvador
@@ -52,7 +52,7 @@ A detailed FAQ entry on [pricing](https://faq.blink.sv/transaction-fees/what-are
 * Add an email for login
 * Start building!
 
-## Interactive tutorials: [try it out](/api#-tutorials)
+## Interactive tutorials: [try it out](/api/btc-ln-receive)
 🧪 API integration made easy
 
 Sending and receiving Bitcoin and Stablesats via API is simple, and available using both Lightning and onchain. Check out these simple interactive tutorials:

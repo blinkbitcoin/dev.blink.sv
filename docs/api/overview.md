@@ -6,11 +6,11 @@ slug: /api/overview
 
 # Blink API Overview
 
-### ₿ [Start with Blink](/api/start) to register an account
-* [Download the Blink app](/api/start#download-the-blink-app)
-* [Set up the email login](/api/start#set-up-the-email-login)
-  * [Upgrade the account with a phone number](/api/start#upgrade-the-account-with-a-phone-number)
-  * [Add an email address for login](/api/start#add-an-email-address-for-login)
+### ₿ [Start with Blink](/api/auth) to register an account
+* [Download the Blink app](/api/auth#download-the-blink-app)
+* [Set up the email login](/api/auth#set-up-the-email-login)
+  * [Upgrade the account with a phone number](/api/auth#upgrade-the-account-with-a-phone-number)
+  * [Add an email address for login](/api/auth#add-an-email-address-for-login)
 
 ### 🔑 [Get an authentication token](/api/auth) to access the API
 * [Log in with email through the REST API](/api/auth#log-in-with-email-through-the-rest-api)
