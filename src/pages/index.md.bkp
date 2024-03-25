@@ -56,7 +56,7 @@ A detailed FAQ entry on [pricing](https://faq.blink.sv/transaction-fees/what-are
 * **Open source** – Transition to self-hosted
 * **USD-enabled** – Synthetic USD via Stablesats. Dive deeper on [stablesats.com](https://stablesats.com/)
 
-## Get started: [Register in 2 minutes](/api/start)
+## Get started: [Register in 2 minutes](/api/auth)
 ➡️ Registering and logging into the Blink API is simple and can be done in under a minute.
 
 * Register account with phone number (note: unavailable in the US and some other countries)
@@ -81,6 +81,6 @@ Visit [dev.galoy.io](https://dev.galoy.io) for more information on our open-sour
 
 [Join our Mattermost](https://chat.galoy.io/)
 
-[Start with the API](https://dev.blink.sv/api/start)
+[Start with the API](https://dev.blink.sv/api/auth)
 
 Join us in enabling a Bitcoin-powered future with the Blink API powered by Galoy!

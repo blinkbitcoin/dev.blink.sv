@@ -1,8 +1,7 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const path = require('path');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -145,12 +144,8 @@ const config = {
       },
       colorMode: {
         defaultMode: 'dark',
-        disableSwitch: true,  // manual switch
-        respectPrefersColorScheme: false, // system dark mode switch
-      },
-      prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        disableSwitch: false, //manual dark mode switch
+        respectPrefersColorScheme: true, // system dark mode switch
       },
     }),
   plugins: [
