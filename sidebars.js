@@ -36,6 +36,7 @@ const sidebars = {
       label: 'API tutorials',
       collapsed: false,
       items: [
+        'api/graphql-intro',
         {
           type: 'category',
           label: 'Lightning',
@@ -95,7 +96,6 @@ const sidebars = {
       ],
     },
     'api/postman',
-    'api/learn-more',
     {
       type: 'category',
       label: 'API usage examples',
