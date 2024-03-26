@@ -139,6 +139,7 @@ export function DecoderPage() {
           network: networkName,
           payeeNodeKey: decoded.payeeNodeKey,
           satoshis: decoded.satoshis,
+          millisatoshis: decoded.millisatoshis,
           paymentHash,
           timestampString,
           expirationStatus,
@@ -444,6 +445,20 @@ export function DecoderPage() {
     }
   };
 
+  // Utility function to format the display amount
+  const formatAmount = (satoshis, millisatoshis) => {
+    // If satoshis is available and it's not less than 1, display satoshis
+    if (satoshis && satoshis >= 1) {
+      return `${satoshis} sats`;
+    } else if (millisatoshis) {
+      // Otherwise, display millisatoshis
+      return `${millisatoshis} millisats`;
+    } else {
+      // Handle cases where neither is available
+      return 'N/A';
+    }
+  };
+
   return (
     <div>
       {dataFromUrl === '' && (
@@ -493,7 +508,7 @@ export function DecoderPage() {
               </div>
               <div style={flexContainerStyle}>
                 <div style={labelStyle}>amount:</div>
-                <div>{decodedInvoice.satoshis} sats</div>
+                <div>{formatAmount(decodedInvoice.satoshis, decodedInvoice.millisatoshis)}</div>
               </div>
               {decodedInvoice.memo !== '' && (
                 <div style={flexContainerStyle}>
