@@ -27,8 +27,13 @@ export function DecoderPage() {
     const urlParams = new URLSearchParams(window.location.search);
     // Both invoice and lnaddress can be passed as url parameter
     // with either key 'invoice' or 'lnaddress'
-    const invoiceParam = urlParams.get('invoice') || '';
-    const lnaddressParam = urlParams.get('lnaddress') || '';
+    let invoiceParam = urlParams.get('invoice') || '';
+    let lnaddressParam = urlParams.get('lnaddress') || '';
+
+    // Strip 'lightning:' prefix if present
+    invoiceParam = invoiceParam.startsWith('lightning:') ? invoiceParam.substring(10) : invoiceParam;
+    lnaddressParam = lnaddressParam.startsWith('lightning:') ? lnaddressParam.substring(10) : lnaddressParam;
+
     if (invoiceParam) {
       setDataFromUrl(invoiceParam);
     } else if (lnaddressParam) {
@@ -56,7 +61,11 @@ export function DecoderPage() {
     try {
       let networkName;
       let customNetwork;
-      const lowerCaseDecodeInput = decodeInput.toLowerCase();
+      let lowerCaseDecodeInput = decodeInput.toLowerCase();
+      // Remove 'lightning:' prefix if present
+      if (lowerCaseDecodeInput.toLowerCase().startsWith('lightning:')) {
+        lowerCaseDecodeInput = lowerCaseDecodeInput.substring(10);
+      }
       if (lowerCaseDecodeInput.startsWith('lnbc')) {
         networkName = "mainnet";
         customNetwork = {
@@ -85,7 +94,7 @@ export function DecoderPage() {
 
       let decoded;
       try {
-        decoded = lightningPayReq.decode(decodeInput, customNetwork);
+        decoded = lightningPayReq.decode(lowerCaseDecodeInput, customNetwork);
 
         setRawData(decoded);
 
@@ -130,6 +139,7 @@ export function DecoderPage() {
           network: networkName,
           payeeNodeKey: decoded.payeeNodeKey,
           satoshis: decoded.satoshis,
+          millisatoshis: decoded.millisatoshis,
           paymentHash,
           timestampString,
           expirationStatus,
@@ -383,11 +393,15 @@ export function DecoderPage() {
 
   const handleInput = () => {
     clearData();
-    const lowerCaseDecodeInput = decodeInput.toLowerCase();
+    let lowerCaseDecodeInput = decodeInput.toLowerCase();
+    // Remove 'lightning:' prefix if present
+    if (lowerCaseDecodeInput.startsWith('lightning:')) {
+      lowerCaseDecodeInput = lowerCaseDecodeInput.substring(10);
+    }
     if (lowerCaseDecodeInput.startsWith('ln')) {
-      decodeInvoice(decodeInput);
-    } else if (decodeInput.includes('@')) {
-      resolveLnAddress(decodeInput);
+      decodeInvoice(lowerCaseDecodeInput);
+    } else if (lowerCaseDecodeInput.includes('@')) {
+      resolveLnAddress(lowerCaseDecodeInput);
     } else {
       setErrorMessage('Invalid input. Please enter a valid lightning invoice or lightning address.');
     }
@@ -428,6 +442,20 @@ export function DecoderPage() {
       }
     } catch (error) {
       setErrorMessage('Error verifying payment: ' + error.message);
+    }
+  };
+
+  // Utility function to format the display amount
+  const formatAmount = (satoshis, millisatoshis) => {
+    // If satoshis is available and it's not less than 1, display satoshis
+    if (satoshis && satoshis >= 1) {
+      return `${satoshis} sats`;
+    } else if (millisatoshis) {
+      // Otherwise, display millisatoshis
+      return `${millisatoshis} millisats`;
+    } else {
+      // Handle cases where neither is available
+      return 'N/A';
     }
   };
 
@@ -480,7 +508,7 @@ export function DecoderPage() {
               </div>
               <div style={flexContainerStyle}>
                 <div style={labelStyle}>amount:</div>
-                <div>{decodedInvoice.satoshis} sats</div>
+                <div>{formatAmount(decodedInvoice.satoshis, decodedInvoice.millisatoshis)}</div>
               </div>
               {decodedInvoice.memo !== '' && (
                 <div style={flexContainerStyle}>
