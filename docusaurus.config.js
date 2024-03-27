@@ -147,6 +147,12 @@ const config = {
         disableSwitch: false, //manual dark mode switch
         respectPrefersColorScheme: true, // system dark mode switch
       },
+      algolia: {
+        appId: 'W87P4T5P28',
+        apiKey: 'ee1b157f836a7e06f1a72f0935486516',
+        indexName: 'blink',
+        contextualSearch: false, // only false works
+      },
     }),
   plugins: [
     [

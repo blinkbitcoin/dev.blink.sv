@@ -15,7 +15,6 @@
     "bundle-bolt11": "browserify -r bolt11 --standalone lightningPayReq | uglifyjs -c -m -o ./static/js/bolt11.min.js"
   },
   "dependencies": {
-    "@algolia/client-search": "^4.22.1",
     "@docusaurus/core": "^3.1.1",
     "@docusaurus/plugin-client-redirects": "^3.1.1",
     "@docusaurus/preset-classic": "^3.1.1",
