@@ -8,7 +8,12 @@ Connect Blink to use your wallet in the [Alby lightning browser extension](https
 
 Available in Alby v3.5.0 and later.
 
-<img src="/img/alby_connector.png" alt="Alby connector" width="400"/>
+<img src="/img/alby_connect_btc.png" alt="Alby connector BTC" width="400"/>
+
+Since Alby v3.7.0 you can connect your Stablesats wallet. <br />
+Connect a new wallet and choose `USD (Stablesats)` from the dropdown menu:
+
+<img src="/img/alby_connect_usd.png" alt="Alby connector USD" width="400"/>
 
 Source code:
 * [github.com/getAlby/lightning-browser-extension/blob/master/src/app/screens/connectors/ConnectGaloy/index.tsx](https://github.com/getAlby/lightning-browser-extension/blob/master/src/app/screens/connectors/ConnectGaloy/index.tsx)
