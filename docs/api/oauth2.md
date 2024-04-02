@@ -9,6 +9,7 @@ The OAuth2 integration in Blink empowers third-party applications to authenticat
 
 ## Getting started
 Before integrating with Blink OAuth2, it's crucial to have a foundational understanding of [OAuth 2.0](https://www.ory.sh/docs/oauth2-oidc/overview/oauth2-concepts) and [OpenID Connect (OIDC)](https://www.ory.sh/docs/oauth2-oidc/overview/oidc-concepts). These protocols facilitate secure authorization workflows between your application and Blink services, allowing for authenticated access to user-specific data and actions.
+The connecting applications are using the [OAuth2 authorization code flow](https://www.ory.sh/docs/oauth2-oidc/authorization-code-flow).
 
 ## Register your application
 To initiate the integration process, your application must be registered and approved by Blink's development team. This is a critical step to ensure secure and authorized access to Blink's API functionalities.
@@ -19,10 +20,17 @@ Reach out to the Blink development team via our Mattermost server at [chat.galoy
 ### Callback URL
 Specify the callback URL for your application. This URL is where users will be redirected after successful authentication, facilitating the completion of the OAuth2 flow.
 
-### Configuration examples
+### Oauth2 authorization token
+After the approval you will be provided an Oauth2 authorization token which will be needed in the [Oauth2-Token header](#oauth2-token-header)
+
+### Client ID and secret
+After the registration you will receive a client ID and a client secret from our server. These are unique identifiers that allow the Blink API backend to identify your application and allow it to access protected resources. The client ID is considered public information and can be included in JavaScript source code or used to build login URLs. The client secret, however, must be kept confidential and is used to authenticate the client to the authorization server.
+
+## Configuration examples
 Below are the Terraform configurations for two existing Blink integrations, showcasing how to set up OAuth2 clients for different applications using the [hydra_oauth2_client Terraform resource](https://registry.terraform.io/providers/svrakitin/hydra/latest/docs/resources/oauth2_client) :
 
-#### Blink Dashboard at [dashboard.blink.sv](https://dashboard.blink.sv)
+### Blink Dashboard
+* try it at [dashboard.blink.sv](https://dashboard.blink.sv)
 ```
 resource "hydra_oauth2_client" "api_dashboard" {
   client_name                = "Blink Api Dashboard"
@@ -34,7 +42,8 @@ resource "hydra_oauth2_client" "api_dashboard" {
   skip_consent               = true
 }
 ```
-#### Blink PoS at [pay.blink.sv](https://pay.blink.sv)
+### Blink PoS
+* try it at [pay.blink.sv](https://pay.blink.sv)
 ```
 resource "hydra_oauth2_client" "galoy_pay" {
   client_name                = "Blink POS"
@@ -52,9 +61,7 @@ After your application is approved, you'll need to implement the OAuth2 flow. Th
 
 For a hands-on introduction to setting up OAuth2 with Ory Hydra, you can explore this [5-minute tutorial](https://www.ory.sh/docs/hydra/5min-tutorial).
 
-### Implementation details
-
-#### Using the Oauth2-Token header
+### Using the Oauth2-Token header
 Note that the Oauth2 token needs a different header for Authentication (compared to API keys using the `X-API-KEY` header or the authentication token used in the Blink mobile app).
 Example header for the Blink PoS:
 ```
@@ -64,7 +71,7 @@ Example header for the Blink PoS:
 ```
 Link to the [code with the context](https://github.com/GaloyMoney/galoy/pull/4149/files#diff-d5101fe657d3e5befe3ec31871012666597b3f346292241dffde4938c625090dR21).
 
-#### Example Oauth2 integration using [next-auth](https://www.npmjs.com/package/next-auth) in the Blink PoS
+### Example using [next-auth](https://www.npmjs.com/package/next-auth) in the Blink PoS
 ```
 export const authOptions: NextAuthOptions = {
   providers: [
