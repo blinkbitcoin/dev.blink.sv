@@ -20,14 +20,16 @@ Available in BTCPay Server v1.12.0 and later.
 ## How to connect
 
 * Create an API key on [dashboard.blink.sv](https://dashboard.blink.sv)
-  * log in with your registered email or a phone number
+  * log in with your registered email or a phone number or create a new account if you are new to Blink
   * select API Keys in the menu on the left
-  * create an API key with the + button
-  * for the most secure option choose the `Read Only` Scope - using a read only key will allow to create invoices and receive payments to your Blink account, but will not be allowed to send payments with the BTCPay Server plugin.
+  * create an API key with the `+` button
+  * for the most secure option choose the `Read` and `Receive` scopes - this will allow to create invoices and receive payments to your Blink account, but will not be allowed to send payments with the BTCPay Server plugin.<br />
+  Currently using only the `Read` scope also works, but it is better to add the `Receive` scope as well to ensure compatibility in the future when the plugin is updated.<br />
+  Only use the `Write` scope if you are planning to send payments from BTCPay Server for example with `Pull Payments` or connecting bolt cards. Be aware that the BTCPay Server admin can access your API key therefore could spend your balance when using the `Write` scope. The best is to use a self-hosted BTCPay Server instance for this purpose.
 
-    <img alt="Read Only API" key src="/img/auth_api_key_read_only.png" width="800"/>
+    <img alt="Read and Receive key" key src="/img/auth_api_key_read_receive.png" width="800"/>
 
-  * copy the API key and save it securely as a password
+  * the BTCPay connection strings contain the API key and the ID of the chosen wallet in the format ready to be pasted in the BTCPay Server interface:
 
     <img src="/img/auth_api_key.png" alt="API key" width="800"/>
 
@@ -37,7 +39,7 @@ Available in BTCPay Server v1.12.0 and later.
   * in case of an existing store:<br />
     `Lightning` → `Settings` → `Change connection` → `Use custom node`
 
-* the connection script for BTCPay Server is minimum:
+* the connection string for BTCPay Server is minimum:
   ```
   type=blink;api-key=blink_...
   ```
@@ -52,7 +54,7 @@ If using the USD wallet the requested invoice amount needs to be at least 1 USDc
 :::
 
 ### Specify the BTC or USD wallet (optional)
-* to use a specific wallet (BTC or USD) copy the chosen the Wallet Id from your [dashboard.blink.sv](https://dashboard.blink.sv)
+* to use a specific wallet (BTC or USD) use the specific BTCPay connection string with the Wallet Id included or copy the chosen the Wallet Id from your [dashboard.blink.sv](https://dashboard.blink.sv)
 
   <img alt="Dashboard wallets" src="/img/dashboard_wallets.png" width="800"/>
 
