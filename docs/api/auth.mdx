@@ -5,26 +5,43 @@ slug: /api/auth
 ---
 
 # Authentication
-Register with a phone number or log in with your existing Blink account on [dashboard.blink.sv](https://dashboard.blink.sv).<br />
-Use the same credentials as with the [Blink wallet app](https://get.blink.sv).
+Register with a phone number or log in with your existing Blink account on the Blink dashboard at [dashboard.blink.sv](https://dashboard.blink.sv)<br />
+Use the same credentials as with the [Blink wallet app](https://get.blink.sv)
 
 ## Create an API key
-* log in with your registered email or a phone number
-* select `API Keys` in the menu on the left
-* create an API key with the `+` button
-* copy the API key and save it securely as a password
+* Select API Keys in the menu on the left<br />
+* Create an API key with the `+` button
+
+### Scopes
+
+<img alt="Read and Receive key" key src="/img/auth_api_key_read_receive.png" width="800"/>
+
+#### Read
+* Allows queries returning user info, wallet balance, transaction history and other features.
+
+#### Receive
+* Allows to create invoices and generate onchain addresses.
+* Note that there are methods to create invoices without authentication, but a more strict rate limiting is applied.
+
+#### Write
+* Allows to send payments and modify user data.
+* For security avoid using the `Write` scope in third party servers as much as possible.
+
+## Saving the key
+* Copy the API key and save it securely as a password.
+* The BTCPay connection strings contain the same API key togethet with the  ID of the chosen wallet in the format ready to be pasted in the BTCPay Server interfac.
 
 <img src="/img/auth_api_key.png" alt="Create an API key in the Dashboard" width="800"/>
 
-## Use the API key
-* try the interactive API tutorial on the next pages
-* the API endpoint is `https://api.blink.sv/graphql`
-* for your custom requests set the API key in the header as:
+## Usage
+* Try the interactive API tutorial on the next pages
+* The API endpoint is `https://api.blink.sv/graphql`
+* For your custom requests set the API key in the header as:
   ```
   "X-API-KEY" "blink_..."
   ```
-* open the same URL for the GraphQL Playground: [api.blink.sv/graphql](https://api.blink.sv/graphql)
-* check out the [Galoy API Postman collection](https://documenter.getpostman.com/view/29391384/2s9YCAQq3z#f3e8e86e-67c1-411d-8208-03220fd1ed43)
+* Open the same URL for the GraphQL Playground: [api.blink.sv/graphql](https://api.blink.sv/graphql)
+* Check out the [Galoy API Postman collection](https://documenter.getpostman.com/view/29391384/2s9YCAQq3z#f3e8e86e-67c1-411d-8208-03220fd1ed43)
 
 ## Create a new account in the dashboard
 * Open the [Blink Dashboard](https://dashboard.blink.sv)
@@ -55,10 +72,11 @@ Use the same credentials as with the [Blink wallet app](https://get.blink.sv).
 
 ---
 
-## For testing and development connect to the Galoy Staging environment
+## Staging environment
+For testing and development connect to the Blink Staging environment.
 :::note
 New registrations to the staging environment are currently limited. Please contact us on our Community Mattermost Server on [chat.galoy.io](https://chat.galoy.io) to request access.
 :::
 
-* Staging Dashboard: [dashboard.staging.galoy.io](https://dashboard.staging.galoy.io)
-* Staging GraphQL playground and API endpoint: [api.staging.galoy.io/graphql](https://api.staging.galoy.io/graphql)
+* Staging Dashboard: [dashboard.staging.blink.sv](https://dashboard.staging.blink.sv)
+* Staging GraphQL playground and API endpoint: [api.staging.blink.sv/graphql](https://api.staging.blink.sv/graphql)
