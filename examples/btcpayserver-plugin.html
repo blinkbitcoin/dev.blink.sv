@@ -10,7 +10,7 @@
 
 
 <link rel="search" type="application/opensearchdescription+xml" title="Blink Developer Documentation" href="/opensearch.xml"><link rel="stylesheet" href="/assets/css/styles.37881259.css">
-<script src="/assets/js/runtime~main.5a922625.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.593b0633.js" defer="defer"></script>
 <script src="/assets/js/main.620d2d31.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -36,20 +36,22 @@ Add the default wallet or select between BTC and Stablesats.</p>
 <p>Create an API key on <a href="https://dashboard.blink.sv" target="_blank" rel="noopener noreferrer">dashboard.blink.sv</a></p>
 <ul>
 <li>
-<p>log in with your registered email or a phone number</p>
+<p>log in with your registered email or a phone number or create a new account if you are new to Blink</p>
 </li>
 <li>
 <p>select API Keys in the menu on the left</p>
 </li>
 <li>
-<p>create an API key with the + button</p>
+<p>create an API key with the <code>+</code> button</p>
 </li>
 <li>
-<p>for the most secure option choose the <code>Read Only</code> Scope - using a read only key will allow to create invoices and receive payments to your Blink account, but will not be allowed to send payments with the BTCPay Server plugin.</p>
-<img alt="Read Only API" src="/img/auth_api_key_read_only.png" width="800">
+<p>for the most secure option choose the <code>Read</code> and <code>Receive</code> scopes - this will allow to create invoices and receive payments to your Blink account, but will not be allowed to send payments with the BTCPay Server plugin.<br>
+Currently using only the <code>Read</code> scope also works, but it is better to add the <code>Receive</code> scope as well to ensure compatibility in the future when the plugin is updated.<br>
+Only use the <code>Write</code> scope if you are planning to send payments from BTCPay Server for example with <code>Pull Payments</code> or connecting bolt cards. Be aware that the BTCPay Server admin can access your API key therefore could spend your balance when using the <code>Write</code> scope. The best is to use a self-hosted BTCPay Server instance for this purpose.</p>
+<img alt="Read and Receive key" src="/img/auth_api_key_read_receive.png" width="800">
 </li>
 <li>
-<p>copy the API key and save it securely as a password</p>
+<p>the BTCPay connection strings contain the API key and the ID of the chosen wallet in the format ready to be pasted in the BTCPay Server interface:</p>
 <img src="/img/auth_api_key.png" alt="API key" width="800">
 </li>
 </ul>
@@ -64,7 +66,7 @@ Add the default wallet or select between BTC and Stablesats.</p>
 </ul>
 </li>
 <li>
-<p>the connection script for BTCPay Server is minimum:</p>
+<p>the connection string for BTCPay Server is minimum:</p>
 <div class="codeBlockContainer_Ckt0 theme-code-block" style="--prism-color:#bfc7d5;--prism-background-color:#292d3e"><div class="codeBlockContent_biex"><pre tabindex="0" class="prism-code language-text codeBlock_bY9V thin-scrollbar" style="color:#bfc7d5;background-color:#292d3e"><code class="codeBlockLines_e6Vv"><span class="token-line" style="color:#bfc7d5"><span class="token plain">type=blink;api-key=blink_...</span><br></span></code></pre><div class="buttonGroup__atx"><button type="button" aria-label="Copy code to clipboard" title="Copy" class="clean-btn"><span class="copyButtonIcons_eSgA" aria-hidden="true"><svg viewBox="0 0 24 24" class="copyButtonIcon_y97N"><path fill="currentColor" d="M19,21H8V7H19M19,5H8A2,2 0 0,0 6,7V21A2,2 0 0,0 8,23H19A2,2 0 0,0 21,21V7A2,2 0 0,0 19,5M16,1H4A2,2 0 0,0 2,3V17H4V3H16V1Z"></path></svg><svg viewBox="0 0 24 24" class="copyButtonSuccessIcon_LjdS"><path fill="currentColor" d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path></svg></span></button></div></div></div>
 <img alt="BTCPay Server plugin" src="/img/btcpayserver_plugin_connect.png" width="800">
 </li>
@@ -79,7 +81,7 @@ Add the default wallet or select between BTC and Stablesats.</p>
 <h3 class="anchor anchorWithStickyNavbar_LWe7" id="specify-the-btc-or-usd-wallet-optional">Specify the BTC or USD wallet (optional)<a href="#specify-the-btc-or-usd-wallet-optional" class="hash-link" aria-label="Direct link to Specify the BTC or USD wallet (optional)" title="Direct link to Specify the BTC or USD wallet (optional)">​</a></h3>
 <ul>
 <li>
-<p>to use a specific wallet (BTC or USD) copy the chosen the Wallet Id from your <a href="https://dashboard.blink.sv" target="_blank" rel="noopener noreferrer">dashboard.blink.sv</a></p>
+<p>to use a specific wallet (BTC or USD) use the specific BTCPay connection string with the Wallet Id included or copy the chosen the Wallet Id from your <a href="https://dashboard.blink.sv" target="_blank" rel="noopener noreferrer">dashboard.blink.sv</a></p>
 <img alt="Dashboard wallets" src="/img/dashboard_wallets.png" width="800">
 </li>
 <li>
