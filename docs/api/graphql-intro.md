@@ -74,12 +74,12 @@ For the detailed documentation on specific queries, mutations, and types availab
 * visit: [dev.galoy.io/public-api-reference.html](https://dev.galoy.io/public-api-reference.html)
 
 ### GraphQL schema in the Galoy source code
-* find it on GitHub: [/galoy/blob/main/core/api/src/graphql/public/schema.graphql](https://github.com/GaloyMoney/galoy/blob/main/core/api/src/graphql/public/schema.graphql)
+* find it on GitHub: [/galoy/blob/main/core/api/src/graphql/public/schema.graphql](https://github.com/GaloyMoney/blink/blob/main/core/api/src/graphql/public/schema.graphql)
 
 ### Preformed GraphQL queries
 
 Dive deeper into constructing GraphQL queries with these preformed queries:c
-* [galoy-mobile/blob/main/app/graphql/generated.gql](https://github.com/GaloyMoney/galoy-mobile/blob/main/app/graphql/generated.gql)
+* [galoy-mobile/blob/main/app/graphql/generated.gql](https://github.com/GaloyMoney/blink-mobile/blob/main/app/graphql/generated.gql)
 
 ## Videos
 

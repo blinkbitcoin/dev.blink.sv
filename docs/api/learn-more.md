@@ -20,8 +20,8 @@ slug: /api/learn-more
 
 Dive deeper into constructing GraphQL queries with these preformed queries:
 
-* [galoy/tree/main/core/api/test/bats/gql](https://github.com/GaloyMoney/galoy/tree/main/core/api/test/bats/gql)
-* [galoy-mobile/blob/main/app/graphql/generated.gql](https://github.com/GaloyMoney/galoy-mobile/blob/main/app/graphql/generated.gql)
+* [galoy/tree/main/core/api/test/bats/gql](https://github.com/GaloyMoney/blink/tree/main/core/api/test/bats/gql)
+* [galoy-mobile/blob/main/app/graphql/generated.gql](https://github.com/GaloyMoney/blink-mobile/blob/main/app/graphql/generated.gql)
 
 ## Videos
 
