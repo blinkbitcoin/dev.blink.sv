@@ -1,7 +1,7 @@
 ---
 id: backend-servers
 title: Backend Servers
-slug: /deployment/backend-servers
+slug: /self-host/deployment/backend-servers
 ---
 
 # Backend Servers

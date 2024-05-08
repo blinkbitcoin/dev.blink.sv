@@ -1,7 +1,7 @@
 ---
 id: admin-panel
 title: Admin Panel
-slug: /deployment/admin-panel
+slug: /self-host/deployment/admin-panel
 ---
 
 # Admin Panel

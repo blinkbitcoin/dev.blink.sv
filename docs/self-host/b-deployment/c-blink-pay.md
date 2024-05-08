@@ -1,7 +1,7 @@
 ---
 id: blink-pay
 title: Blink Pay
-slug: /deployment/blink-pay
+slug: /self-host/deployment/blink-pay
 ---
 
 # Blink Pay

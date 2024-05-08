@@ -1,14 +1,13 @@
 ---
 description: >-
-  Galoy is an open source banking platform enabling any organization to
+  Blink is an open source banking platform enabling any organization to
   launch a community bank on top of Bitcoin and Lightning.
+id: self-host
+title: Self Host Overview
+slug: /self-host
 ---
 
-# Galoy Developer Documentation
-
-## Overview of Galoy
-
-The Galoy core banking platform includes the parts necessary to launch a community bank on Bitcoin and Lightning. It is designed to be modular and extensible, so that it can be customized to meet the needs of any community or organization.
+The Blink core banking platform includes the parts necessary to launch a community bank on Bitcoin and Lightning. It is designed to be modular and extensible, so that it can be customized to meet the needs of any community or organization.
 
 :::tip
 [Join the Galoy Workspace](https://chat.galoy.io) and say hello in the Town Square – there is a community of devs happy to help you get up and running.
@@ -20,7 +19,7 @@ The Galoy core banking platform includes the parts necessary to launch a communi
 Check out the [API section ](/api) for an interactive tutorial to get started with our hosted instance.
 * **[Stablesats](products/stablesats)** – service for implementing fiat hedging strategies via supported exchanges; enables the provision of synthetic USD to provide dollar-like stability without stablecoins.
 * **[Bria](products/bria)** - a service for transaction batching and onchain liquidity management.
-* **[Blink CLI](products/galoy-cli)** - a Command Line Interface (CLI) client for interacting with Galoy Core.
+* **[Blink CLI](products/galoy-cli)** - a Command Line Interface (CLI) client for interacting with Blink Core.
 
 ### Apps
 
@@ -36,8 +35,8 @@ Check out the [API section ](/api) for an interactive tutorial to get started wi
 
 ## Getting started
 
-* [Hosted API](https://dev.blink.sv/api)
-* [Deployment](/deployment/)
+* [Hosted API](/api)
+* [Deployment](/self-host/deployment/)
 
 ## API Reference
 

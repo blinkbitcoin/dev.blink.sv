@@ -1,7 +1,7 @@
 ---
 id: mobile-wallet
 title: Mobile Wallet
-slug: /deployment/mobile-wallet
+slug: /self-host/deployment/mobile-wallet
 ---
 
 # Mobile Wallet

@@ -1,7 +1,7 @@
 ---
 id: signet
 title: Signet
-slug: /deployment/signet
+slug: /self-host/deployment/signet
 ---
 
 # Testing on signet

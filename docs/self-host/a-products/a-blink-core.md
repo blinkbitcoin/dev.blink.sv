@@ -6,7 +6,7 @@ slug: /self-host/products/blink-core
 
 import GitHubButton from 'react-github-btn'
 
-# Galoy Core
+# Blink Core
 
 <GitHubButton href="https://github.com/GaloyMoney/blink" data-color-scheme="no-preference: dark; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star GaloyMoney/blink on GitHub">Star</GitHubButton>
 <div style={{ marginBottom: 20 }}></div>
@@ -37,7 +37,7 @@ For the local `dev` environment
 * clone the galoy repo: https://github.com/GaloyMoney/blink
 * follow the steps in the [readme](https://github.com/GaloyMoney/blink/tree/main?tab=readme-ov-file#local-development-setup) start hosting the API locally
 
-Find more details about hosting the Galoy satck yourself in the [deployment section](/self-host/deployment/).
+Find more details about hosting the Blink stack yourself in the [deployment section](/self-host/deployment/).
 
 ## Admin API
 

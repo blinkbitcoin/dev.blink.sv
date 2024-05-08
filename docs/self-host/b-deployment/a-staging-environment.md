@@ -1,7 +1,7 @@
 ---
 id: staging-environment
 title: Staging Environment
-slug: /deployment/staging-environment
+slug: /self-host/deployment/staging-environment
 ---
 
 # Staging Environment
