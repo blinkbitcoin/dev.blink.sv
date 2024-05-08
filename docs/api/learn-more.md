@@ -8,7 +8,7 @@ slug: /api/learn-more
 
 * Find the staging API endpoint and GraphQL playground at:
 
-  https://api.staging.galoy.io/graphql
+  https://api.staging.blink.sv/graphql
 
 * For the mainnet API endpoint and GraphQL playground connect to:
 

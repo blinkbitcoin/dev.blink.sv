@@ -1,7 +1,7 @@
 ---
 id: stablesats
 title: Stablesats
-slug: /products/stablesats
+slug: /self-host/products/stablesats
 ---
 
 import GitHubButton from 'react-github-btn'

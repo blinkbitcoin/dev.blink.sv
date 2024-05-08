@@ -1,25 +1,25 @@
 ---
-id: galoy-pay
-title: Galoy Pay
-slug: /deployment/galoy-pay
+id: blink-pay
+title: Blink Pay
+slug: /deployment/blink-pay
 ---
 
-# Galoy Pay
+# Blink Pay
 
-Galoy Pay is a web application that can be used to send tips or payments to users of the Galoy API.
+Blink Pay is a web application that can be used to send tips or payments to users of the Blink API.
 
-It's packaged as a docker image, and is automatically installed as part of the Galoy helm charts.
+It's packaged as a docker image, and is automatically installed as part of the Blink helm charts.
 
-With a default installation, Galoy-Pay can be accessed under `pay.domain.com`.
+With a default installation, Blink-Pay can be accessed under `pay.domain.com`.
 
-Galoy-Pay uses query, mutation, and subscription operations from the Galoy's graphql API endpoints `api.domain.com` as defined in [schema.graphql](https://github.com/GaloyMoney/blink/blob/main/src/graphql/main/schema.graphql)
+Blink-Pay uses query, mutation, and subscription operations from the Blink's graphql API endpoints `api.domain.com` as defined in [schema.graphql](https://github.com/GaloyMoney/blink/blob/main/src/graphql/main/schema.graphql)
 
 ### How to run this repo locally?
 
 In the project directory, create a file name `.env.local` and fill it with
 
 ```
-NEXT_PUBLIC_GRAPHQL_HOSTNAME='api.staging.galoy.io'
+NEXT_PUBLIC_GRAPHQL_HOSTNAME='api.staging.blink.sv'
 ```
 
 (or use your custom API URL), then run

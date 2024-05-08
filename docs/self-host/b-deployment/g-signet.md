@@ -45,8 +45,8 @@ Documentation of testing options with the wider network since the dev setup make
 - https://signet-lightning.wakiyamap.dev
 
 ## Test payment destinations
-* LN address on Staging: `test@pay.staging.galoy.io`
-* Staging cash register: https://pay.staging.galoy.io/test?amount=0&sats=0&unit=CENT&memo=&display=USD&currency=USD (LN)
+* LN address on Staging: `test@pay.staging.blink.sv`
+* Staging cash register: https://pay.staging.blink.sv/test?amount=0&sats=0&unit=CENT&memo=&display=USD&currency=USD (LN)
 * BTCPay PoS (onchain) https://signet.demo.btcpayserver.org/apps/2SCdQhwFm464BcHxXn44kRVg3iCr/pos
 
 ## Other wallets with signet support

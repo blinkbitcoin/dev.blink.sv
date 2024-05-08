@@ -1,7 +1,7 @@
 ---
 id: blink-cli
 title: Blink CLI
-slug: /products/blink-cli
+slug: /self-host/products/blink-cli
 ---
 
 # Blink CLI

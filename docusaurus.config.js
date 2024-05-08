@@ -85,7 +85,7 @@ const config = {
           {
             type: 'docSidebar',
             sidebarId: 'selfHostSidebar',
-            label: 'Self-hosting',
+            label: 'Self-host',
             position: 'left',
           },
           {

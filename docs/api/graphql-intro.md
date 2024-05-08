@@ -68,7 +68,7 @@ For the detailed documentation on specific queries, mutations, and types availab
 
 * Find the staging API endpoint and GraphQL playground at:
 
-  https://api.staging.galoy.io/graphql
+  https://api.staging.blink.sv/graphql
 
 ### Public API reference
 * visit: [dev.galoy.io/public-api-reference.html](https://dev.galoy.io/public-api-reference.html)

@@ -1,7 +1,7 @@
 ---
 id: bria
 title: Bria
-slug: /products/bria
+slug: /self-host/products/bria
 ---
 
 import GitHubButton from 'react-github-btn'

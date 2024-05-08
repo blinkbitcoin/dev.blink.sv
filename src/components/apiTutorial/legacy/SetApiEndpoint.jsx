@@ -19,7 +19,7 @@ export function SetApiEndpoint() {
         style={{ width: '50%', marginBottom: '10px' }}
       >
         <option value="https://api.blink.sv/graphql">Blink (mainnet) - https://api.blink.sv/graphql</option>
-        <option value="https://api.staging.galoy.io/graphql">Staging (signet) - https://api.staging.galoy.io/graphql</option>
+        <option value="https://api.staging.blink.sv/graphql">Staging (signet) - https://api.staging.blink.sv/graphql</option>
       </select>
     </div>
   );
