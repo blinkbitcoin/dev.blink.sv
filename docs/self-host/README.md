@@ -15,11 +15,11 @@ The Blink core banking platform includes the parts necessary to launch a communi
 
 ### Backend
 
-* **[Blink Core](products/blink-core)** – interacts with the bitcoin and accounting layers to enable sending, receiving and holding balances.
-Check out the [API section ](/api) for an interactive tutorial to get started with our hosted instance.
-* **[Stablesats](products/stablesats)** – service for implementing fiat hedging strategies via supported exchanges; enables the provision of synthetic USD to provide dollar-like stability without stablecoins.
-* **[Bria](products/bria)** - a service for transaction batching and onchain liquidity management.
-* **[Blink CLI](products/galoy-cli)** - a Command Line Interface (CLI) client for interacting with Blink Core.
+* **[Blink Core](/self-host/products/blink-core)** – interacts with the bitcoin and accounting layers to enable sending, receiving and holding balances.
+Check out the [API section ](/api/overview) for an interactive tutorial to get started with our hosted instance.
+* **[Stablesats](/self-host/products/stablesats)** – service for implementing fiat hedging strategies via supported exchanges; enables the provision of synthetic USD to provide dollar-like stability without stablecoins.
+* **[Bria](/self-host/products/bria)** - a service for transaction batching and onchain liquidity management.
+* **[Blink CLI](/self-host/products/blink-cli)** - a Command Line Interface (CLI) client for interacting with Blink Core.
 
 ### Apps
 
@@ -35,7 +35,7 @@ Check out the [API section ](/api) for an interactive tutorial to get started wi
 
 ## Getting started
 
-* [Hosted API](/api)
+* [Hosted API](/api/overview)
 * [Deployment](/self-host/deployment/)
 
 ## API Reference

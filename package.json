@@ -15,9 +15,9 @@
     "bundle-bolt11": "browserify -r bolt11 --standalone lightningPayReq | uglifyjs -c -m -o ./static/js/bolt11.min.js"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.1.1",
-    "@docusaurus/plugin-client-redirects": "^3.1.1",
-    "@docusaurus/preset-classic": "^3.1.1",
+    "@docusaurus/core": "^3.3.2",
+    "@docusaurus/plugin-client-redirects": "^3.3.2",
+    "@docusaurus/preset-classic": "^3.3.2",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^1.2.1",
     "crypto-js": "^4.2.0",
@@ -29,8 +29,8 @@
     "stream-browserify": "^3.0.0"
   },
   "devDependencies": {
-    "@docusaurus/module-type-aliases": "^3.1.1",
-    "@docusaurus/types": "3.0.0",
+    "@docusaurus/module-type-aliases": "^3.3.2",
+    "@docusaurus/types": "^3.3.2",
     "@types/react": "^18.2.70",
     "browserify": "^17.0.0",
     "typescript": "^5.4.3",

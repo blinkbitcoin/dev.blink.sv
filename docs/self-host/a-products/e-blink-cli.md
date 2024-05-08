@@ -4,6 +4,8 @@ title: Blink CLI
 slug: /self-host/products/blink-cli
 ---
 
+import GitHubButton from 'react-github-btn'
+
 # Blink CLI
 
 <GitHubButton href="https://github.com/GaloyMoney/blink-cli" data-color-scheme="no-preference: dark; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star GaloyMoney/blink-cli on GitHub">Star</GitHubButton>

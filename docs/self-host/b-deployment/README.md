@@ -6,10 +6,10 @@ slug: /self-host/deployment
 
 ## Setting up the Blink stack locally
 
-* [Backend Servers](/deployment/backend-servers)
-* [Mobile Wallet](/deployment/mobile-wallet)
-* [Blink Pay](/deployment/blink-pay)
-* [Admin Panel](/deployment/admin-panel)
+* [Backend Servers](/self-host/deployment/backend-servers)
+* [Mobile Wallet](/self-host/deployment/mobile-wallet)
+* [Blink Pay](/self-host/deployment/blink-pay)
+* [Admin Panel](/self-host/deployment/admin-panel)
 
 ## Videos
 ###  How to build a Bitcoin Bank
