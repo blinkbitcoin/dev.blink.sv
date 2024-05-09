@@ -1,0 +1,21 @@
+spectaql:
+  logoFile: ./static/img/blink-logo.jpg
+  faviconFile: ./static/img/favicon.ico
+
+introspection:
+  schemaFile: ./core/api/src/graphql/admin/schema.graphql
+
+info:
+  title: GraphQL Admin API Reference
+  description: Welcome to the Galoy Admin API reference!
+  contact:
+    name: Galoy developer community
+    url: https://chat.galoy.io/
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://admin-api.staging.galoy.io/graphql
+    description: Signet
+    production: false
