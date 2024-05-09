@@ -69,7 +69,7 @@ Example header for the Blink PoS:
         ...(options?.token ? { ["Oauth2-Token"]: options.token } : {}),
       },
 ```
-Link to the [code with the context](https://github.com/GaloyMoney/galoy/pull/4149/files#diff-d5101fe657d3e5befe3ec31871012666597b3f346292241dffde4938c625090dR21).
+Link to the [code with the context](https://github.com/GaloyMoney/blink/pull/4149/files#diff-d5101fe657d3e5befe3ec31871012666597b3f346292241dffde4938c625090dR21).
 
 ### Example using [next-auth](https://www.npmjs.com/package/next-auth) in the Blink PoS
 ```
@@ -127,7 +127,7 @@ export const authOptions: NextAuthOptions = {
 }
 ```
 
-Link to the [code with the context](https://github.com/GaloyMoney/galoy/pull/4149/files#diff-224eae5be0d335d0d64941907106c189977dc51b2a0139459083b777efddf953R19-R70).
+Link to the [code with the context](https://github.com/GaloyMoney/blink/pull/4149/files#diff-224eae5be0d335d0d64941907106c189977dc51b2a0139459083b777efddf953R19-R70).
 
 ---
 

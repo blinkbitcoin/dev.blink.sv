@@ -8,7 +8,7 @@ slug: /api/learn-more
 
 * Find the staging API endpoint and GraphQL playground at:
 
-  https://api.staging.galoy.io/graphql
+  https://api.staging.blink.sv/graphql
 
 * For the mainnet API endpoint and GraphQL playground connect to:
 
@@ -20,8 +20,8 @@ slug: /api/learn-more
 
 Dive deeper into constructing GraphQL queries with these preformed queries:
 
-* [galoy/tree/main/core/api/test/bats/gql](https://github.com/GaloyMoney/galoy/tree/main/core/api/test/bats/gql)
-* [galoy-mobile/blob/main/app/graphql/generated.gql](https://github.com/GaloyMoney/galoy-mobile/blob/main/app/graphql/generated.gql)
+* [galoy/tree/main/core/api/test/bats/gql](https://github.com/GaloyMoney/blink/tree/main/core/api/test/bats/gql)
+* [galoy-mobile/blob/main/app/graphql/generated.gql](https://github.com/GaloyMoney/blink-mobile/blob/main/app/graphql/generated.gql)
 
 ## Videos
 

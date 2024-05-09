@@ -163,4 +163,4 @@ To use the raw websocket protocol in Postman there are a few steps to follow:
 
 ## Test implementation in the galoy backend
 
-* [galoy/bats/helpers/subscriber/src/gql-subscribe.ts](https://github.com/GaloyMoney/galoy/blob/e010ac0ac2020d546ec2dbbd1a6680ac1a0282af/bats/helpers/subscriber/src/gql-subscribe.ts)
+* [galoy/bats/helpers/subscriber/src/gql-subscribe.ts](https://github.com/GaloyMoney/blink/blob/e010ac0ac2020d546ec2dbbd1a6680ac1a0282af/bats/helpers/subscriber/src/gql-subscribe.ts)

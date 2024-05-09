@@ -83,6 +83,12 @@ const config = {
             position: 'left',
           },
           {
+            type: 'docSidebar',
+            sidebarId: 'selfHostSidebar',
+            label: 'Self-host',
+            position: 'left',
+          },
+          {
             href: 'https://chat.galoy.io',
             label: 'Join the Community',
             position: 'right',

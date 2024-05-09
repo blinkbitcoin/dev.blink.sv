@@ -8,7 +8,7 @@ slug: /api/legacy/start
 
 ## Download the Blink app
 * visit [get.blink.sv](https://get.blink.sv) for the App Store / Google Play / App Gallery links
-* or download the Android apk from [github.com/GaloyMoney/galoy-mobile/releases](https://github.com/GaloyMoney/galoy-mobile/releases)
+* or download the Android apk from [github.com/GaloyMoney/blink-mobile/releases](https://github.com/GaloyMoney/blink-mobile/releases)
 
 ---
 
