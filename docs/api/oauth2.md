@@ -21,7 +21,7 @@ Reach out to the Blink development team via our Mattermost server at [chat.galoy
 Specify the callback URL for your application. This URL is where users will be redirected after successful authentication, facilitating the completion of the OAuth2 flow.
 
 ### Oauth2 authorization token
-After the approval you will be provided an Oauth2 authorization token which will be needed in the [Oauth2-Token header](#oauth2-token-header)
+After the approval you will be provided an Oauth2 authorization token which will be needed in the [Oauth2-Token header](#using-the-oauth2-token-header)
 
 ### Client ID and secret
 After the registration you will receive a client ID and a client secret from our server. These are unique identifiers that allow the Blink API backend to identify your application and allow it to access protected resources. The client ID is considered public information and can be included in JavaScript source code or used to build login URLs. The client secret, however, must be kept confidential and is used to authenticate the client to the authorization server.
