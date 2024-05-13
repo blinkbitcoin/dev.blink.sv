@@ -41,5 +41,5 @@ Check out the [API section ](/api/auth) for an interactive tutorial to get start
 ## API Reference
 
 Dive a little deeper and start exploring our API reference to get an idea of everything that's possible with the API:
-* [Blink public API reference ](https://dev.galoy.io/public-api-reference.html)
-* [Blink admin API reference](https://dev.galoy.io/admin-api-reference.html)
+* [Blink public API reference ](https://dev.blink.sv/public-api-reference.html)
+* [Blink admin API reference](https://dev.blink.sv/admin-api-reference.html)

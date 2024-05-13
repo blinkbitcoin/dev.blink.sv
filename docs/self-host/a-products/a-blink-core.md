@@ -40,7 +40,7 @@ For the local `dev` environment
 Find more details about hosting the Blink stack yourself in the [deployment section](/self-host/deployment/).
 
 ## Admin API
+* [Blink admin API reference](https://dev.blink.sv/admin-api-reference.html)
 
-### [Blink admin API reference](https://dev.galoy.io/admin-api-reference.html)
 ### Preformed GraphQL queries
 * [galoy/tree/main/core/api/test/bats/admin-gql](https://github.com/GaloyMoney/blink/tree/main/core/api/test/bats/admin-gql)
