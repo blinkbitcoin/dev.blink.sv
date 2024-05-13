@@ -1,0 +1,20 @@
+spectaql:
+  logoFile: /static/images/logo.png
+  faviconFile: /static/images/favicon.ico
+introspection:
+  schemaFile: ./core/api/src/graphql/public/schema.graphql
+
+info:
+  title: GraphQL API Reference
+  description: Welcome to the Blink API reference!
+  contact:
+    name: Galoy developer community
+    url: https://chat.galoy.io/
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.staging.blink.sv/graphql
+    description: Signet
+    production: false
