@@ -41,17 +41,18 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/', // This changes the base path from /docs
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          //editUrl:
-          //  'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          // Remove these to remove the "edit this page" links.
+          editUrl: ({versionDocsDirPath, docPath}) => {
+            return `https://github.com/GaloyMoney/dev.blink.sv/edit/main/${versionDocsDirPath}/${docPath}`;
+          },
+          showLastUpdateAuthor: false,
+          showLastUpdateTime: false,
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/GaloyMoney/dev.blink.sv/edit/main/website/${blogDirPath}/${blogPath}',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
