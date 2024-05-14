@@ -8,7 +8,7 @@ import { AuthProvider } from '/src/components/apiTutorial/AuthContext';
 import { SetApiEndpoint } from '/src/components/apiTutorial/SetApiEndpoint';
 import { SetAuthToken } from '/src/components/apiTutorial/SetAuthToken';
 import { GetWalletDataUsd } from '/src/components/apiTutorial/GetWalletDataUsd';
-import { LnUsdInvoiceCreateOnBehalfOfRecipient } from '/src/components/apiTutorial/LnUsdInvoiceCreateOnBehalfOfRecipient';
+import { LnUsdInvoiceCreate } from '/src/components/apiTutorial/LnUsdInvoiceCreate';
 import { GetBalance } from '/src/components/apiTutorial/GetBalance';
 
 <AuthProvider>
@@ -52,8 +52,8 @@ The satoshi amount of the invoice will reflect the current USD/BTC exchange rate
 **The body of the GraphQL request**
 
 ```graphql
-mutation LnUsdInvoiceCreateOnBehalfOfRecipient($input: LnUsdInvoiceCreateOnBehalfOfRecipientInput!) {
-  lnUsdInvoiceCreateOnBehalfOfRecipient(input: $input) {
+mutation LnUsdInvoiceCreate($input: LnUsdInvoiceCreateInput!) {
+  lnUsdInvoiceCreate(input: $input) {
     invoice {
       paymentRequest
       paymentHash
@@ -67,7 +67,7 @@ mutation LnUsdInvoiceCreateOnBehalfOfRecipient($input: LnUsdInvoiceCreateOnBehal
 }
 ```
 
-  <LnUsdInvoiceCreateOnBehalfOfRecipient />
+  <LnUsdInvoiceCreate />
 
 ---
 

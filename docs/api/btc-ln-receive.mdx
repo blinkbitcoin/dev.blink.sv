@@ -8,7 +8,7 @@ import { AuthProvider } from '/src/components/apiTutorial/AuthContext';
 import { SetApiEndpoint } from '/src/components/apiTutorial/SetApiEndpoint';
 import { SetAuthToken } from '/src/components/apiTutorial/SetAuthToken';
 import { GetWalletDataBtc } from '/src/components/apiTutorial/GetWalletDataBtc';
-import { LnInvoiceCreateOnBehalfOfRecipient } from '/src/components/apiTutorial/LnInvoiceCreateOnBehalfOfRecipient';
+import { LnInvoiceCreate } from '/src/components/apiTutorial/LnInvoiceCreate';
 import { GetBalance } from '/src/components/apiTutorial/GetBalance';
 
 <AuthProvider>
@@ -49,8 +49,8 @@ Use the `paymentRequest` from the response and pay it with a lightning wallet.
 **The body of the GraphQL request**
 
 ```graphql
-mutation LnInvoiceCreateOnBehalfOfRecipient($input: LnInvoiceCreateOnBehalfOfRecipientInput!) {
-  lnInvoiceCreateOnBehalfOfRecipient(input: $input) {
+mutation LnInvoiceCreate($input: LnInvoiceCreateInput!) {
+  lnInvoiceCreate(input: $input) {
     invoice {
       paymentRequest
       paymentHash
@@ -64,7 +64,7 @@ mutation LnInvoiceCreateOnBehalfOfRecipient($input: LnInvoiceCreateOnBehalfOfRec
 }
 ```
 
-  <LnInvoiceCreateOnBehalfOfRecipient />
+  <LnInvoiceCreate />
 
 ---
 
