@@ -304,10 +304,12 @@ export function DecoderPage() {
             <div>{metadataObj.lnaddress}</div>
           </div>
         )}
-        <div style={flexContainerStyle}>
-          <div style={lnaddresslabelStyle}>Comment Allowed:</div>
-          <div>{lnaddressData.commentAllowed} characters</div>
-        </div>
+        {lnaddressData.commentAllowed != null && (
+          <div style={flexContainerStyle}>
+            <div style={lnaddresslabelStyle}>Comment Allowed:</div>
+            <div>{lnaddressData.commentAllowed} characters</div>
+          </div>
+        )}
         <div style={flexContainerStyle}>
           <div style={lnaddresslabelStyle}>Tag:</div>
           <div>{lnaddressData.tag}</div>
