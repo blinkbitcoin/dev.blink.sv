@@ -77,14 +77,14 @@ For the detailed documentation on specific queries, mutations, and types availab
 * find it on GitHub: [/galoy/blob/main/core/api/src/graphql/public/schema.graphql](https://github.com/GaloyMoney/blink/blob/main/core/api/src/graphql/public/schema.graphql)
 
 ### Preformed GraphQL queries
-
 Dive deeper into constructing GraphQL queries with these preformed queries:c
 * [galoy-mobile/blob/main/app/graphql/generated.gql](https://github.com/GaloyMoney/blink-mobile/blob/main/app/graphql/generated.gql)
 
+### Postman collection
+* [Browse the collection and try in Postman](/api/postman)
+
 ## Videos
-
 ### Using the Galoy GraphQL API
-
 Arvin demoes the Galoy GraphQL API on 2022-Oct-26.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/RRdpKnFe8qQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -94,5 +94,3 @@ Arvin demoes the Galoy GraphQL API on 2022-Oct-26.
 Arvin walks through how to use the Galoy API to send USD over Lightning on 2022-Mar-29.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/bp5Dc6Wvnbw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-

@@ -84,3 +84,6 @@ If using the USD wallet the requested invoice amount needs to be at least 1 USDc
 
 ## Source code
 [github.com/Kukks/BTCPayServerPlugins/tree/master/Plugins/BTCPayServer.Plugins.Blink](https://github.com/Kukks/BTCPayServerPlugins/tree/master/Plugins/BTCPayServer.Plugins.Blink)
+
+## More reading
+* [blink.sv/btcpay](https://blink.sv/btcpay)

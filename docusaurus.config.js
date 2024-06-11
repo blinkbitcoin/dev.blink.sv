@@ -42,7 +42,7 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/', // This changes the base path from /docs
           // Remove these to remove the "edit this page" links.
-          editUrl: ({versionDocsDirPath, docPath}) => {
+          editUrl: ({ versionDocsDirPath, docPath }) => {
             return `https://github.com/GaloyMoney/dev.blink.sv/edit/main/${versionDocsDirPath}/${docPath}`;
           },
           showLastUpdateAuthor: false,
@@ -173,6 +173,10 @@ const config = {
           {
             to: '/api/auth',
             from: ['/api/start'],
+          },
+          {
+            to: '/examples/atm-integrations',
+            from: ['/examples/lamassu-atm', '/examples/lightning-atm'],
           },
         ],
       },
