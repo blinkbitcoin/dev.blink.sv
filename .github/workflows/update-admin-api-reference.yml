@@ -74,3 +74,20 @@ jobs:
         short_commit_hash=$(echo ${{ env.CURRENT_COMMIT_HASH }} | cut -c 1-7)
         git commit -m "docs: admin api reference update to blink commit $short_commit_hash"
         git push origin main
+
+    - uses: DeterminateSystems/nix-installer-action@v12
+    - uses: DeterminateSystems/magic-nix-cache-action@v7
+
+    - name: Install Dependencies
+      run: nix-shell -p yarn --run "yarn install --frozen-lockfile"
+
+    - name: Build
+      run: nix-shell -p yarn --run "yarn build"
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./build
+        user_name: github-actions[bot]
+        user_email: 41898282+github-actions[bot]@users.noreply.github.com
