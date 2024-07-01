@@ -83,11 +83,20 @@ jobs:
         # Build
         nix-shell -p yarn --run "yarn build"
 
-    - name: Deploy to GitHub Pages
+    - name: Check if build directory exists
       if: env.CURRENT_HASH != env.WEEK_OLD_HASH
+      run: |
+        if [ -d "./dev.blink.sv/build" ]; then
+          echo "DIR_EXISTS=true" >> $GITHUB_ENV
+        else
+          echo "DIR_EXISTS=false" >> $GITHUB_ENV
+        fi
+
+    - name: Deploy to GitHub Pages
+      if: env.CURRENT_HASH != env.WEEK_OLD_HASH && env.DIR_EXISTS == 'true'
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build
+        publish_dir: ./dev.blink.sv/build
         user_name: github-actions[bot]
         user_email: 41898282+github-actions[bot]@users.noreply.github.com
