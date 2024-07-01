@@ -1,1 +1,0 @@
-{ "id": "2", "type": "subscribe", "payload": { "query": "subscription { myUpdates { update { ... on LnUpdate { transaction { initiationVia { ... on InitiationViaLn { paymentHash } } direction } } } }}", "variables": {} }}

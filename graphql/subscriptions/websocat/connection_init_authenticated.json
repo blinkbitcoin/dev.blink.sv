@@ -1,1 +1,0 @@
-{ "type": "connection_init", "payload": { "X-API-KEY": "${api_key}" }}

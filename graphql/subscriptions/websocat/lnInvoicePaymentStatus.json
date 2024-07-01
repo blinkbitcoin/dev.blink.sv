@@ -1,1 +1,0 @@
-{ "id": "1", "type": "subscribe", "payload": { "query": "subscription LnInvoicePaymentStatus($input: LnInvoicePaymentStatusInput!) { lnInvoicePaymentStatus(input: $input) { status errors { code message path } }}", "variables": { "input": { "paymentRequest": "{{paymentRequest}}" } } }}
