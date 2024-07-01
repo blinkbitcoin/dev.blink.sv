@@ -1,0 +1,1 @@
+{ "id": "1", "type": "subscribe", "payload": {  "query": "subscription { price( input: { amount: 100 amountCurrencyUnit: BTCSAT priceCurrencyUnit: USDCENT } ) { errors { message } price { base offset currencyUnit } }}",  "variables": {} }}
