@@ -6,6 +6,8 @@ on:
     # Run at six every Monday
     - cron: '0 6 * * 1'
   workflow_dispatch: # Manual trigger
+  pull_request:
+    branches: [ main ]
 
 jobs:
   update-public-api-reference:
@@ -43,7 +45,7 @@ jobs:
         echo "There were no changes to the public API schema during the last week."
 
     - name: Checkout dev.blink.sv repo
-      if: env.CURRENT_HASH != env.WEEK_OLD_HASH
+      if: env.CURRENT_HASH == env.WEEK_OLD_HASH
       uses: actions/checkout@v3
       with:
         repository: 'GaloyMoney/dev.blink.sv'
@@ -52,7 +54,7 @@ jobs:
         fetch-depth: 0
 
     - name: Build and update the API reference
-      if: env.CURRENT_HASH != env.WEEK_OLD_HASH
+      if: env.CURRENT_HASH == env.WEEK_OLD_HASH
       run: |
         # deps
         nix-shell -p yarn --run "yarn add spectaql --non-interactive"
@@ -84,7 +86,7 @@ jobs:
         nix-shell -p yarn --run "yarn build"
 
     - name: Deploy to GitHub Pages
-      if: env.CURRENT_HASH != env.WEEK_OLD_HASH
+      if: env.CURRENT_HASH == env.WEEK_OLD_HASH
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
