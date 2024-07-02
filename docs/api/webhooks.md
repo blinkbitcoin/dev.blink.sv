@@ -8,7 +8,7 @@ slug: /api/webhooks
 
 The Blink API offers a selection of webhooks (or callbacks), allowing external applications to receive instantaneous notifications about activities on your account. For example the webhooks can be used to make a LED light up or a beer tap to open on the receipt of a payment.
 
-## Currently available webhook events
+## Currently available Webhook Events
 
 * `send.lightning`
 * `receive.lightning`
@@ -21,7 +21,7 @@ The Blink API offers a selection of webhooks (or callbacks), allowing external a
 
 If the callback endpoint is not available the message is scheduled for retries with an exponential backoff. Read about the schedule details in the [Svix documentation](https://docs.svix.com/retries) which is the service module used to send the webhooks.
 
-## Create a webhook endpoint to receive events
+## Create a Webhook Endpoint to Receive Events
 Visit [play.svix.com](https://play.svix.com/) to quickly set up a webhook endpoint for testing.
 
 Your endpoint MUST return a 2xx HTTP status code in a timely manner. If the backend doesn't receive that response it will be taken as the endpoint is offline and the Blink API will retry to send the event a few times.
@@ -61,14 +61,14 @@ Example payload sent on a `receive.lightning` event:
 }
 ```
 
-## Using the Blink Dashboard to manage webhooks
+## Using the Blink Dashboard to Manage Webhooks
 
 Log in to the [Blink Dashboard](https://dashboard.blink.sv) and select the `Callback Endpoints` page to add or remove the webhooks.
 
 <img src="/img/webhooks_dashboard.png" alt="Webhooks" width="800"/>
 
-## Using the API to manage webhooks
-### Add a callback endpoint
+## Using the API to Manage Webhooks
+### Add a Callback Endpoint
 
 Use the graphql mutation `callbackEndpointAdd` to add a callback endpoint to the account.
 
@@ -94,7 +94,7 @@ Variables to use (change to your own endpoint):
 }
 ```
 
-### List the configured callback endpoints
+### List the Configured Callback Endpoints
 
 Use the graphql query `callbackEndpoints` to list the callback endpoints configured for the account.
 
@@ -129,7 +129,7 @@ Example response:
 }
 ```
 
-### Delete a callback endpoint
+### Delete a Callback Endpoint
 
 Use the graphql mutation `callbackEndpointDelete` to delete a callback endpoint from the account.
 

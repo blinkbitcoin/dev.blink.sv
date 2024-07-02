@@ -1,20 +1,20 @@
 ---
 id: websocket
-title: Websocket connection
+title: Websocket Connection
 slug: /api/websocket
 ---
 
 Websockets are used to receive real-time updates from the Blink API.<br />
 Implemented using the [GraphQL over WebSocket Protocol](https://github.com/enisdenjo/graphql-ws/blob/master/PROTOCOL.md)
 
-## Available websocket events
+## Available Websocket Events
 
 * `myUpdates`
 * `lnInvoicePaymentStatus`
 * `realtimePrice`
 * `price`
 
-## Websocket endpoint
+## Websocket Endpoint
 
 `wss://ws.blink.sv/graphql`
 
@@ -35,13 +35,13 @@ Try the websocket connection examples in the [Galoy API collection](https://www.
 
 To use the raw websocket protocol in Postman there are a few steps to follow:
 
-### Header to use
+### Header to Use
 * Define the protocol
   ```json
   Sec-WebSocket-Protocol: graphql-transport-ws
   ```
 
-### Send the `connection_init` request
+### Send the `connection_init` Request
 * to get a `connection_ack` response
   ```json
   {
@@ -49,7 +49,7 @@ To use the raw websocket protocol in Postman there are a few steps to follow:
     "payload": {}
   }
   ```
-### For authenticated requests
+### For Authenticated Requests
 * include the api key in the payload of the `connection_init` request
   ```json
   {
@@ -60,7 +60,7 @@ To use the raw websocket protocol in Postman there are a few steps to follow:
   }
   ```
 
-### Send a subscription request
+### Send a Subscription Request
 * use the format described in the [GraphQL over WebSocket Protocol](https://github.com/enisdenjo/graphql-ws/blob/master/PROTOCOL.md#subscribe)
 * need to paste the message in place of the `connection_init` message to continue using the same connection
   ```json
@@ -74,7 +74,7 @@ To use the raw websocket protocol in Postman there are a few steps to follow:
   }
   ```
 
-## websocat
+## Websocat
 * Install with:
   * Linux (with a Rust toolchain installed)
     ```bash
@@ -90,7 +90,7 @@ To use the raw websocket protocol in Postman there are a few steps to follow:
   websocat ${websocket_endpoint} -H 'Sec-WebSocket-Protocol: graphql-transport-ws' -v
   ```
 
-### Usage without authentication
+### Usage without Authentication
 * Send the `connection_init` request for non-authenticated requests
   ```json
   { "type": "connection_init", "payload": {} }
@@ -105,7 +105,7 @@ To use the raw websocket protocol in Postman there are a few steps to follow:
   { "id": "2", "type": "subscribe", "payload": { "query": "subscription realtimePrice($input: RealtimePriceInput!) { realtimePrice(input: $input) { realtimePrice { id btcSatPrice { base offset } } errors { code message path } }}", "variables": { "input": { "currency": "USD" } } }}
   ```
 
-### Example output
+### Example Output
 * ```bash
   websocat ${websocket_endpoint} -H 'Sec-WebSocket-Protocol: graphql-transport-ws' -v
   [INFO  websocat::lints] Auto-inserting the line mode
@@ -124,7 +124,7 @@ To use the raw websocket protocol in Postman there are a few steps to follow:
   {"id":"2","type":"next","payload":{"data":{"realtimePrice":{"realtimePrice":{"id":"6d453741-e0ad-5fec-b27f-3d987571f5ad","btcSatPrice":{"base":43627000000,"offset":12}},"errors":[]}}}}
   ```
 
-### Authenticated usage
+### Authenticated Usage
 
 * Send the `connection_init` request for authenticated requests
   ```json
@@ -140,7 +140,7 @@ To use the raw websocket protocol in Postman there are a few steps to follow:
   { "id": "2", "type": "subscribe", "payload": { "query": "subscription LnInvoicePaymentStatus($input: LnInvoicePaymentStatusInput!) { lnInvoicePaymentStatus(input: $input) { status errors { code message path } }}", "variables": { "input": { "paymentRequest": "lnbc...." } } }}
   ```
 
-### Example output
+### Example Output
 * ```bash
   websocat ${websocket_endpoint} -H 'Sec-WebSocket-Protocol: graphql-transport-ws' -v
   [INFO  websocat::lints] Auto-inserting the line mode
@@ -161,6 +161,6 @@ To use the raw websocket protocol in Postman there are a few steps to follow:
   [INFO  websocat::ws_peer] Received WebSocket ping
   ```
 
-## Test implementation in the galoy backend
+## Test Implementation in the Blink Backend
 
-* [galoy/bats/helpers/subscriber/src/gql-subscribe.ts](https://github.com/GaloyMoney/blink/blob/e010ac0ac2020d546ec2dbbd1a6680ac1a0282af/bats/helpers/subscriber/src/gql-subscribe.ts)
+* [blink/bats/helpers/subscriber/src/gql-subscribe.ts](https://github.com/GaloyMoney/blink/blob/e010ac0ac2020d546ec2dbbd1a6680ac1a0282af/bats/helpers/subscriber/src/gql-subscribe.ts)

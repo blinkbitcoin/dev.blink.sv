@@ -1,6 +1,6 @@
 ---
 id: btcpayserver-plugin
-title: BTCPay Server plugin
+title: BTCPay Server Plugin
 slug: /examples/btcpayserver-plugin
 ---
 
@@ -9,7 +9,7 @@ Add the default wallet or select between BTC and Stablesats.
 
 Available in BTCPay Server v1.12.0 and later.
 
-## How to activate the plugin
+## How to Activate the Plugin
 * login to the BTCPay Server instance as an admin user
 * select `Manage Plugins` in the left sidebar and install the Blink plugin:
 
@@ -17,7 +17,7 @@ Available in BTCPay Server v1.12.0 and later.
 
 * restart the BTCPay Server instance.
 
-## How to connect
+## How to Connect
 
 * Create an API key on [dashboard.blink.sv](https://dashboard.blink.sv)
   * log in with your registered email or a phone number or create a new account if you are new to Blink
@@ -53,7 +53,7 @@ Available in BTCPay Server v1.12.0 and later.
 If using the USD wallet the requested invoice amount needs to be at least 1 USDcent even if you are using another fiat denomination or SATS.
 :::
 
-### Specify the BTC or USD wallet (optional)
+### Specify the BTC or USD Wallet (Optional)
 * to use a specific wallet (BTC or USD) use the specific BTCPay connection string with the Wallet Id included or copy the chosen the Wallet Id from your [dashboard.blink.sv](https://dashboard.blink.sv)
 
   <img alt="Dashboard wallets" src="/img/dashboard_wallets.png" width="800"/>
@@ -64,7 +64,7 @@ If using the USD wallet the requested invoice amount needs to be at least 1 USDc
   ```
 * can also set a custom server for development or to use an other instance of the Galoy backend
 
-### Finalize the connection
+### Finalize the Connection
 
 * Click `Test connection` to verify the connection
 
@@ -76,14 +76,14 @@ If using the USD wallet the requested invoice amount needs to be at least 1 USDc
 
 * Click `Save` to save the connection.
 
-## Enjoy the benefits of using Blink
+## Enjoy the Benefits of Using Blink
   * instant inbound lightning liquidity
   * no channel management
   * no need to worry about backups
   * get notified of the received payments in the Blink app
 
-## Source code
+## Source Code
 [github.com/Kukks/BTCPayServerPlugins/tree/master/Plugins/BTCPayServer.Plugins.Blink](https://github.com/Kukks/BTCPayServerPlugins/tree/master/Plugins/BTCPayServer.Plugins.Blink)
 
-## More reading
+## More Reading
 * [blink.sv/btcpay](https://blink.sv/btcpay)

@@ -80,13 +80,13 @@ const config = {
           {
             type: 'doc',
             docId: 'decode',
-            label: 'LN invoice decoder',
+            label: 'LN Invoice Decoder',
             position: 'left',
           },
           {
             type: 'docSidebar',
             sidebarId: 'selfHostSidebar',
-            label: 'Self-host',
+            label: 'Self-Host',
             position: 'left',
           },
           {
@@ -124,7 +124,7 @@ const config = {
                 href: 'https://chat.galoy.io',
               },
               {
-                label: 'BlinkAPI Telegram channel',
+                label: 'BlinkAPI Telegram Channel',
                 href: 'https://t.me/+aKn9E5ZIMs8zZmMy',
               },
             ],
@@ -133,11 +133,11 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'Project website',
+                label: 'Project Website',
                 href: 'https://www.blink.sv',
               },
               {
-                label: 'Status page',
+                label: 'Status Page',
                 href: 'https://blink.statuspage.io',
               },
               {
@@ -159,6 +159,11 @@ const config = {
         apiKey: 'ee1b157f836a7e06f1a72f0935486516',
         indexName: 'blink',
         contextualSearch: false, // only false works
+        // Optional: Specify domains where the navigation should occur through
+        // window.location instead on history.push. Useful when our Algolia config
+        // crawls multiple documentation sites and we want to navigate with
+        //window.location.href to them.
+        externalUrlRegex: 'dev\\.blink\\.sv/public-api-reference\\.html|dev\\.blink\\.sv/admin-api-reference\\.html',
       },
     }),
   plugins: [

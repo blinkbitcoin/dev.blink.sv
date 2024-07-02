@@ -1,7 +1,7 @@
 ---
 slug: /projects/browser-wallet
 ---
-# Browser wallet (Alby extension)
+# Browser Wallet (Alby extension)
 Code: [GitHub](https://github.com/getAlby/lightning-browser-extension/blob/master/src/extension/background-script/connectors/galoy.ts)
 
 

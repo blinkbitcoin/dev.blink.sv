@@ -17,7 +17,7 @@ import { GetBalanceWithPending } from '/src/components/apiTutorial/GetBalanceWit
 
   <SetAuthToken />
 
-### Get the wallet IDs and check the balances
+### Get the Wallet IDs and Check the Balances
 
 Can run this query at any stage to confirm the change in the balances.<br />
 The "BTC" wallet balance is denominated in satoshis.<br />
@@ -43,7 +43,7 @@ query Me {
 
 ---
 
-### Generate a new address to receive USD
+### Generate a New Address to Receive USD
 
 Using Stablesats a merchant can generate and onchain address where the bitcoin received will be denominated in USD cents. <br />
 Use the `address` from the response and send to it from any bitcoin wallet.<br />
@@ -66,7 +66,7 @@ mutation onChainAddressCreate($input: OnChainAddressCreateInput!) {
 
 ---
 
-### Once paid check the balance again
+### Once Paid Check the Balance Again
 
 The balance will be updated once the transaction is confirmed on the blockchain.<br />
 Until the confirmation the new incoming amount will show in the `pendingIncomingBalance` field.

@@ -1,6 +1,6 @@
 ---
 id: learn-more
-title: Learn more
+title: Learn More
 slug: /api/learn-more
 ---
 
@@ -14,7 +14,7 @@ slug: /api/learn-more
 
   https://api.blink.sv/graphql
 
-## [Galoy public API reference](https://dev.galoy.io/public-api-reference.html)
+## [Public API reference](https://dev.blink.sv/public-api-reference.html)
 
 ## Preformed GraphQL queries
 

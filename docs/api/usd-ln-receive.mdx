@@ -17,7 +17,7 @@ import { GetBalance } from '/src/components/apiTutorial/GetBalance';
 
   <SetAuthToken />
 
-### Get the wallet IDs and check the balances
+### Get the Wallet IDs and Check the Balances
 
 Can run this query at any stage to confirm the change in the balances.<br />
 The "BTC" wallet balance is denominated in satoshis.<br />
@@ -43,7 +43,7 @@ query Me {
 
 ---
 
-### Generate a Stablesats invoice
+### Generate a Stablesats Invoice
 
 Using Stablesats a merchant can generate invoices denominated in USD cents. <br />
 Use the `paymentRequest` from the response and pay it with a lightning wallet.<br />
@@ -71,7 +71,7 @@ mutation LnUsdInvoiceCreate($input: LnUsdInvoiceCreateInput!) {
 
 ---
 
-### Once paid check the balance again
+### Once Paid Check the Balance Again
 
 :::tip
 There are multiple ways to get notified on the incoming payments: see [how to use webhooks (callbacks)](webhooks.md) and [websocket subscriptions](websocket.md).

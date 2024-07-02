@@ -37,7 +37,7 @@ With the Blink API you can quickly enable Lightning and onchain payments for you
 ## Pricing
 💲 Zero fee for Blink-to-Blink transactions!
 
-Robust infrastructure (built on [Galoy](https://dev.galoy.io)) and well-managed Lightning channels allow us to provide the lowest possible fees, whether for Lightning (LN) payments, on-chain bitcoin transactions, or BTC to Stablesats conversions.
+Robust infrastructure (built by [Galoy](https://dev.galoy.io)) and well-managed Lightning channels allow us to provide the lowest possible fees, whether for Lightning (LN) payments, on-chain bitcoin transactions, or BTC to Stablesats conversions.
 
 * Intraledger (between Blink users) – no fee!
 * Outgoing Lightning – only pay routing fees (~0.02%)
