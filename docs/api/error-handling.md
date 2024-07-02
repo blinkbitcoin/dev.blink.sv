@@ -1,6 +1,6 @@
 ---
 id: errors
-title: Error handling
+title: Error Handling
 slug: /api/errors
 ---
 

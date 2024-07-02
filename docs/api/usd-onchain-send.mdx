@@ -18,7 +18,7 @@ import { OnChainUsdPaymentSendAsBtcDenominated } from '/src/components/apiTutori
 
   <SetAuthToken />
 
-### Get the wallet IDs and check the balances
+### Get the wallet IDs and Check the Balances
 
 Can run this query at any stage to confirm the change in the balances.<br />
 The "BTC" wallet balance is denominated in satoshis.<br />
@@ -60,7 +60,7 @@ query onChainUsdTxFee($walletId: WalletId!, $address: OnChainAddress!, $amount: 
 
   <OnChainUsdTxFee />
 
-### Send a transaction in USD cents
+### Send a Transaction in USD Cents
 
 Send a transaction onchain from your USD account with the amount denominated in USD cents.<br />
 The satoshi amount will be calculated based on the current exchange rate.
@@ -82,7 +82,7 @@ mutation onChainUsdPaymentSend($input: OnChainUsdPaymentSendInput!) {
 
 ---
 
-### Send a transaction in satoshis
+### Send a Transaction in Satoshis
 
 Send a transaction onchain from your USD account with the amount denominated in satoshis.<br />
 

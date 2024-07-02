@@ -1,21 +1,21 @@
 ---
 id: oauth2
-title: OAuth2 integration
+title: OAuth2 Integration
 slug: /api/oauth2
 ---
 
-# OAuth2 integration guide
+# OAuth2 Integration Guide
 The OAuth2 integration in Blink empowers third-party applications to authenticate and interact with the Blink backend services seamlessly. By leveraging [Ory Hydra](https://github.com/ory/hydra), an OAuth 2.0 and OpenID Connect server, applications can obtain secure access to the Blink API, enabling functionalities such as data access and transaction management within the Blink ecosystem.
 
-## Getting started
+## Getting Started
 Before integrating with Blink OAuth2, it's crucial to have a foundational understanding of [OAuth 2.0](https://www.ory.sh/docs/oauth2-oidc/overview/oauth2-concepts) and [OpenID Connect (OIDC)](https://www.ory.sh/docs/oauth2-oidc/overview/oidc-concepts). These protocols facilitate secure authorization workflows between your application and Blink services, allowing for authenticated access to user-specific data and actions.<br />
 The connecting applications are using the [OAuth2 authorization code flow](https://www.ory.sh/docs/oauth2-oidc/authorization-code-flow).<br />
 For a hands-on introduction to setting up OAuth2 with Ory Hydra, you can explore this [5-minute tutorial](https://www.ory.sh/docs/hydra/5min-tutorial).
 
-## Register your application
+## Register Your Application
 To initiate the integration process, your application must be registered and approved by Blink's development team. This is a critical step to ensure secure and authorized access to Blink's API functionalities.
 
-### Application approval
+### Application Approval
 Reach out to the Blink development team via our Mattermost server at [chat.galoy.io](https://chat.galoy.io) to start the approval process for using OAuth2. You'll need to provide details about your application, including its purpose, the scopes of access required and your callback URL where the authorization code will be delivered.
 
 #### Scopes
@@ -30,11 +30,11 @@ Reach out to the Blink development team via our Mattermost server at [chat.galoy
 ### Callback URL
 After a user grants or denies access to your application, the Blink OAuth2 server will redirect the user back to your application using the callback (aka redirect) URL. This URL is where the Blink OAuth2 server sends the authorization code as a query parameter.
 
-### Client ID and secret
+### Client ID and Secret
 After the registration with Blink you will receive a client ID and a client secret from us. These are unique identifiers that allow the Blink OAuth2 server to identify your application and allow it to access protected resources. The client ID is considered public information and can be included in JavaScript source code or used to build login URLs. The client secret, however, must be kept confidential and is used to authenticate the client to the authorization server.
 
-### OAuth2 endpoints
-#### Authorization endpoint
+### OAuth2 Endpoints
+#### Authorization Endpoint
 * Blink
   ```
   https://oauth.blink.sv/oauth2/auth
@@ -43,7 +43,7 @@ After the registration with Blink you will receive a client ID and a client secr
   ```
   https://oauth.staging.blink.sv/oauth2/auth
   ```
-#### Token endpoint
+#### Token Endpoint
 * Blink
   ```
   https://oauth.blink.sv/oauth2/token
@@ -53,7 +53,7 @@ After the registration with Blink you will receive a client ID and a client secr
   https://oauth.staging.blink.sv/oauth2/token
   ```
 
-## Configuration examples
+## Configuration Examples
 Below are the Terraform configurations for two existing Blink integrations, showcasing how to set up OAuth2 clients for different applications using the [hydra_oauth2_client Terraform resource](https://registry.terraform.io/providers/svrakitin/hydra/latest/docs/resources/oauth2_client) :
 
 ### Blink Dashboard
@@ -89,7 +89,7 @@ resource "hydra_oauth2_client" "galoy_pay" {
 * Construct a URL to redirect the user to the provider's authorization endpoint.
 * Include the client ID, callback URI, response type (usually "code"), scopes (permissions you're requesting) and a minimum character long state parameter.
 
-### 2. Redirect the user
+### 2. Redirect the User
 Open the constructed URL in a browser.
 The user will log in to Blink and approve the requested permissions.
 The Blink Oauth2 server will redirect the user to your callback URL with an authorization code in the query parameters.
@@ -101,7 +101,7 @@ Extract the code parameter from the query string.
   https://yourapp.com/callback?code=ory_ac_AUTHORIZATION_CODE&scope=read+receive+write&state=<your_state_parameter>
   ```
 
-### 4. Validate the state parameter in the callback
+### 4. Validate the State Parameter in the Callback
 Ensure that the state parameter returned in the callback matches the one you generated.
 
 ### 5. Exchange the Authorization Code for an Access Token
@@ -136,7 +136,7 @@ Example response:
   }
   ```
 
-### 7. Make authenticated API Requests
+### 7. Make Authenticated API Requests
 Use the access token in the Authorization header of your API requests.
 Example using curl:
 
@@ -149,7 +149,7 @@ curl -sS --request POST --header 'content-type: application/json' \
   --data '{"query":"query me { me { defaultAccount { wallets { id walletCurrency }}}}", "variables":{}}'
 ```
 
-### Examples using the Oauth2-Token header
+### Examples Using the Oauth2-Token Header
 Note that the Oauth2 token needs a different header for Authentication (compared to API keys using the `X-API-KEY` header or the authentication token used in the Blink mobile app):
   ```
   "Oauth2-Token" "ory_at_..."
@@ -162,7 +162,7 @@ Example header for the Blink PoS:
   ```
 Link to the [code with the context](https://github.com/GaloyMoney/blink/pull/4149/files#diff-d5101fe657d3e5befe3ec31871012666597b3f346292241dffde4938c625090dR21).
 
-### Example using [next-auth](https://www.npmjs.com/package/next-auth) in the Blink PoS
+### Example Using [next-auth](https://www.npmjs.com/package/next-auth) in the Blink PoS
 ```
 export const authOptions: NextAuthOptions = {
   providers: [

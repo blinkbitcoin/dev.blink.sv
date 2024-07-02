@@ -1,6 +1,6 @@
 ---
 id: graphql-intro
-title: GraphQL intro
+title: GraphQL Intro
 slug: /api/graphql-intro
 ---
 
@@ -55,12 +55,12 @@ me {
 ```
 This query structure enables you to drill down into specific wallet details, such as transactions, balances, and other financial data, providing a comprehensive view of your financial standing and activity.
 
-## Learn more
+## Learn More
 Understanding these basic concepts of GraphQL will empower you to efficiently interact with our API.
 
 For the detailed documentation on specific queries, mutations, and types available in our GraphQL schema use the following sources:
 
-### GraphQL playground
+### GraphQL Playground
 
 * For the mainnet API endpoint and GraphQL playground connect to:
 
@@ -70,17 +70,17 @@ For the detailed documentation on specific queries, mutations, and types availab
 
   https://api.staging.blink.sv/graphql
 
-### Public API reference
-* visit: [dev.galoy.io/public-api-reference.html](https://dev.galoy.io/public-api-reference.html)
+### Public API Reference
+* visit: [dev.blink.sv/public-api-reference.html](https://dev.blink.sv/public-api-reference.html)
 
-### GraphQL schema in the Galoy source code
+### GraphQL Schema in the Galoy Source Code
 * find it on GitHub: [/galoy/blob/main/core/api/src/graphql/public/schema.graphql](https://github.com/GaloyMoney/blink/blob/main/core/api/src/graphql/public/schema.graphql)
 
-### Preformed GraphQL queries
+### Preformed GraphQL Queries
 Dive deeper into constructing GraphQL queries with these preformed queries:c
 * [galoy-mobile/blob/main/app/graphql/generated.gql](https://github.com/GaloyMoney/blink-mobile/blob/main/app/graphql/generated.gql)
 
-### Postman collection
+### Postman Collection
 * [Browse the collection and try in Postman](/api/postman)
 
 ## Videos
@@ -89,7 +89,7 @@ Arvin demoes the Galoy GraphQL API on 2022-Oct-26.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/RRdpKnFe8qQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-### Getting started with the Galoy API
+### Getting Started with the Galoy API
 
 Arvin walks through how to use the Galoy API to send USD over Lightning on 2022-Mar-29.
 

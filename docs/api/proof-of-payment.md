@@ -1,6 +1,6 @@
 ---
 id: proof-of-payment
-title: Proof of payment
+title: Proof of Payment
 slug: /api/proof-of-payment
 ---
 
@@ -13,7 +13,7 @@ See the Blink FAQ answers for more general details:
 * [How to prove that a lightning invoice was paid?](https://faq.blink.sv/blink-and-other-wallets/how-to-prove-that-a-lightning-invoice-was-paid)
 * [How to obtain a Proof of Payment from Blink?](https://faq.blink.sv/using-blink/how-to-obtain-a-proof-of-payment-from-blink)
 
-## List invoices with proof of payment
+## List Invoices with Proof of Payment
 Requests the two most recent transactions paid via a lightning invoice (could settle over the lightning network or internally).
 
 ```graphql
@@ -44,14 +44,14 @@ query PaymentsWithProof($first: Int) {
   }
 ```
 
-### Variable to show the two most recent transactions
+### Variable to Show the Two Most Recent Transactions
 ```json
 {
   "first": 2
 }
 ```
 
-### Sample response showing the invoice, payment hash and pre-image
+### Sample Response Showing the Invoice, Payment Hash and Pre-image
 ```
 {
   "data": {
@@ -89,8 +89,8 @@ query PaymentsWithProof($first: Int) {
 }
 ```
 
-## Verify the proof of payment
-### Decode the invoice
+## Verify the Proof of Payment
+### Decode the Invoice
 The invoice can be used to identify the destination node, obtain the payment hash and analyze other contents by decoding it for example in:
 * [dev.blink.sv/decode](https://dev.blink.sv/decode) which uses the [bolt11 nodejs package](https://www.npmjs.com/package/bolt11) in the browser
 * using LND:
@@ -101,7 +101,7 @@ The invoice can be used to identify the destination node, obtain the payment has
   ```bash
   $ lightning-cli decode <invoice>
   ```
-### Verify the pre-image
+### Verify the Pre-image
 The payment hash is the sha256 hash of the binary form of the preimage which can be verified in:
 * [dev.blink.sv/decode](https://dev.blink.sv/decode)
 

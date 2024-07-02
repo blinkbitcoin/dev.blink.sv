@@ -26,5 +26,5 @@ A Free Open Source in-house solution to create and redeem Dollar / Bitcoin vouch
 
 <img src="/img/voucher_bitcoinize.png" alt="voucher app on the Bitcoinize PoS device" width="800"/>
 
-## Source code
+## Source Code
 * https://github.com/GaloyMoney/galoy/blob/main/apps/voucher

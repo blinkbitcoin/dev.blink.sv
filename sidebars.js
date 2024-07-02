@@ -94,11 +94,16 @@ const sidebars = {
         'api/proof-of-payment',
         'api/errors',
         'api/postman',
+        {
+          type: 'link',
+          label: 'API reference',
+          href: 'https://dev.blink.sv/public-api-reference.html',
+        },
       ],
     },
     {
       type: 'category',
-      label: 'API usage examples',
+      label: 'API Usage Examples',
       collapsed: false,
       items: [
         'examples/blink-voucher',

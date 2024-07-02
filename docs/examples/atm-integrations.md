@@ -1,6 +1,6 @@
 ---
 id: atm-integrations
-title: ATM integrations
+title: ATM Integrations
 slug: /examples/atm-integrations
 ---
 
