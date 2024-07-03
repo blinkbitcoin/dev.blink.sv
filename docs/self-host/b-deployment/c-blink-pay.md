@@ -6,7 +6,9 @@ slug: /self-host/deployment/blink-pay
 
 # Blink Pay
 
-Blink Pay is a web application that can be used to send tips or payments to users of the Blink API.
+Blink Pay is a web based PoS app.
+
+See the [readme](https://github.com/GaloyMoney/blink/tree/main/apps/pay#readme) inside the Blink monorepo for the latest info.
 
 It's packaged as a docker image, and is automatically installed as part of the Blink helm charts.
 
