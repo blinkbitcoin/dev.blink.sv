@@ -110,6 +110,7 @@ const sidebars = {
         'examples/atm-integrations',
         'examples/btcpayserver-plugin',
         'examples/alby-connector',
+        'examples/lnbits-funding-source'
       ]
     },
   ],
