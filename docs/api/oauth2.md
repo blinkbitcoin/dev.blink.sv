@@ -53,44 +53,22 @@ After the registration with Blink you will receive a client ID and a client secr
   https://oauth.staging.blink.sv/oauth2/token
   ```
 
-## Configuration Examples
-Below are the Terraform configurations for two existing Blink integrations, showcasing how to set up OAuth2 clients for different applications using the [hydra_oauth2_client Terraform resource](https://registry.terraform.io/providers/svrakitin/hydra/latest/docs/resources/oauth2_client) :
-
-### Blink Dashboard
-* try it at [dashboard.blink.sv](https://dashboard.blink.sv)
-```
-resource "hydra_oauth2_client" "api_dashboard" {
-  client_name                = "Blink Api Dashboard"
-  grant_types                = ["authorization_code"]
-  response_types             = ["code", "id_token"]
-  token_endpoint_auth_method = "client_secret_basic"
-  scopes                     = ["read", "write"]
-  redirect_uris              = [local.api_dashboard_hydra_redirect_uri]
-  skip_consent               = true
-}
-```
-### Blink PoS
-* try it at [pay.blink.sv](https://pay.blink.sv)
-```
-resource "hydra_oauth2_client" "galoy_pay" {
-  client_name                = "Blink POS"
-  grant_types                = ["authorization_code"]
-  response_types             = ["code", "id_token"]
-  token_endpoint_auth_method = "client_secret_basic"
-  scopes                     = ["read"]
-  redirect_uris              = [for host in local.galoy_pay_hosts : "https://${host}/api/auth/callback/blink"]
-  skip_consent               = true
-}
-```
-
 ## The OAuth2 Flow
 
 ### 1. Build the Authorization URL
 * Construct a URL to redirect the user to the provider's authorization endpoint.
 * Include the client ID, callback URI, response type (usually "code"), scopes (permissions you're requesting) and a minimum character long state parameter.
 
+#### Example for staging:
+* use a valid `client_id` which was registered with the OAuth2 server
+* your redirect url (`yourapp.com/callback` in the example)
+* the `state` parameter serves to identify the request
+  ```
+  https://oauth.staging.blink.sv/oauth2/auth?response_type=code&client_id=<client_id>&redirect_uri=https%3A%2F%2Fyourapp.com%2Fcallback&scope=read+receive+write&state=<request_identifier>
+  ```
+
 ### 2. Redirect the User
-Open the constructed URL in a browser.
+Open the constructed URL to log in with OAuth2.
 The user will log in to Blink and approve the requested permissions.
 The Blink Oauth2 server will redirect the user to your callback URL with an authorization code in the query parameters.
 
@@ -98,11 +76,11 @@ The Blink Oauth2 server will redirect the user to your callback URL with an auth
 Your application should handle the callback request.
 Extract the code parameter from the query string.
   ```
-  https://yourapp.com/callback?code=ory_ac_AUTHORIZATION_CODE&scope=read+receive+write&state=<your_state_parameter>
+  https://yourapp.com/callback?code=ory_ac_AUTHORIZATION_CODE&scope=read+receive+write&state=<request_identifier>
   ```
 
 ### 4. Validate the State Parameter in the Callback
-Ensure that the state parameter returned in the callback matches the one you generated.
+Ensure that the state parameter returned in the callback matches the one which was sent in the Authorization URL.
 
 ### 5. Exchange the Authorization Code for an Access Token
 Make a POST request to the token endpoint with the authorization code, client ID, client secret, and redirect URI.
@@ -110,10 +88,10 @@ Make a POST request to the token endpoint with the authorization code, client ID
 Example using curl:
   ```
   # set the variables
-  AUTHORIZATION_CODE=
-  YOUR_CALLBACK_URL=
-  YOUR_CLIENT_ID=
-  YOUR_CLIENT_SECRET=
+  AUTHORIZATION_CODE=<ory_ac_...>
+  YOUR_CALLBACK_URL=<https://yourapp.com/callback>
+  YOUR_CLIENT_ID=<client_id>
+  YOUR_CLIENT_SECRET=<client_secret>
 
   curl -X POST \
     -u "$YOUR_CLIENT_ID:$YOUR_CLIENT_SECRET" \
@@ -149,7 +127,8 @@ curl -sS --request POST --header 'content-type: application/json' \
   --data '{"query":"query me { me { defaultAccount { wallets { id walletCurrency }}}}", "variables":{}}'
 ```
 
-### Examples Using the Oauth2-Token Header
+## Examples
+### Using the Oauth2-Token Header
 Note that the Oauth2 token needs a different header for Authentication (compared to API keys using the `X-API-KEY` header or the authentication token used in the Blink mobile app):
   ```
   "Oauth2-Token" "ory_at_..."
@@ -162,7 +141,7 @@ Example header for the Blink PoS:
   ```
 Link to the [code with the context](https://github.com/GaloyMoney/blink/pull/4149/files#diff-d5101fe657d3e5befe3ec31871012666597b3f346292241dffde4938c625090dR21).
 
-### Example Using [next-auth](https://www.npmjs.com/package/next-auth) in the Blink PoS
+### Using [next-auth](https://www.npmjs.com/package/next-auth) in the Blink PoS
 ```
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -219,6 +198,36 @@ export const authOptions: NextAuthOptions = {
 ```
 
 Link to the [code with the context](https://github.com/GaloyMoney/blink/pull/4149/files#diff-224eae5be0d335d0d64941907106c189977dc51b2a0139459083b777efddf953R19-R70).
+
+### Terraform Configuration Examples
+Below are the Terraform configurations for two existing Blink integrations, showcasing how to set up OAuth2 clients for different applications using the [hydra_oauth2_client Terraform resource](https://registry.terraform.io/providers/svrakitin/hydra/latest/docs/resources/oauth2_client) :
+
+#### Blink Dashboard
+* try it at [dashboard.blink.sv](https://dashboard.blink.sv)
+```
+resource "hydra_oauth2_client" "api_dashboard" {
+  client_name                = "Blink Api Dashboard"
+  grant_types                = ["authorization_code"]
+  response_types             = ["code", "id_token"]
+  token_endpoint_auth_method = "client_secret_basic"
+  scopes                     = ["read", "write"]
+  redirect_uris              = [local.api_dashboard_hydra_redirect_uri]
+  skip_consent               = true
+}
+```
+#### Blink PoS
+* try it at [pay.blink.sv](https://pay.blink.sv)
+```
+resource "hydra_oauth2_client" "galoy_pay" {
+  client_name                = "Blink POS"
+  grant_types                = ["authorization_code"]
+  response_types             = ["code", "id_token"]
+  token_endpoint_auth_method = "client_secret_basic"
+  scopes                     = ["read"]
+  redirect_uris              = [for host in local.galoy_pay_hosts : "https://${host}/api/auth/callback/blink"]
+  skip_consent               = true
+}
+```
 
 ---
 
