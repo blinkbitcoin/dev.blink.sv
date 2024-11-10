@@ -16,7 +16,7 @@ For a hands-on introduction to setting up OAuth2 with Ory Hydra, you can explore
 To initiate the integration process, your application must be registered and approved by Blink's development team. This is a critical step to ensure secure and authorized access to Blink's API functionalities.
 
 ### Application Approval
-Reach out to the Blink development team via our Mattermost server at [chat.galoy.io](https://chat.galoy.io) to start the approval process for using OAuth2. You'll need to provide details about your application, including its purpose, the scopes of access required and your callback URL where the authorization code will be delivered.
+Reach out to the Blink development team via our Mattermost server at [chat.blink.sv](https://chat.blink.sv) to start the approval process for using OAuth2. You'll need to provide details about your application, including its purpose, the scopes of access required and your callback URL where the authorization code will be delivered.
 
 #### Scopes
 ##### Read
@@ -231,4 +231,4 @@ resource "hydra_oauth2_client" "galoy_pay" {
 
 ---
 
-If you encounter any challenges or have questions during the integration process, don't hesitate to reach out to the Blink development team for assistance at our Mattermost server at [chat.galoy.io](https://chat.galoy.io).
+If you encounter any challenges or have questions during the integration process, don't hesitate to reach out to the Blink development team for assistance at our Mattermost server at [chat.blink.sv](https://chat.blink.sv).

@@ -90,7 +90,7 @@ const config = {
             position: 'left',
           },
           {
-            href: 'https://chat.galoy.io',
+            href: 'https://chat.blink.sv',
             label: 'Join the Community',
             position: 'right',
           },
@@ -120,8 +120,8 @@ const config = {
             title: 'Community',
             items: [
               {
-                label: 'Galoy Mattermost',
-                href: 'https://chat.galoy.io',
+                label: 'Blink Mattermost',
+                href: 'https://chat.blink.sv',
               },
               {
                 label: 'BlinkAPI Telegram Channel',
