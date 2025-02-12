@@ -15,7 +15,7 @@
   ```
 * download the repo and install the dependencies:
   ```
-  git clone https://github.com/GaloyMoney/dev.blink.sv
+  git clone https://github.com/blinkbitcoin/dev.blink.sv
   cd dev.blink.sv
   yarn
   ```
