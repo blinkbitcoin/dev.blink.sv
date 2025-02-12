@@ -42,11 +42,13 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/', // This changes the base path from /docs
           // Remove these to remove the "edit this page" links.
+          /*
           editUrl: ({ versionDocsDirPath, docPath }) => {
             return `https://github.com/blinkbitcoin/dev.blink.sv/edit/main/${versionDocsDirPath}/${docPath}`;
           },
           showLastUpdateAuthor: false,
           showLastUpdateTime: false,
+          */
         },
         blog: {
           showReadingTime: true,
