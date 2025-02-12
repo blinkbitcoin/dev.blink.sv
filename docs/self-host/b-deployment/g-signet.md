@@ -50,11 +50,13 @@ Documentation of testing options with the wider network since the dev setup make
 * BTCPay PoS (onchain) https://signet.demo.btcpayserver.org/apps/2SCdQhwFm464BcHxXn44kRVg3iCr/pos
 
 ## Other wallets with signet support
+
+### [LNbits instance on signet](https://signet.laisee.org/)
+* LN wallet in the browser
+* create a custodial account and top up over LN
+
 ### [OBW](https://github.com/nbd-wtf/obw/releases/)
 * for Android only with LN support
-* To use a hosted channel scan the QRcode with OBW-signet (should also provide some local balance ):
-
-[![Alternate Text](https://user-images.githubusercontent.com/43343391/206720745-838fb788-d09d-4af9-8400-32c2137dd30b.png)](https://user-images.githubusercontent.com/43343391/206720745-838fb788-d09d-4af9-8400-32c2137dd30b.png)
 
 ### [Sparrow Wallet](https://sparrowwallet.com/download/)
 Supports onchain only, but works well with Taproot accounts. To use it with signet open:
