@@ -17,7 +17,7 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'GaloyMoney', // Usually your GitHub org/user name.
+  organizationName: 'blinkbitcoin', // Usually your GitHub org/user name.
   projectName: 'dev.blink.sv', // Usually your repo name.
   deploymentBranch: 'gh-pages',
   trailingSlash: false,
@@ -42,17 +42,19 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           routeBasePath: '/', // This changes the base path from /docs
           // Remove these to remove the "edit this page" links.
+          /*
           editUrl: ({ versionDocsDirPath, docPath }) => {
-            return `https://github.com/GaloyMoney/dev.blink.sv/edit/main/${versionDocsDirPath}/${docPath}`;
+            return `https://github.com/blinkbitcoin/dev.blink.sv/edit/main/${versionDocsDirPath}/${docPath}`;
           },
           showLastUpdateAuthor: false,
           showLastUpdateTime: false,
+          */
         },
         blog: {
           showReadingTime: true,
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/GaloyMoney/dev.blink.sv/edit/main/website/${blogDirPath}/${blogPath}',
+          //editUrl:
+          //  'https://github.com/blinkbitcoin/dev.blink.sv/edit/main/website/${blogDirPath}/${blogPath}',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -90,8 +92,9 @@ const config = {
             position: 'left',
           },
           {
-            href: 'https://chat.blink.sv',
-            label: 'Join the Community',
+            type: 'doc',
+            docId: 'contact',
+            label: 'Contact',
             position: 'right',
           },
         ],
@@ -104,16 +107,12 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/GaloyMoney',
+                href: 'https://github.com/blinkbitcoin',
               },
               {
                 label: 'X/Twitter',
                 href: 'https://twitter.com/blinkbtc',
-              },
-              {
-                label: 'Nostr',
-                href: 'https://snort.social/p/community@blink.sv',
-              },
+              }
             ],
           },
           {
@@ -133,7 +132,7 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'Project Website',
+                label: 'About Blink',
                 href: 'https://www.blink.sv',
               },
               {
@@ -141,8 +140,8 @@ const config = {
                 href: 'https://blink.statuspage.io',
               },
               {
-                label: 'About Galoy',
-                href: 'https://galoy.io',
+              label: 'Blink FAQ',
+              href: 'https://faq.blink.sv',
               },
             ],
           },
