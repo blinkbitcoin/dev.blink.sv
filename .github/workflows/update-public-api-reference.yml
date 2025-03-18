@@ -46,7 +46,7 @@ jobs:
       if: env.CURRENT_HASH != env.WEEK_OLD_HASH
       uses: actions/checkout@v3
       with:
-        repository: 'GaloyMoney/dev.blink.sv'
+        repository: 'blinkbitcoin/dev.blink.sv'
         path: 'dev.blink.sv'
         ref: 'main'
         fetch-depth: 0
