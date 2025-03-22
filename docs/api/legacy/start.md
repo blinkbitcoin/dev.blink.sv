@@ -32,7 +32,7 @@ slug: /api/legacy/start
 
 ## For testing and development connect to our Staging environment
 :::note
-New registrations to the staging environment are currently limited. Please contact us on our Community Mattermost Server on [chat.galoy.io](https://chat.galoy.io) to request access.
+New registrations to the staging environment are currently limited. Please contact us on our Community Mattermost Server on [chat.blink.sv](https://chat.blink.sv) to request access.
 :::
 
 * more info on the [staging environment](/self-host/deployment/staging-environment)

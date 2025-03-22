@@ -8,8 +8,8 @@ info:
   title: GraphQL API Reference
   description: Welcome to the Blink API reference!
   contact:
-    name: Galoy developer community
-    url: https://chat.galoy.io/
+    name: Blink developer community
+    url: https://chat.blink.sv/
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT

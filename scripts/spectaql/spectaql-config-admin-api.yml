@@ -9,13 +9,13 @@ info:
   title: GraphQL Admin API Reference
   description: Welcome to the Blink Admin API reference!
   contact:
-    name: Galoy developer community
-    url: https://chat.galoy.io/
+    name: Blink developer community
+    url: https://chat.blink.sv/
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
 
 servers:
-  - url: https://admin-api.staging.galoy.io/graphql
+  - url: https://admin-api.staging.blink.sv/graphql
     description: Signet
     production: false
