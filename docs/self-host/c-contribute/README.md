@@ -6,7 +6,7 @@ Our software is open source and contributions from the community are welcome.
 
 ## Join the community
 
-Join our self-hosted Mattermost server at [chat.blink.sv](https://chat.blink.sv) to discuss what you want to build or exhcange feedback on projects.
+Join our self-hosted Mattermost server at [chat.blink.sv](https://chat.blink.sv) to discuss what you want to build or exchange feedback on projects.
 
 ## Follow us on Github
 
