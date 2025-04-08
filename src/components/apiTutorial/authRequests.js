@@ -1,3 +1,11 @@
+/**
+ * Makes an authenticated request to the Blink API using the X-API-KEY header
+ * @param {string} token - The API key (starts with 'blink_')
+ * @param {string} apiEndpoint - The API endpoint URL
+ * @param {string} graphqlQuery - The GraphQL query or mutation
+ * @param {Object} variables - Variables for the GraphQL query
+ * @returns {Promise<Object>} - The API response
+ */
 const handleAuthenticatedRequest = async (token, apiEndpoint, graphqlQuery, variables = {}) => {
   if (!token) {
     throw new Error("Not authenticated");
@@ -13,6 +21,7 @@ const handleAuthenticatedRequest = async (token, apiEndpoint, graphqlQuery, vari
       headers: {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
+        // The X-API-KEY header is the primary authentication method for the Blink API
         'X-API-KEY': `${token}`
       },
       body: JSON.stringify({
