@@ -27,8 +27,22 @@ After loading the playground:
 * open the `SANDBOX` connection settings and set:<br />
 `wss://ws.blink.sv/graphql` as the `Subscriptions` URL then `Save`.
 
-* add the `X-API-KEY` header with your API key from the <br />
-[Blink Dashboard](https://dashboard.blink.sv) to authenticate the connection.
+## Authentication with X-API-KEY
+
+WebSocket connections require authentication using your API key from the [Blink Dashboard](https://dashboard.blink.sv).
+
+Unlike regular HTTP requests where the API key is sent in a header, for WebSocket connections, the API key is included in the connection initialization payload:
+
+```json
+{
+  "type": "connection_init",
+  "payload": {
+    "X-API-KEY": "blink_your_api_key_here"
+  }
+}
+```
+
+This authentication method is required for accessing user-specific subscription data like `myUpdates`.
 
 ## Postman
 Try the websocket connection examples in the [Galoy API collection](https://www.postman.com/avionics-astronomer-21512623/workspace/galoy-api/ws-raw-request/65844dfbf0aa010f3874d5ff)

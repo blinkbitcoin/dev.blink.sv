@@ -13,6 +13,10 @@
   ```
   sudo apt install -y git nodejs yarn
   ```
+* MacOS:
+  ```
+  brew install git node yarn
+  ```
 * download the repo and install the dependencies:
   ```
   git clone https://github.com/blinkbitcoin/dev.blink.sv

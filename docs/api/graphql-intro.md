@@ -22,7 +22,17 @@ me {
 ```
 This query, when expanded with specific fields, allows you to access further details tied to your user account.
 
-API calls are authenticated with the `X-API-KEY` header containing an API key generated in the Blink Dashboard at [dashboard.blink.sv](https://dashboard.blink.sv). Find more about authentication in the [Authentication section](/api/auth)
+## Authentication with X-API-KEY
+
+**All authenticated API calls require the `X-API-KEY` header** containing your API key. This is the primary authentication method for the Blink API.
+
+```
+X-API-KEY: blink_your_api_key_here
+```
+
+API keys can be generated in the Blink Dashboard at [dashboard.blink.sv](https://dashboard.blink.sv).
+
+For detailed authentication instructions and examples, see the [Authentication section](/api/auth) and [Authentication Examples](/api/authentication-examples).
 
 
 ## Default Account Representation
