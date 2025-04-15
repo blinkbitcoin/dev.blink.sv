@@ -12,7 +12,7 @@ export function SetAuthToken() {
   return (
     <div>
       <div>
-        <strong>API Authentication:</strong> Enter your API key to be used in the <code>X-API-KEY</code> header:
+        API authentication using the <code>X-API-KEY</code> header:
       </div>
       <input
         type="text"
