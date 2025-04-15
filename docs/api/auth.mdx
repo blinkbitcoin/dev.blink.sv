@@ -35,6 +35,12 @@ Use the same credentials as with the [Blink wallet app](https://get.blink.sv)
 
 ## API Authentication
 
+:::warning Security Best Practices
+Never expose your API keys in client-side code (like frontend JavaScript) where they can be extracted by users. API keys should only be used in server-side applications where they remain private.
+
+Be extremely cautious when sharing API keys with third-party services. Only share with trusted services and use the minimum required scope permissions for your use case. Consider using separate API keys for different integrations to limit exposure if a key is compromised.
+:::
+
 ### Using the X-API-KEY Header
 
 All authenticated API requests to Blink require the `X-API-KEY` header with your API key.
@@ -55,7 +61,12 @@ curl --request POST \
 
 ### Example with JavaScript fetch
 
+:::caution
+This example is for demonstration purposes only. Never include API keys directly in client-side JavaScript code. For browser-based applications, make API calls through your own backend server that securely stores and uses the API key.
+:::
+
 ```javascript
+// This should only be used in a secure server-side environment, not in browser code
 const response = await fetch('https://api.blink.sv/graphql', {
   method: 'POST',
   headers: {
