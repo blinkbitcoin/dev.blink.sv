@@ -25,13 +25,13 @@ We provide the following machine-readable formats of the Blink GraphQL API schem
 
 This is our recommended format for most LLM applications. It provides a clean, structured representation of the GraphQL schema with additional context:
 
-- [Enhanced LLM-Friendly Schema (JSON)](/reference/graphql-api-for-llm.json)
+- <a href="/reference/graphql-api-for-llm.json" download>Download Enhanced LLM-Friendly Schema (JSON)</a>
 
 ### OpenAPI Format (Alternative)
 
 For systems that work better with OpenAPI specifications:
 
-- [OpenAPI Specification (JSON)](/reference/graphql-openapi.json)
+- <a href="/reference/graphql-openapi.json" download>Download OpenAPI Specification (JSON)</a>
 
 ## How to Use with LLM Agents
 
