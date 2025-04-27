@@ -94,6 +94,7 @@ const sidebars = {
         'api/proof-of-payment',
         'api/errors',
         'api/postman',
+        'api/llm-api-reference',
         {
           type: 'link',
           label: 'API reference',

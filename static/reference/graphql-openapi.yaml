@@ -1,0 +1,732 @@
+openapi: 3.0.0
+info:
+  title: Blink GraphQL API
+  description: API for Blink wallet services
+  version: 1.0.0
+  contact:
+    name: Blink developer community
+    url: https://chat.blink.sv/
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: https://api.staging.blink.sv/graphql
+    description: Signet (Staging)
+  - url: https://api.blink.sv/graphql
+    description: Production
+paths:
+  /graphql:
+    post:
+      summary: GraphQL endpoint
+      description: Send GraphQL queries and mutations to this endpoint
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - query
+              properties:
+                query:
+                  type: string
+                  description: The GraphQL query or mutation
+                variables:
+                  type: object
+                  description: Variables for the GraphQL query or mutation
+                operationName:
+                  type: string
+                  description: Name of the operation if the query contains multiple operations
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    description: The data returned by the query
+                  errors:
+                    type: array
+                    description: Errors that occurred during query execution
+                    items:
+                      type: object
+      security:
+        - ApiKeyAuth: []
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
+      description: API key authentication
+  schemas:
+    Account:
+      type: object
+      description: "GraphQL type: Account"
+    String:
+      type: object
+      description: The `String` scalar type represents textual data, represented as
+        UTF-8 character sequences. The String type is most often used by GraphQL
+        to represent free-form human-readable text.
+    ID:
+      type: object
+      description: The `ID` scalar type represents a unique identifier, often used to
+        refetch an object or as key for a cache. The ID type appears in a JSON
+        response as a String; however, it is not intended to be human-readable.
+        When expected as an input type, any string (such as `"4"`) or integer
+        (such as `4`) input value will be accepted as an ID.
+    Int:
+      type: object
+      description: The `Int` scalar type represents non-fractional signed whole
+        numeric values. Int can represent values between -(2^31) and 2^31 - 1.
+    AccountDeletePayload:
+      type: object
+      description: "GraphQL type: AccountDeletePayload"
+    Boolean:
+      type: object
+      description: The `Boolean` scalar type represents `true` or `false`.
+    AccountDisableNotificationCategoryInput:
+      type: object
+      description: "GraphQL type: AccountDisableNotificationCategoryInput"
+    AccountDisableNotificationChannelInput:
+      type: object
+      description: "GraphQL type: AccountDisableNotificationChannelInput"
+    AccountEnableNotificationCategoryInput:
+      type: object
+      description: "GraphQL type: AccountEnableNotificationCategoryInput"
+    AccountEnableNotificationChannelInput:
+      type: object
+      description: "GraphQL type: AccountEnableNotificationChannelInput"
+    AccountLevel:
+      type: object
+      description: "GraphQL type: AccountLevel"
+    AccountLimit:
+      type: object
+      description: "GraphQL type: AccountLimit"
+    AccountLimits:
+      type: object
+      description: "GraphQL type: AccountLimits"
+    AccountUpdateDefaultWalletIdInput:
+      type: object
+      description: "GraphQL type: AccountUpdateDefaultWalletIdInput"
+    AccountUpdateDefaultWalletIdPayload:
+      type: object
+      description: "GraphQL type: AccountUpdateDefaultWalletIdPayload"
+    AccountUpdateDisplayCurrencyInput:
+      type: object
+      description: "GraphQL type: AccountUpdateDisplayCurrencyInput"
+    AccountUpdateDisplayCurrencyPayload:
+      type: object
+      description: "GraphQL type: AccountUpdateDisplayCurrencyPayload"
+    AccountUpdateNotificationSettingsPayload:
+      type: object
+      description: "GraphQL type: AccountUpdateNotificationSettingsPayload"
+    AuthToken:
+      type: object
+      description: An Opaque Bearer token
+    AuthTokenPayload:
+      type: object
+      description: "GraphQL type: AuthTokenPayload"
+    Authorization:
+      type: object
+      description: "GraphQL type: Authorization"
+    BTCWallet:
+      type: object
+      description: A wallet belonging to an account which contains a BTC balance and a
+        list of transactions.
+    BuildInformation:
+      type: object
+      description: "GraphQL type: BuildInformation"
+    CallbackEndpoint:
+      type: object
+      description: "GraphQL type: CallbackEndpoint"
+    CallbackEndpointAddInput:
+      type: object
+      description: "GraphQL type: CallbackEndpointAddInput"
+    CallbackEndpointAddPayload:
+      type: object
+      description: "GraphQL type: CallbackEndpointAddPayload"
+    CallbackEndpointDeleteInput:
+      type: object
+      description: "GraphQL type: CallbackEndpointDeleteInput"
+    CaptchaCreateChallengePayload:
+      type: object
+      description: "GraphQL type: CaptchaCreateChallengePayload"
+    CaptchaCreateChallengeResult:
+      type: object
+      description: "GraphQL type: CaptchaCreateChallengeResult"
+    CaptchaRequestAuthCodeInput:
+      type: object
+      description: "GraphQL type: CaptchaRequestAuthCodeInput"
+    CentAmount:
+      type: object
+      description: (Positive) Cent amount (1/100 of a dollar)
+    CentAmountPayload:
+      type: object
+      description: "GraphQL type: CentAmountPayload"
+    ConsumerAccount:
+      type: object
+      description: "GraphQL type: ConsumerAccount"
+    ContactAlias:
+      type: object
+      description: An alias name that a user can set for a wallet (with which they
+        have transactions)
+    Coordinates:
+      type: object
+      description: "GraphQL type: Coordinates"
+    Float:
+      type: object
+      description: The `Float` scalar type represents signed double-precision
+        fractional values as specified by [IEEE
+        754](https://en.wikipedia.org/wiki/IEEE_floating_point).
+    Country:
+      type: object
+      description: "GraphQL type: Country"
+    CountryCode:
+      type: object
+      description: A CCA2 country code (ex US, FR, etc)
+    Currency:
+      type: object
+      description: "GraphQL type: Currency"
+    CurrencyConversionEstimation:
+      type: object
+      description: "GraphQL type: CurrencyConversionEstimation"
+    DepositFeesInformation:
+      type: object
+      description: "GraphQL type: DepositFeesInformation"
+    DeviceNotificationTokenCreateInput:
+      type: object
+      description: "GraphQL type: DeviceNotificationTokenCreateInput"
+    DisplayCurrency:
+      type: object
+      description: Display currency of an account
+    Email:
+      type: object
+      description: "GraphQL type: Email"
+    EmailAddress:
+      type: object
+      description: Email address
+    EmailRegistrationId:
+      type: object
+      description: An id to be passed between registrationInitiate and
+        registrationValidate for confirming email
+    EndpointId:
+      type: object
+      description: "GraphQL type: EndpointId"
+    EndpointUrl:
+      type: object
+      description: Url that will be fetched on events for the account
+    Error:
+      type: object
+      description: "GraphQL type: Error"
+    ExchangeCurrencyUnit:
+      type: object
+      description: "GraphQL type: ExchangeCurrencyUnit"
+    Feedback:
+      type: object
+      description: Feedback shared with our user
+    FeedbackSubmitInput:
+      type: object
+      description: "GraphQL type: FeedbackSubmitInput"
+    FeesInformation:
+      type: object
+      description: "GraphQL type: FeesInformation"
+    Globals:
+      type: object
+      description: Provides global settings for the application which might have an
+        impact for the user.
+    GraphQLApplicationError:
+      type: object
+      description: "GraphQL type: GraphQLApplicationError"
+    Hex32Bytes:
+      type: object
+      description: Hex-encoded string of 32 bytes
+    InitiationVia:
+      type: object
+      description: "GraphQL type: InitiationVia"
+    InitiationViaIntraLedger:
+      type: object
+      description: "GraphQL type: InitiationViaIntraLedger"
+    InitiationViaLn:
+      type: object
+      description: "GraphQL type: InitiationViaLn"
+    InitiationViaOnChain:
+      type: object
+      description: "GraphQL type: InitiationViaOnChain"
+    IntraLedgerPaymentSendInput:
+      type: object
+      description: "GraphQL type: IntraLedgerPaymentSendInput"
+    IntraLedgerUpdate:
+      type: object
+      description: "GraphQL type: IntraLedgerUpdate"
+    IntraLedgerUsdPaymentSendInput:
+      type: object
+      description: "GraphQL type: IntraLedgerUsdPaymentSendInput"
+    Invoice:
+      type: object
+      description: A lightning invoice.
+    InvoiceConnection:
+      type: object
+      description: A connection to a list of items.
+    InvoiceEdge:
+      type: object
+      description: An edge in a connection.
+    InvoicePaymentStatus:
+      type: object
+      description: "GraphQL type: InvoicePaymentStatus"
+    Language:
+      type: object
+      description: "GraphQL type: Language"
+    LnAddressPaymentSendInput:
+      type: object
+      description: "GraphQL type: LnAddressPaymentSendInput"
+    LnInvoice:
+      type: object
+      description: "GraphQL type: LnInvoice"
+    LnInvoiceCancelInput:
+      type: object
+      description: "GraphQL type: LnInvoiceCancelInput"
+    LnInvoiceCreateInput:
+      type: object
+      description: "GraphQL type: LnInvoiceCreateInput"
+    LnInvoiceCreateOnBehalfOfRecipientInput:
+      type: object
+      description: "GraphQL type: LnInvoiceCreateOnBehalfOfRecipientInput"
+    LnInvoiceFeeProbeInput:
+      type: object
+      description: "GraphQL type: LnInvoiceFeeProbeInput"
+    LnInvoicePayload:
+      type: object
+      description: "GraphQL type: LnInvoicePayload"
+    LnInvoicePaymentInput:
+      type: object
+      description: "GraphQL type: LnInvoicePaymentInput"
+    LnInvoicePaymentStatus:
+      type: object
+      description: "GraphQL type: LnInvoicePaymentStatus"
+    LnInvoicePaymentStatusByHashInput:
+      type: object
+      description: "GraphQL type: LnInvoicePaymentStatusByHashInput"
+    LnInvoicePaymentStatusByPaymentRequestInput:
+      type: object
+      description: "GraphQL type: LnInvoicePaymentStatusByPaymentRequestInput"
+    LnInvoicePaymentStatusInput:
+      type: object
+      description: "GraphQL type: LnInvoicePaymentStatusInput"
+    LnInvoicePaymentStatusPayload:
+      type: object
+      description: "GraphQL type: LnInvoicePaymentStatusPayload"
+    LnNoAmountInvoice:
+      type: object
+      description: "GraphQL type: LnNoAmountInvoice"
+    LnNoAmountInvoiceCreateInput:
+      type: object
+      description: "GraphQL type: LnNoAmountInvoiceCreateInput"
+    LnNoAmountInvoiceCreateOnBehalfOfRecipientInput:
+      type: object
+      description: "GraphQL type: LnNoAmountInvoiceCreateOnBehalfOfRecipientInput"
+    LnNoAmountInvoiceFeeProbeInput:
+      type: object
+      description: "GraphQL type: LnNoAmountInvoiceFeeProbeInput"
+    LnNoAmountInvoicePayload:
+      type: object
+      description: "GraphQL type: LnNoAmountInvoicePayload"
+    LnNoAmountInvoicePaymentInput:
+      type: object
+      description: "GraphQL type: LnNoAmountInvoicePaymentInput"
+    LnNoAmountUsdInvoiceFeeProbeInput:
+      type: object
+      description: "GraphQL type: LnNoAmountUsdInvoiceFeeProbeInput"
+    LnNoAmountUsdInvoicePaymentInput:
+      type: object
+      description: "GraphQL type: LnNoAmountUsdInvoicePaymentInput"
+    LnPaymentPreImage:
+      type: object
+      description: "GraphQL type: LnPaymentPreImage"
+    LnPaymentRequest:
+      type: object
+      description: BOLT11 lightning invoice payment request with the amount included
+    LnPaymentSecret:
+      type: object
+      description: "GraphQL type: LnPaymentSecret"
+    LnUpdate:
+      type: object
+      description: "GraphQL type: LnUpdate"
+    LnUsdInvoiceBtcDenominatedCreateOnBehalfOfRecipientInput:
+      type: object
+      description: "GraphQL type: LnUsdInvoiceBtcDenominatedCreateOnBehalfOfRecipientInput"
+    LnUsdInvoiceCreateInput:
+      type: object
+      description: "GraphQL type: LnUsdInvoiceCreateInput"
+    LnUsdInvoiceCreateOnBehalfOfRecipientInput:
+      type: object
+      description: "GraphQL type: LnUsdInvoiceCreateOnBehalfOfRecipientInput"
+    LnUsdInvoiceFeeProbeInput:
+      type: object
+      description: "GraphQL type: LnUsdInvoiceFeeProbeInput"
+    LnurlPaymentSendInput:
+      type: object
+      description: "GraphQL type: LnurlPaymentSendInput"
+    MapInfo:
+      type: object
+      description: "GraphQL type: MapInfo"
+    MapMarker:
+      type: object
+      description: "GraphQL type: MapMarker"
+    Memo:
+      type: object
+      description: Text field in a lightning payment transaction
+    Merchant:
+      type: object
+      description: "GraphQL type: Merchant"
+    MerchantMapSuggestInput:
+      type: object
+      description: "GraphQL type: MerchantMapSuggestInput"
+    MerchantPayload:
+      type: object
+      description: "GraphQL type: MerchantPayload"
+    Minutes:
+      type: object
+      description: (Positive) amount of minutes
+    MobileVersions:
+      type: object
+      description: "GraphQL type: MobileVersions"
+    Mutation:
+      type: object
+      description: "GraphQL type: Mutation"
+    MyUpdatesPayload:
+      type: object
+      description: "GraphQL type: MyUpdatesPayload"
+    Network:
+      type: object
+      description: "GraphQL type: Network"
+    NotificationCategory:
+      type: object
+      description: "GraphQL type: NotificationCategory"
+    NotificationChannel:
+      type: object
+      description: "GraphQL type: NotificationChannel"
+    NotificationChannelSettings:
+      type: object
+      description: "GraphQL type: NotificationChannelSettings"
+    NotificationSettings:
+      type: object
+      description: "GraphQL type: NotificationSettings"
+    OnChainAddress:
+      type: object
+      description: An address for an on-chain bitcoin destination
+    OnChainAddressCreateInput:
+      type: object
+      description: "GraphQL type: OnChainAddressCreateInput"
+    OnChainAddressCurrentInput:
+      type: object
+      description: "GraphQL type: OnChainAddressCurrentInput"
+    OnChainAddressPayload:
+      type: object
+      description: "GraphQL type: OnChainAddressPayload"
+    OnChainPaymentSendAllInput:
+      type: object
+      description: "GraphQL type: OnChainPaymentSendAllInput"
+    OnChainPaymentSendInput:
+      type: object
+      description: "GraphQL type: OnChainPaymentSendInput"
+    OnChainTxFee:
+      type: object
+      description: "GraphQL type: OnChainTxFee"
+    OnChainTxHash:
+      type: object
+      description: "GraphQL type: OnChainTxHash"
+    OnChainUpdate:
+      type: object
+      description: "GraphQL type: OnChainUpdate"
+    OnChainUsdPaymentSendAsBtcDenominatedInput:
+      type: object
+      description: "GraphQL type: OnChainUsdPaymentSendAsBtcDenominatedInput"
+    OnChainUsdPaymentSendInput:
+      type: object
+      description: "GraphQL type: OnChainUsdPaymentSendInput"
+    OnChainUsdTxFee:
+      type: object
+      description: "GraphQL type: OnChainUsdTxFee"
+    OneDayAccountLimit:
+      type: object
+      description: "GraphQL type: OneDayAccountLimit"
+    OneTimeAuthCode:
+      type: object
+      description: An authentication code valid for a single use
+    PageInfo:
+      type: object
+      description: Information about pagination in a connection.
+    PaymentHash:
+      type: object
+      description: "GraphQL type: PaymentHash"
+    PaymentSendPayload:
+      type: object
+      description: "GraphQL type: PaymentSendPayload"
+    PaymentSendResult:
+      type: object
+      description: "GraphQL type: PaymentSendResult"
+    PayoutSpeed:
+      type: object
+      description: "GraphQL type: PayoutSpeed"
+    Phone:
+      type: object
+      description: Phone number which includes country code
+    PhoneCodeChannelType:
+      type: object
+      description: "GraphQL type: PhoneCodeChannelType"
+    Price:
+      type: object
+      description: "Price amount expressed in base/offset. To calculate, use: `base /
+        10^offset`"
+    PriceGraphRange:
+      type: object
+      description: The range for the X axis in the BTC price graph
+    PriceInput:
+      type: object
+      description: "GraphQL type: PriceInput"
+    PriceInterface:
+      type: object
+      description: "GraphQL type: PriceInterface"
+    PriceOfOneSatInMinorUnit:
+      type: object
+      description: "Price of 1 sat in base/offset. To calculate, use: `base / 10^offset`"
+    PriceOfOneSettlementMinorUnitInDisplayMinorUnit:
+      type: object
+      description: "Price of 1 sat or 1 usd cent in base/offset. To calculate, use:
+        `base / 10^offset`"
+    PriceOfOneUsdCentInMinorUnit:
+      type: object
+      description: "Price of 1 usd cent in base/offset. To calculate, use: `base /
+        10^offset`"
+    PricePayload:
+      type: object
+      description: "GraphQL type: PricePayload"
+    PricePoint:
+      type: object
+      description: "GraphQL type: PricePoint"
+    PublicWallet:
+      type: object
+      description: A public view of a generic wallet which stores value in one of our
+        supported currencies.
+    Query:
+      type: object
+      description: "GraphQL type: Query"
+    Quiz:
+      type: object
+      description: "GraphQL type: Quiz"
+    QuizClaimInput:
+      type: object
+      description: "GraphQL type: QuizClaimInput"
+    QuizClaimPayload:
+      type: object
+      description: "GraphQL type: QuizClaimPayload"
+    RealtimePrice:
+      type: object
+      description: "GraphQL type: RealtimePrice"
+    RealtimePriceInput:
+      type: object
+      description: "GraphQL type: RealtimePriceInput"
+    RealtimePricePayload:
+      type: object
+      description: "GraphQL type: RealtimePricePayload"
+    SafeInt:
+      type: object
+      description: Non-fractional signed whole numeric value between -(2^53) + 1 and
+        2^53 - 1
+    SatAmount:
+      type: object
+      description: (Positive) Satoshi amount
+    SatAmountPayload:
+      type: object
+      description: "GraphQL type: SatAmountPayload"
+    Scope:
+      type: object
+      description: "GraphQL type: Scope"
+    Seconds:
+      type: object
+      description: (Positive) amount of seconds
+    SettlementVia:
+      type: object
+      description: "GraphQL type: SettlementVia"
+    SettlementViaIntraLedger:
+      type: object
+      description: "GraphQL type: SettlementViaIntraLedger"
+    SettlementViaLn:
+      type: object
+      description: "GraphQL type: SettlementViaLn"
+    SettlementViaOnChain:
+      type: object
+      description: "GraphQL type: SettlementViaOnChain"
+    SignedAmount:
+      type: object
+      description: An amount (of a currency) that can be negative (e.g. in a transaction)
+    SignedDisplayMajorAmount:
+      type: object
+      description: A string amount (of a currency) that can be negative (e.g. in a
+        transaction)
+    Subscription:
+      type: object
+      description: "GraphQL type: Subscription"
+    SuccessPayload:
+      type: object
+      description: "GraphQL type: SuccessPayload"
+    SupportChatMessageAddInput:
+      type: object
+      description: "GraphQL type: SupportChatMessageAddInput"
+    SupportChatMessageAddPayload:
+      type: object
+      description: "GraphQL type: SupportChatMessageAddPayload"
+    SupportMessage:
+      type: object
+      description: "GraphQL type: SupportMessage"
+    SupportRole:
+      type: object
+      description: "GraphQL type: SupportRole"
+    Timestamp:
+      type: object
+      description: Timestamp field, serialized as Unix time (the number of seconds
+        since the Unix epoch)
+    TotpCode:
+      type: object
+      description: A time-based one-time password
+    TotpRegistrationId:
+      type: object
+      description: An id to be passed between set and verify for confirming totp
+    TotpSecret:
+      type: object
+      description: A secret to generate time-based one-time password
+    Transaction:
+      type: object
+      description: |-
+        Give details about an individual transaction.
+        Galoy have a smart routing system which is automatically
+        settling intraledger when both the payer and payee use the same wallet
+        therefore it's possible the transactions is being initiated onchain
+        or with lightning but settled intraledger.
+    TransactionConnection:
+      type: object
+      description: A connection to a list of items.
+    TransactionEdge:
+      type: object
+      description: An edge in a connection.
+    TxDirection:
+      type: object
+      description: "GraphQL type: TxDirection"
+    TxExternalId:
+      type: object
+      description: An external reference id that can be optionally added for transactions.
+    TxNotificationType:
+      type: object
+      description: "GraphQL type: TxNotificationType"
+    TxStatus:
+      type: object
+      description: "GraphQL type: TxStatus"
+    UpgradePayload:
+      type: object
+      description: "GraphQL type: UpgradePayload"
+    UsdWallet:
+      type: object
+      description: A wallet belonging to an account which contains a USD balance and a
+        list of transactions.
+    User:
+      type: object
+      description: "GraphQL type: User"
+    UserContact:
+      type: object
+      description: "GraphQL type: UserContact"
+    UserContactUpdateAliasInput:
+      type: object
+      description: "GraphQL type: UserContactUpdateAliasInput"
+    UserContactUpdateAliasPayload:
+      type: object
+      description: "GraphQL type: UserContactUpdateAliasPayload"
+    UserEmailDeletePayload:
+      type: object
+      description: "GraphQL type: UserEmailDeletePayload"
+    UserEmailRegistrationInitiateInput:
+      type: object
+      description: "GraphQL type: UserEmailRegistrationInitiateInput"
+    UserEmailRegistrationInitiatePayload:
+      type: object
+      description: "GraphQL type: UserEmailRegistrationInitiatePayload"
+    UserEmailRegistrationValidateInput:
+      type: object
+      description: "GraphQL type: UserEmailRegistrationValidateInput"
+    UserEmailRegistrationValidatePayload:
+      type: object
+      description: "GraphQL type: UserEmailRegistrationValidatePayload"
+    UserLoginInput:
+      type: object
+      description: "GraphQL type: UserLoginInput"
+    UserLoginUpgradeInput:
+      type: object
+      description: "GraphQL type: UserLoginUpgradeInput"
+    UserLogoutInput:
+      type: object
+      description: "GraphQL type: UserLogoutInput"
+    UserPhoneDeletePayload:
+      type: object
+      description: "GraphQL type: UserPhoneDeletePayload"
+    UserPhoneRegistrationInitiateInput:
+      type: object
+      description: "GraphQL type: UserPhoneRegistrationInitiateInput"
+    UserPhoneRegistrationValidateInput:
+      type: object
+      description: "GraphQL type: UserPhoneRegistrationValidateInput"
+    UserPhoneRegistrationValidatePayload:
+      type: object
+      description: "GraphQL type: UserPhoneRegistrationValidatePayload"
+    UserTotpDeletePayload:
+      type: object
+      description: "GraphQL type: UserTotpDeletePayload"
+    UserTotpRegistrationInitiatePayload:
+      type: object
+      description: "GraphQL type: UserTotpRegistrationInitiatePayload"
+    UserTotpRegistrationValidateInput:
+      type: object
+      description: "GraphQL type: UserTotpRegistrationValidateInput"
+    UserTotpRegistrationValidatePayload:
+      type: object
+      description: "GraphQL type: UserTotpRegistrationValidatePayload"
+    UserUpdate:
+      type: object
+      description: "GraphQL type: UserUpdate"
+    UserUpdateLanguageInput:
+      type: object
+      description: "GraphQL type: UserUpdateLanguageInput"
+    UserUpdateLanguagePayload:
+      type: object
+      description: "GraphQL type: UserUpdateLanguagePayload"
+    UserUpdateUsernameInput:
+      type: object
+      description: "GraphQL type: UserUpdateUsernameInput"
+    UserUpdateUsernamePayload:
+      type: object
+      description: "GraphQL type: UserUpdateUsernamePayload"
+    Username:
+      type: object
+      description: Unique identifier of a user
+    Wallet:
+      type: object
+      description: A generic wallet which stores value in one of our supported currencies.
+    WalletCurrency:
+      type: object
+      description: "GraphQL type: WalletCurrency"
+    WalletId:
+      type: object
+      description: Unique identifier of a wallet
+    GraphQLSchema:
+      type: string
+      description: Full GraphQL schema in SDL format
+      example: >-
+        interface Account {
+          callbackEndpoints: [CallbackEndpoint!]!
+          callbackPortalUrl: String!
+          csvTransactions(walletIds: [WalletId!]!): String!
+          defaultWallet: PublicWallet!
+          defaultWalletId: WalletId! @deprecated(reason: "Shifting property to 'defaultWallet.id'")
+          displayCurrency: DisplayCurrency...
