@@ -25,13 +25,13 @@ Check out the [API section ](/api/auth) for an interactive tutorial to get start
 
 #### End-user and merchant experiences
 
-* **[Mobile Wallet](https://github.com/GaloyMoney/blink-mobile)** – simple end user experience enables send/receive onchain and Lightning. Mobile wallet includes educational onboarding quiz & merchant map.
-* **[Blink Pay](https://github.com/GaloyMoney/blink/tree/main/apps/pay)** – web application end users can share online or display in person to receive payments to their account.
+* **[Mobile Wallet](https://github.com/blinkbitcoin/blink-mobile)** – simple end user experience enables send/receive onchain and Lightning. Mobile wallet includes educational onboarding quiz & merchant map.
+* **[Blink Pay](https://github.com/blinkbitcoin/blink/tree/main/apps/pay)** – web application end users can share online or display in person to receive payments to their account.
 
 #### Administrator experiences
 
 * **Dashboard** – enables monitoring usage and performance of the instance
-* **Admin panel** – web application which lets a support team manage users and transactions on their galoy instance.
+* **Admin panel** – web application which lets a support team manage users and transactions on their blink instance.
 
 ## Getting started
 

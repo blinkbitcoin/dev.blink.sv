@@ -8,13 +8,13 @@ slug: /self-host/deployment/blink-pay
 
 Blink Pay is a web based PoS app.
 
-See the [readme](https://github.com/GaloyMoney/blink/tree/main/apps/pay#readme) inside the Blink monorepo for the latest info.
+See the [readme](https://github.com/blinkbitcoin/blink/tree/main/apps/pay#readme) inside the Blink monorepo for the latest info.
 
 It's packaged as a docker image, and is automatically installed as part of the Blink helm charts.
 
 With a default installation, Blink-Pay can be accessed under `pay.domain.com`.
 
-Blink-Pay uses query, mutation, and subscription operations from the Blink's graphql API endpoints `api.domain.com` as defined in [schema.graphql](https://github.com/GaloyMoney/blink/blob/main/src/graphql/main/schema.graphql)
+Blink-Pay uses query, mutation, and subscription operations from the Blink's graphql API endpoints `api.domain.com` as defined in [schema.graphql](https://github.com/blinkbitcoin/blink/blob/main/src/graphql/main/schema.graphql)
 
 ### How to run this repo locally?
 

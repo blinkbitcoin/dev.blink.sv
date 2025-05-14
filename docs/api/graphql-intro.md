@@ -83,24 +83,24 @@ For the detailed documentation on specific queries, mutations, and types availab
 ### Public API Reference
 * visit: [dev.blink.sv/public-api-reference.html](https://dev.blink.sv/public-api-reference.html)
 
-### GraphQL Schema in the Galoy Source Code
-* find it on GitHub: [/galoy/blob/main/core/api/src/graphql/public/schema.graphql](https://github.com/GaloyMoney/blink/blob/main/core/api/src/graphql/public/schema.graphql)
+### GraphQL Schema in the Blink Source Code
+* find it on GitHub: [/blink /blob/main/core/api/src/graphql/public/schema.graphql](https://github.com/blinkbitcoin/blink/blob/main/core/api/src/graphql/public/schema.graphql)
 
 ### Preformed GraphQL Queries
 Dive deeper into constructing GraphQL queries with these preformed queries:c
-* [galoy-mobile/blob/main/app/graphql/generated.gql](https://github.com/GaloyMoney/blink-mobile/blob/main/app/graphql/generated.gql)
+* [blink -mobile/blob/main/app/graphql/generated.gql](https://github.com/blinkbitcoin/blink-mobile/blob/main/app/graphql/generated.gql)
 
 ### Postman Collection
 * [Browse the collection and try in Postman](/api/postman)
 
 ## Videos
-### Using the Galoy GraphQL API
-Arvin demoes the Galoy GraphQL API on 2022-Oct-26.
+### Using the Blink GraphQL API
+Arvin demoes the Blink GraphQL API on 2022-Oct-26.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/RRdpKnFe8qQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
-### Getting Started with the Galoy API
+### Getting Started with the Blink API
 
-Arvin walks through how to use the Galoy API to send USD over Lightning on 2022-Mar-29.
+Arvin walks through how to use the Blink API to send USD over Lightning on 2022-Mar-29.
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/bp5Dc6Wvnbw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>

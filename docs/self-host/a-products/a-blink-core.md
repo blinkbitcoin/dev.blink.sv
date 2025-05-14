@@ -8,16 +8,16 @@ import GitHubButton from 'react-github-btn'
 
 # Blink Core
 
-<GitHubButton href="https://github.com/GaloyMoney/blink" data-color-scheme="no-preference: dark; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star GaloyMoney/blink on GitHub">Star</GitHubButton>
+<GitHubButton href="https://github.com/blinkbitcoin/blink" data-color-scheme="no-preference: dark; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star blinkbitcoin/blink on GitHub">Star</GitHubButton>
 <div style={{ marginBottom: 20 }}></div>
 
-Galoy Core is an opinionated bitcoin banking platform.
+Blink Core is an opinionated bitcoin banking platform.
 
-This repo represents the main API that brings all functionality together. Take a look at the [Quickstart](https://github.com/GaloyMoney/blink/tree/main/quickstart) if you want to take it for a spin.
+This repo represents the main API that brings all functionality together. Take a look at the [Quickstart](https://github.com/blinkbitcoin/blink/tree/main/quickstart) if you want to take it for a spin.
 
 ## Project readme
 
-https://github.com/GaloyMoney/blink#readme
+https://github.com/blinkbitcoin/blink#readme
 
 ## Project website
 
@@ -34,8 +34,8 @@ There you can find:
 
 ## Local `dev` API access
 For the local `dev` environment
-* clone the galoy repo: https://github.com/GaloyMoney/blink
-* follow the steps in the [readme](https://github.com/GaloyMoney/blink/tree/main?tab=readme-ov-file#local-development-setup) start hosting the API locally
+* clone the Blink repo: https://github.com/blinkbitcoin/blink
+* follow the steps in the [readme](https://github.com/blinkbitcoin/blink/tree/main?tab=readme-ov-file#local-development-setup) start hosting the API locally
 
 Find more details about hosting the Blink stack yourself in the [deployment section](/self-host/deployment/).
 
@@ -43,4 +43,4 @@ Find more details about hosting the Blink stack yourself in the [deployment sect
 * [Blink admin API reference](https://dev.blink.sv/admin-api-reference.html)
 
 ### Preformed GraphQL queries
-* [galoy/tree/main/core/api/test/bats/admin-gql](https://github.com/GaloyMoney/blink/tree/main/core/api/test/bats/admin-gql)
+* [blink/tree/main/core/api/test/bats/admin-gql](https://github.com/blinkbitcoin/blink/tree/main/core/api/test/bats/admin-gql)

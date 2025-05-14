@@ -11,7 +11,7 @@ Prerequisite -- [Set up React Native](https://reactnative.dev/docs/environment-s
 Clone the repo and install dependencies:
 
 ```
-$ git clone git@github.com:GaloyMoney/blink-mobile.git
+$ git clone git@github.com:blinkbitcoin/blink-mobile.git
 $ cd blink-mobile
 $ yarn install
 ```

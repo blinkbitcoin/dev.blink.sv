@@ -10,8 +10,8 @@ mkdir -p .temp
 cd .temp || exit 1
 
 # checkout blink
-if [ ! -d "galoy" ]; then
-  git clone https://github.com/GaloyMoney/blink
+if [ ! -d "blink" ]; then
+  git clone https://github.com/blinkbitcoin/blink
 fi
 cd blink || exit 1
 
