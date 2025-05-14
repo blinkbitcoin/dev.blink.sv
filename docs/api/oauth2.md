@@ -205,7 +205,7 @@ Example response:
 }
 ```
 
-### 5. Security Considerations
+### Security Considerations
 
 * Refresh tokens are long-lived credentials and should be stored securely
 * Use HTTPS for all communications involving refresh tokens
@@ -213,9 +213,86 @@ Example response:
 * Consider implementing refresh token expiration policies based on your security requirements
 * If a refresh token is compromised, revoke it immediately
 
-### 6. Example Implementation with next-auth
+## Examples
 
-Here's how to implement refresh token handling with next-auth:
+### Using the Oauth2-Token Header
+
+Note that the Oauth2 token needs a different header for Authentication (compared to API keys using the `X-API-KEY` header or the authentication token used in the Blink mobile app):
+
+```text
+"Oauth2-Token" "ory_at_..."
+```
+
+Example header for the Blink PoS:
+
+```javascript
+headers: {
+  ...(options?.token ? { ["Oauth2-Token"]: options.token } : {}),
+},
+```
+
+Link to the [code with the context](https://github.com/GaloyMoney/blink/pull/4149/files#diff-d5101fe657d3e5befe3ec31871012666597b3f346292241dffde4938c625090dR21).
+
+### Using [next-auth](https://www.npmjs.com/package/next-auth) in the Blink PoS
+
+```typescript
+export const authOptions: NextAuthOptions = {
+  providers: [
+    {
+      id: "blink",
+      clientId: env.CLIENT_ID,
+      clientSecret: env.CLIENT_SECRET,
+      wellKnown: `${env.HYDRA_PUBLIC}/.well-known/openid-configuration`,
+      authorization: {
+        params: { scope: "read" },
+      },
+      idToken: false,
+      name: "Blink",
+      type,
+      profile(profile) {
+        return {
+          id: profile.sub,
+        }
+      },
+    },
+  ],
+  debug: process.env.NODE_ENV === "development",
+  secret: env.NEXTAUTH_SECRET,
+  callbacks: {
+    async jwt({ token, account, profile }) {
+      if (account) {
+        token.accessToken = account.access_token
+        token.expiresAt = account.expires_at
+        token.refreshToken = account.refresh_token
+        token.id = profile?.id
+      }
+      return token
+    },
+    async session({ session, token }) {
+      if (
+        !token.accessToken ||
+        !token.sub ||
+        typeof token.accessToken !== "string" ||
+        typeof token.sub !== "string"
+      ) {
+        throw new Error("Invalid token")
+      }
+      const res = await fetchUserData({ token: token.accessToken })
+
+      if (!(res instanceof Error)) {
+        session.userData = res.data
+      }
+      session.sub = token.sub
+      session.accessToken = token.accessToken
+      return session
+    },
+  },
+}
+```
+
+Link to the [code with the context](https://github.com/blinkbitcoin/blink/pull/4149/files#diff-224eae5be0d335d0d64941907106c189977dc51b2a0139459083b777efddf953R19-R70).
+
+### Refresh Token Handling with [next-auth](https://www.npmjs.com/package/next-auth)
 
 ```typescript
 import { NextAuthOptions } from "next-auth"
@@ -307,85 +384,6 @@ async function refreshAccessToken(token) {
   }
 }
 ```
-
-## Examples
-
-### Using the Oauth2-Token Header
-
-Note that the Oauth2 token needs a different header for Authentication (compared to API keys using the `X-API-KEY` header or the authentication token used in the Blink mobile app):
-
-```text
-"Oauth2-Token" "ory_at_..."
-```
-
-Example header for the Blink PoS:
-
-```javascript
-headers: {
-  ...(options?.token ? { ["Oauth2-Token"]: options.token } : {}),
-},
-```
-
-Link to the [code with the context](https://github.com/GaloyMoney/blink/pull/4149/files#diff-d5101fe657d3e5befe3ec31871012666597b3f346292241dffde4938c625090dR21).
-
-### Using [next-auth](https://www.npmjs.com/package/next-auth) in the Blink PoS
-
-```typescript
-export const authOptions: NextAuthOptions = {
-  providers: [
-    {
-      id: "blink",
-      clientId: env.CLIENT_ID,
-      clientSecret: env.CLIENT_SECRET,
-      wellKnown: `${env.HYDRA_PUBLIC}/.well-known/openid-configuration`,
-      authorization: {
-        params: { scope: "read" },
-      },
-      idToken: false,
-      name: "Blink",
-      type,
-      profile(profile) {
-        return {
-          id: profile.sub,
-        }
-      },
-    },
-  ],
-  debug: process.env.NODE_ENV === "development",
-  secret: env.NEXTAUTH_SECRET,
-  callbacks: {
-    async jwt({ token, account, profile }) {
-      if (account) {
-        token.accessToken = account.access_token
-        token.expiresAt = account.expires_at
-        token.refreshToken = account.refresh_token
-        token.id = profile?.id
-      }
-      return token
-    },
-    async session({ session, token }) {
-      if (
-        !token.accessToken ||
-        !token.sub ||
-        typeof token.accessToken !== "string" ||
-        typeof token.sub !== "string"
-      ) {
-        throw new Error("Invalid token")
-      }
-      const res = await fetchUserData({ token: token.accessToken })
-
-      if (!(res instanceof Error)) {
-        session.userData = res.data
-      }
-      session.sub = token.sub
-      session.accessToken = token.accessToken
-      return session
-    },
-  },
-}
-```
-
-Link to the [code with the context](https://github.com/blinkbitcoin/blink/pull/4149/files#diff-224eae5be0d335d0d64941907106c189977dc51b2a0139459083b777efddf953R19-R70).
 
 ---
 
