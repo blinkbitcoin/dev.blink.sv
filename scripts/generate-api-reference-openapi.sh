@@ -15,7 +15,7 @@ cd .temp || exit 1
 # Checkout blink if not already present
 if [ ! -d "blink" ]; then
   echo "Cloning Blink repository..."
-  git clone https://github.com/GaloyMoney/blink
+  git clone https://github.com/blinkbitcoin/blink
 fi
 cd blink || exit 1
 

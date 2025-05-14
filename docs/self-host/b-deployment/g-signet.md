@@ -70,8 +70,8 @@ Supports onchain only, but works well with Taproot accounts. To use it with sign
     ```
 * `menu` - `Wallet` - `Information` and restart to activate lightning
 
-## Galoy staging node to open channels to
-* [Galoy staging LND1](https://mempool.space/signet/lightning/node/024e679c1a77143029b806f396f935fa6cd0744970f412667adfc75edbbab54d7a)
+## Blink staging node to open channels to
+* [Blink staging LND1](https://mempool.space/signet/lightning/node/024e679c1a77143029b806f396f935fa6cd0744970f412667adfc75edbbab54d7a)
 * Scan the URI to open a channel:
 
 [![Alternate Text](https://user-images.githubusercontent.com/43343391/200599602-093133de-4d40-4ab3-9ed6-4f4af1d4527c.png)](https://mempool.space/signet/lightning/node/024e679c1a77143029b806f396f935fa6cd0744970f412667adfc75edbbab54d7a)

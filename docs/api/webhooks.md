@@ -156,5 +156,5 @@ Variables to use (change to the endpoint id you want to delete):
 ```
 :::tip
 To test the GraphQL requests further use the GraphQL playground at [api.blink.sv/graphql](https://api.blink.sv/graphql) for mainnet or [api.staging.blink.sv/graphql](https://api.staging.blink.sv/graphql) for staging.<br />
-Check out the [Galoy API Postman collection](https://documenter.getpostman.com/view/29391384/2s9YCAQq3z#0be26540-d31c-4d0e-b7ac-400fc73bdb80) to find examples in multiple programming languages.
+Check out the [Blink API Postman collection](https://documenter.getpostman.com/view/29391384/2s9YCAQq3z#0be26540-d31c-4d0e-b7ac-400fc73bdb80) to find examples in multiple programming languages.
 :::

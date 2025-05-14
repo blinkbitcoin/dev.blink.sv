@@ -788,7 +788,7 @@
       },
       "Transaction": {
         "type": "object",
-        "description": "Give details about an individual transaction.\nGaloy have a smart routing system which is automatically\nsettling intraledger when both the payer and payee use the same wallet\ntherefore it's possible the transactions is being initiated onchain\nor with lightning but settled intraledger."
+        "description": "Give details about an individual transaction.\nBlink have a smart routing system which is automatically\nsettling intraledger when both the payer and payee use the same wallet\ntherefore it's possible the transactions is being initiated onchain\nor with lightning but settled intraledger."
       },
       "TransactionConnection": {
         "type": "object",

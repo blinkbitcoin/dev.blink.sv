@@ -8,7 +8,7 @@ slug: /self-host/deployment/backend-servers
 
 ## Run locally
 
-Find how to run the backend servers locally in the [project readme](https://github.com/GaloyMoney/blink#local-development-setup)
+Find how to run the backend servers locally in the [project readme](https://github.com/blinkbitcoin/blink#local-development-setup)
 
 ## How to expose the API including websocket subscriptions
 
@@ -25,9 +25,9 @@ Find how to run the backend servers locally in the [project readme](https://gith
 
 For a fork, you can still use that same apollo studio link and configure the regular graphql endpoint and subscriptions endpoint separately.
 
-## How to run integration tests with Galoy as a dependency
+## How to run integration tests with Blink as a dependency
 
-Take a look at the [Quickstart](https://github.com/GaloyMoney/blink/tree/main/quickstart) if you want to take it for a spin.
+Take a look at the [Quickstart](https://github.com/blinkbitcoin/blink/tree/main/quickstart) if you want to take it for a spin.
 
 ## Known issues
 

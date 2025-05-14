@@ -14,10 +14,10 @@ jobs:
     steps:
     - uses: DeterminateSystems/nix-installer-action@v12
     - uses: DeterminateSystems/magic-nix-cache-action@v7
-    - name: Checkout GaloyMoney/blink repo
+    - name: Checkout blinkbitcoin/blink repo
       uses: actions/checkout@v3
       with:
-        repository: 'GaloyMoney/blink'
+        repository: 'blinkbitcoin/blink'
         path: 'blink'
         fetch-depth: 0
 
@@ -28,7 +28,7 @@ jobs:
       run: |
         echo "CURRENT_HASH=$(sha256sum blink/core/api/src/graphql/public/schema.graphql | awk '{ print $1 }')" >> $GITHUB_ENV
 
-    - name: Checkout GaloyMoney/blink to a week ago
+    - name: Checkout blinkbitcoin/blink to a week ago
       run: |
         week_old_commit=$(git -C blink rev-list -n 1 --before='1 week ago' main)
         echo "Check out to the commit: $week_old_commit"

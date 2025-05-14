@@ -385,7 +385,7 @@ export const authOptions: NextAuthOptions = {
 }
 ```
 
-Link to the [code with the context](https://github.com/GaloyMoney/blink/pull/4149/files#diff-224eae5be0d335d0d64941907106c189977dc51b2a0139459083b777efddf953R19-R70).
+Link to the [code with the context](https://github.com/blinkbitcoin/blink/pull/4149/files#diff-224eae5be0d335d0d64941907106c189977dc51b2a0139459083b777efddf953R19-R70).
 
 ---
 

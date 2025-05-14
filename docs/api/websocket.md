@@ -45,7 +45,7 @@ Unlike regular HTTP requests where the API key is sent in a header, for WebSocke
 This authentication method is required for accessing user-specific subscription data like `myUpdates`.
 
 ## Postman
-Try the websocket connection examples in the [Galoy API collection](https://www.postman.com/avionics-astronomer-21512623/workspace/galoy-api/ws-raw-request/65844dfbf0aa010f3874d5ff)
+Try the websocket connection examples in the [Blink API collection](https://www.postman.com/avionics-astronomer-21512623/workspace/galoy-api/ws-raw-request/65844dfbf0aa010f3874d5ff)
 
 To use the raw websocket protocol in Postman there are a few steps to follow:
 
@@ -177,4 +177,4 @@ To use the raw websocket protocol in Postman there are a few steps to follow:
 
 ## Test Implementation in the Blink Backend
 
-* [blink/bats/helpers/subscriber/src/gql-subscribe.ts](https://github.com/GaloyMoney/blink/blob/e010ac0ac2020d546ec2dbbd1a6680ac1a0282af/bats/helpers/subscriber/src/gql-subscribe.ts)
+* [blink/bats/helpers/subscriber/src/gql-subscribe.ts](https://github.com/blinkbitcoin/blink/blob/e010ac0ac2020d546ec2dbbd1a6680ac1a0282af/bats/helpers/subscriber/src/gql-subscribe.ts)
