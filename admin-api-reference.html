@@ -42,6 +42,7 @@
                   <li><a href="#query-accountDetailsByUsername">accountDetailsByUsername</a></li>
                   <li><a href="#query-allLevels">allLevels</a></li>
                   <li><a href="#query-filteredUserCount">filteredUserCount</a></li>
+                  <li><a href="#query-inactiveMerchants">inactiveMerchants</a></li>
                   <li><a href="#query-lightningInvoice">lightningInvoice</a></li>
                   <li><a href="#query-lightningPayment">lightningPayment</a></li>
                   <li><a href="#query-merchantsPendingApproval">merchantsPendingApproval</a></li>
@@ -61,6 +62,7 @@
                   <li><a href="#mutation-marketingNotificationTrigger">marketingNotificationTrigger</a></li>
                   <li><a href="#mutation-merchantMapDelete">merchantMapDelete</a></li>
                   <li><a href="#mutation-merchantMapValidate">merchantMapValidate</a></li>
+                  <li><a href="#mutation-userUpdateEmail">userUpdateEmail</a></li>
                   <li><a href="#mutation-userUpdatePhone">userUpdatePhone</a></li>
                 </ul>
               </li>
@@ -144,6 +146,7 @@
               <li><a href="#definition-TxExternalId">TxExternalId</a></li>
               <li><a href="#definition-TxStatus">TxStatus</a></li>
               <li><a href="#definition-UsdWallet">UsdWallet</a></li>
+              <li><a href="#definition-UserUpdateEmailInput">UserUpdateEmailInput</a></li>
               <li><a href="#definition-UserUpdatePhoneInput">UserUpdatePhoneInput</a></li>
               <li><a href="#definition-Username">Username</a></li>
               <li><a href="#definition-Wallet">Wallet</a></li>
@@ -180,7 +183,7 @@
                 </div>
                 <div class="example-section welcome-api-endpoints-section example-section-is-code">
                   <h5>API Endpoints</h5>
-                  <pre><code>https://admin-api.staging.galoy.io/graphql</code></pre>
+                  <pre><code>https://admin-api.staging.blink.sv/graphql</code></pre>
                 </div>
               </div>
             </div>
@@ -222,9 +225,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> accountDetailsByAccountId<span class="hljs-tag">(<span class="hljs-code">$accountId</span>: ID!)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> accountDetailsByAccountId<span class="hljs-tag">(<span class="hljs-code">$accountId</span>: ID!)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">accountDetailsByAccountId<span class="hljs-tag">(accountId: <span class="hljs-code">$accountId</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">createdAt</span>
     <span class="hljs-symbol">id</span>
@@ -243,27 +244,19 @@
   }</span></span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"accountId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"accountId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"accountDetailsByAccountId"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"level"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"ONE"</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"merchants"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Merchant</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"owner"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AuditedUser</span><span class="hljs-punctuation">,</span>
@@ -274,8 +267,6 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -319,9 +310,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> accountDetailsByEmail<span class="hljs-tag">(<span class="hljs-code">$email</span>:<span class="hljs-type"> EmailAddress!</span>)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> accountDetailsByEmail<span class="hljs-tag">(<span class="hljs-code">$email</span>:<span class="hljs-type"> EmailAddress!</span>)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">accountDetailsByEmail<span class="hljs-tag">(email: <span class="hljs-code">$email</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">createdAt</span>
     <span class="hljs-symbol">id</span>
@@ -340,27 +329,19 @@
   }</span></span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"test@test.com"</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"test@test.com"</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"accountDetailsByEmail"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"level"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"ONE"</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"merchants"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Merchant</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"owner"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AuditedUser</span><span class="hljs-punctuation">,</span>
@@ -371,8 +352,6 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -416,9 +395,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> accountDetailsByUserId<span class="hljs-tag">(<span class="hljs-code">$userId</span>: ID!)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> accountDetailsByUserId<span class="hljs-tag">(<span class="hljs-code">$userId</span>: ID!)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">accountDetailsByUserId<span class="hljs-tag">(userId: <span class="hljs-code">$userId</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">createdAt</span>
     <span class="hljs-symbol">id</span>
@@ -437,23 +414,15 @@
   }</span></span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"userId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"userId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"accountDetailsByUserId"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
@@ -468,8 +437,6 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -513,9 +480,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> accountDetailsByUserPhone<span class="hljs-tag">(<span class="hljs-code">$phone</span>:<span class="hljs-type"> Phone!</span>)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> accountDetailsByUserPhone<span class="hljs-tag">(<span class="hljs-code">$phone</span>:<span class="hljs-type"> Phone!</span>)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">accountDetailsByUserPhone<span class="hljs-tag">(phone: <span class="hljs-code">$phone</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">createdAt</span>
     <span class="hljs-symbol">id</span>
@@ -534,23 +499,15 @@
   }</span></span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"phone"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Phone</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"phone"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Phone</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"accountDetailsByUserPhone"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
@@ -565,8 +522,6 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -610,9 +565,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> accountDetailsByUsername<span class="hljs-tag">(<span class="hljs-code">$username</span>:<span class="hljs-type"> Username!</span>)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> accountDetailsByUsername<span class="hljs-tag">(<span class="hljs-code">$username</span>:<span class="hljs-type"> Username!</span>)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">accountDetailsByUsername<span class="hljs-tag">(username: <span class="hljs-code">$username</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">createdAt</span>
     <span class="hljs-symbol">id</span>
@@ -631,27 +584,19 @@
   }</span></span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"username"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Username</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"username"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Username</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"accountDetailsByUsername"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"level"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"ONE"</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"merchants"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Merchant</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"owner"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AuditedUser</span><span class="hljs-punctuation">,</span>
@@ -662,8 +607,6 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -687,23 +630,15 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> allLevels <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> allLevels <span class="hljs-tag">{
   <span class="hljs-symbol">allLevels</span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-attr">"allLevels"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"ONE"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-attr">"allLevels"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"ONE"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -754,9 +689,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> filteredUserCount<span class="hljs-tag">(
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> filteredUserCount<span class="hljs-tag">(
   <span class="hljs-code">$phoneCountryCodesFilter</span>: <span class="hljs-type">[CountryCode!</span>],
   <span class="hljs-code">$userIdsFilter</span>: [ID!]
 )</span> <span class="hljs-tag">{
@@ -766,29 +699,73 @@
   )</span></span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"phoneCountryCodesFilter"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"US"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"userIdsFilter"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-number">4</span><span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-attr">"filteredUserCount"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span><span class="hljs-attr">"filteredUserCount"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span><span class="hljs-punctuation">}</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="query-inactiveMerchants" class="operation operation-query" data-traverse-target="query-inactiveMerchants">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Queries">Queries</a>
+            </div>
+            <h2 class="operation-heading ">
+              <code>inactiveMerchants</code>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns <a href="#definition-Merchant"><code>[Merchant!]!</code></a>
+                  </p>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> inactiveMerchants <span class="hljs-tag">{
+  <span class="hljs-symbol">inactiveMerchants <span class="hljs-tag">{
+    <span class="hljs-symbol">coordinates <span class="hljs-tag">{
+      <span class="hljs-type">...CoordinatesFragment</span>
+    }</span></span>
+    <span class="hljs-symbol">createdAt</span>
+    <span class="hljs-symbol">id</span>
+    <span class="hljs-symbol">title</span>
+    <span class="hljs-symbol">username</span>
+    <span class="hljs-symbol">validated</span>
+  }</span></span>
+}</span></span>
+</code></pre>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"inactiveMerchants"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
+      <span class="hljs-punctuation">{</span>
+        <span class="hljs-attr">"coordinates"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Coordinates</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"username"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Username</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"validated"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span>
+      <span class="hljs-punctuation">}</span>
+    <span class="hljs-punctuation">]</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
                 </div>
               </div>
             </div>
@@ -832,9 +809,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> lightningInvoice<span class="hljs-tag">(<span class="hljs-code">$hash</span>:<span class="hljs-type"> PaymentHash!</span>)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> lightningInvoice<span class="hljs-tag">(<span class="hljs-code">$hash</span>:<span class="hljs-type"> PaymentHash!</span>)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">lightningInvoice<span class="hljs-tag">(hash: <span class="hljs-code">$hash</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">confirmedAt</span>
     <span class="hljs-symbol">createdAt</span>
@@ -847,23 +822,15 @@
   }</span></span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">PaymentHash</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">PaymentHash</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"lightningInvoice"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"confirmedAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
@@ -878,8 +845,6 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -923,9 +888,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> lightningPayment<span class="hljs-tag">(<span class="hljs-code">$hash</span>:<span class="hljs-type"> PaymentHash!</span>)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> lightningPayment<span class="hljs-tag">(<span class="hljs-code">$hash</span>:<span class="hljs-type"> PaymentHash!</span>)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">lightningPayment<span class="hljs-tag">(hash: <span class="hljs-code">$hash</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">amount</span>
     <span class="hljs-symbol">confirmedAt</span>
@@ -938,23 +901,15 @@
   }</span></span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">PaymentHash</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">PaymentHash</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"lightningPayment"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"amount"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">SatAmount</span><span class="hljs-punctuation">,</span>
@@ -969,8 +924,6 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -994,9 +947,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> merchantsPendingApproval <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> merchantsPendingApproval <span class="hljs-tag">{
   <span class="hljs-symbol">merchantsPendingApproval <span class="hljs-tag">{
     <span class="hljs-symbol">coordinates <span class="hljs-tag">{
       <span class="hljs-type">...CoordinatesFragment</span>
@@ -1009,30 +960,24 @@
   }</span></span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"merchantsPendingApproval"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
       <span class="hljs-punctuation">{</span>
         <span class="hljs-attr">"coordinates"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Coordinates</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"username"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Username</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-attr">"validated"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span>
+        <span class="hljs-attr">"validated"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span>
       <span class="hljs-punctuation">}</span>
     <span class="hljs-punctuation">]</span>
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -1076,9 +1021,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> transactionById<span class="hljs-tag">(<span class="hljs-code">$id</span>: ID!)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> transactionById<span class="hljs-tag">(<span class="hljs-code">$id</span>: ID!)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">transactionById<span class="hljs-tag">(id: <span class="hljs-code">$id</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">createdAt</span>
     <span class="hljs-symbol">direction</span>
@@ -1120,23 +1063,15 @@
   }</span></span>
 }</span></span></span></span></span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"transactionById"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
@@ -1158,8 +1093,6 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -1203,9 +1136,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> transactionsByHash<span class="hljs-tag">(<span class="hljs-code">$hash</span>:<span class="hljs-type"> PaymentHash!</span>)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> transactionsByHash<span class="hljs-tag">(<span class="hljs-code">$hash</span>:<span class="hljs-type"> PaymentHash!</span>)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">transactionsByHash<span class="hljs-tag">(hash: <span class="hljs-code">$hash</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">createdAt</span>
     <span class="hljs-symbol">direction</span>
@@ -1247,30 +1178,22 @@
   }</span></span>
 }</span></span></span></span></span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">PaymentHash</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"hash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">PaymentHash</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"transactionsByHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
       <span class="hljs-punctuation">{</span>
         <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"direction"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"RECEIVE"</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"externalId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TxExternalId</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"initiationVia"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">InitiationViaIntraLedger</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"memo"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Memo</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"settlementAmount"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">SignedAmount</span><span class="hljs-punctuation">,</span>
@@ -1287,8 +1210,6 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -1332,9 +1253,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> transactionsByPaymentRequest<span class="hljs-tag">(<span class="hljs-code">$paymentRequest</span>:<span class="hljs-type"> LnPaymentRequest!</span>)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> transactionsByPaymentRequest<span class="hljs-tag">(<span class="hljs-code">$paymentRequest</span>:<span class="hljs-type"> LnPaymentRequest!</span>)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">transactionsByPaymentRequest<span class="hljs-tag">(paymentRequest: <span class="hljs-code">$paymentRequest</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">createdAt</span>
     <span class="hljs-symbol">direction</span>
@@ -1376,30 +1295,22 @@
   }</span></span>
 }</span></span></span></span></span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"paymentRequest"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">LnPaymentRequest</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"paymentRequest"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">LnPaymentRequest</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"transactionsByPaymentRequest"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
       <span class="hljs-punctuation">{</span>
         <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"direction"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"RECEIVE"</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"externalId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TxExternalId</span><span class="hljs-punctuation">,</span>
-        <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+        <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"initiationVia"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">InitiationViaIntraLedger</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"memo"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Memo</span><span class="hljs-punctuation">,</span>
         <span class="hljs-attr">"settlementAmount"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">SignedAmount</span><span class="hljs-punctuation">,</span>
@@ -1416,8 +1327,6 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -1461,9 +1370,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> wallet<span class="hljs-tag">(<span class="hljs-code">$walletId</span>:<span class="hljs-type"> WalletId!</span>)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">query</span> wallet<span class="hljs-tag">(<span class="hljs-code">$walletId</span>:<span class="hljs-type"> WalletId!</span>)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">wallet<span class="hljs-tag">(walletId: <span class="hljs-code">$walletId</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">accountId</span>
     <span class="hljs-symbol">balance</span>
@@ -1500,28 +1407,20 @@
   }</span></span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"walletId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">WalletId</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"walletId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">WalletId</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"wallet"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"accountId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"balance"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">SignedAmount</span><span class="hljs-punctuation">,</span>
-      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"invoiceByPaymentHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Invoice</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"invoices"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">InvoiceConnection</span><span class="hljs-punctuation">,</span>
       <span class="hljs-attr">"pendingIncomingBalance"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">SignedAmount</span><span class="hljs-punctuation">,</span>
@@ -1539,8 +1438,6 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -1582,9 +1479,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> accountUpdateLevel<span class="hljs-tag">(<span class="hljs-code">$input</span>:<span class="hljs-type"> AccountUpdateLevelInput!</span>)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> accountUpdateLevel<span class="hljs-tag">(<span class="hljs-code">$input</span>:<span class="hljs-type"> AccountUpdateLevelInput!</span>)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">accountUpdateLevel<span class="hljs-tag">(input: <span class="hljs-code">$input</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">accountDetails <span class="hljs-tag">{
       <span class="hljs-type">...AuditedAccountFragment</span>
@@ -1595,23 +1490,15 @@
   }</span></span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AccountUpdateLevelInput</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AccountUpdateLevelInput</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"accountUpdateLevel"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"accountDetails"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AuditedAccount</span><span class="hljs-punctuation">,</span>
@@ -1620,8 +1507,6 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -1665,9 +1550,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> accountUpdateStatus<span class="hljs-tag">(<span class="hljs-code">$input</span>:<span class="hljs-type"> AccountUpdateStatusInput!</span>)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> accountUpdateStatus<span class="hljs-tag">(<span class="hljs-code">$input</span>:<span class="hljs-type"> AccountUpdateStatusInput!</span>)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">accountUpdateStatus<span class="hljs-tag">(input: <span class="hljs-code">$input</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">accountDetails <span class="hljs-tag">{
       <span class="hljs-type">...AuditedAccountFragment</span>
@@ -1678,23 +1561,15 @@
   }</span></span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AccountUpdateStatusInput</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AccountUpdateStatusInput</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"accountUpdateStatus"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"accountDetails"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AuditedAccount</span><span class="hljs-punctuation">,</span>
@@ -1703,8 +1578,6 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -1748,9 +1621,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> marketingNotificationTrigger<span class="hljs-tag">(<span class="hljs-code">$input</span>:<span class="hljs-type"> MarketingNotificationTriggerInput!</span>)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> marketingNotificationTrigger<span class="hljs-tag">(<span class="hljs-code">$input</span>:<span class="hljs-type"> MarketingNotificationTriggerInput!</span>)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">marketingNotificationTrigger<span class="hljs-tag">(input: <span class="hljs-code">$input</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">errors <span class="hljs-tag">{
       <span class="hljs-type">...ErrorFragment</span>
@@ -1759,23 +1630,15 @@
   }</span></span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">MarketingNotificationTriggerInput</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">MarketingNotificationTriggerInput</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"marketingNotificationTrigger"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"errors"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Error</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
@@ -1784,8 +1647,6 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -1829,9 +1690,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> merchantMapDelete<span class="hljs-tag">(<span class="hljs-code">$input</span>:<span class="hljs-type"> MerchantMapDeleteInput!</span>)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> merchantMapDelete<span class="hljs-tag">(<span class="hljs-code">$input</span>:<span class="hljs-type"> MerchantMapDeleteInput!</span>)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">merchantMapDelete<span class="hljs-tag">(input: <span class="hljs-code">$input</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">errors <span class="hljs-tag">{
       <span class="hljs-type">...ErrorFragment</span>
@@ -1842,23 +1701,15 @@
   }</span></span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">MerchantMapDeleteInput</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">MerchantMapDeleteInput</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"merchantMapDelete"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"errors"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Error</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
@@ -1867,8 +1718,6 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -1912,9 +1761,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> merchantMapValidate<span class="hljs-tag">(<span class="hljs-code">$input</span>:<span class="hljs-type"> MerchantMapValidateInput!</span>)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> merchantMapValidate<span class="hljs-tag">(<span class="hljs-code">$input</span>:<span class="hljs-type"> MerchantMapValidateInput!</span>)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">merchantMapValidate<span class="hljs-tag">(input: <span class="hljs-code">$input</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">errors <span class="hljs-tag">{
       <span class="hljs-type">...ErrorFragment</span>
@@ -1925,23 +1772,15 @@
   }</span></span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">MerchantMapValidateInput</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">MerchantMapValidateInput</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"merchantMapValidate"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"errors"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Error</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
@@ -1950,8 +1789,77 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="mutation-userUpdateEmail" class="operation operation-mutation" data-traverse-target="mutation-userUpdateEmail">
+            <div class="operation-group-name">
+              <a href="#group-Operations-Mutations">Mutations</a>
+            </div>
+            <h2 class="operation-heading ">
+              <code>userUpdateEmail</code>
+            </h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="operation-response doc-copy-section">
+                  <h5>Response</h5>
+                  <p> Returns an <a href="#definition-AccountDetailPayload"><code>AccountDetailPayload!</code></a>
+                  </p>
+                </div>
+                <div class="operation-arguments doc-copy-section">
+                  <h5>Arguments</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>input</code></span> - <span class="property-type"><a href="#definition-UserUpdateEmailInput"><code>UserUpdateEmailInput!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <h4 class="example-heading">Example</h4>
+                <div class="example-section example-section-is-code operation-query-example">
+                  <h5>Query</h5>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> userUpdateEmail<span class="hljs-tag">(<span class="hljs-code">$input</span>:<span class="hljs-type"> UserUpdateEmailInput!</span>)</span> <span class="hljs-tag">{
+  <span class="hljs-symbol">userUpdateEmail<span class="hljs-tag">(input: <span class="hljs-code">$input</span>)</span> <span class="hljs-tag">{
+    <span class="hljs-symbol">accountDetails <span class="hljs-tag">{
+      <span class="hljs-type">...AuditedAccountFragment</span>
+    }</span></span>
+    <span class="hljs-symbol">errors <span class="hljs-tag">{
+      <span class="hljs-type">...ErrorFragment</span>
+    }</span></span>
+  }</span></span>
+}</span></span>
+</code></pre>
+                </div>
+                <div class="example-section example-section-is-code operation-variables-example">
+                  <h5>Variables</h5>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">UserUpdateEmailInput</span><span class="hljs-punctuation">}</span>
+</code></pre>
+                </div>
+                <div class="example-section example-section-is-code operation-response-example">
+                  <h5>Response</h5>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+    <span class="hljs-attr">"userUpdateEmail"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
+      <span class="hljs-attr">"accountDetails"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AuditedAccount</span><span class="hljs-punctuation">,</span>
+      <span class="hljs-attr">"errors"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Error</span><span class="hljs-punctuation">]</span>
+    <span class="hljs-punctuation">}</span>
+  <span class="hljs-punctuation">}</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
                 </div>
               </div>
             </div>
@@ -1995,9 +1903,7 @@
                 <h4 class="example-heading">Example</h4>
                 <div class="example-section example-section-is-code operation-query-example">
                   <h5>Query</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> userUpdatePhone<span class="hljs-tag">(<span class="hljs-code">$input</span>:<span class="hljs-type"> UserUpdatePhoneInput!</span>)</span> <span class="hljs-tag">{
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol"><span class="hljs-keyword">mutation</span> userUpdatePhone<span class="hljs-tag">(<span class="hljs-code">$input</span>:<span class="hljs-type"> UserUpdatePhoneInput!</span>)</span> <span class="hljs-tag">{
   <span class="hljs-symbol">userUpdatePhone<span class="hljs-tag">(input: <span class="hljs-code">$input</span>)</span> <span class="hljs-tag">{
     <span class="hljs-symbol">accountDetails <span class="hljs-tag">{
       <span class="hljs-type">...AuditedAccountFragment</span>
@@ -2008,23 +1914,15 @@
   }</span></span>
 }</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-variables-example">
                   <h5>Variables</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">UserUpdatePhoneInput</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"input"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">UserUpdatePhoneInput</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
                 <div class="example-section example-section-is-code operation-response-example">
                   <h5>Response</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"data"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
     <span class="hljs-attr">"userUpdatePhone"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">{</span>
       <span class="hljs-attr">"accountDetails"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AuditedAccount</span><span class="hljs-punctuation">,</span>
@@ -2033,8 +1931,6 @@
   <span class="hljs-punctuation">}</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -2073,15 +1969,11 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"accountDetails"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AuditedAccount</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"errors"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Error</span><span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -2101,12 +1993,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">AccountId</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">AccountId</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -2163,12 +2051,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"ONE"</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">"ONE"</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -2206,6 +2090,13 @@
                       </tr>
                       <tr>
                         <td>
+                          <p><code>INVITED</code></p>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
                           <p><code>LOCKED</code></p>
                         </td>
                         <td>
@@ -2232,12 +2123,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"ACTIVE"</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">"ACTIVE"</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -2280,12 +2167,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"accountId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AccountId</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"level"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"ONE"</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"accountId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AccountId</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"level"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"ONE"</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -2335,16 +2218,12 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"accountId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AccountId</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"comment"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"comment"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"ACTIVE"</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -2358,7 +2237,7 @@
               <div class="doc-copy">
                 <div class="definition-description doc-copy-section">
                   <h5>Description</h5>
-                  <p>Accounts are core to the Blink architecture. they have users, and own wallets</p>
+                  <p>Accounts are core to the Galoy architecture. they have users, and own wallets</p>
                 </div>
                 <div class="definition-properties doc-copy-section">
                   <h5>Fields</h5>
@@ -2425,9 +2304,7 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"level"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"ONE"</span><span class="hljs-punctuation">,</span>
@@ -2438,8 +2315,6 @@
   <span class="hljs-attr">"wallets"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Wallet</span><span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -2497,18 +2372,14 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Email</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"language"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Language</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"phone"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Phone</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -2779,10 +2650,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"accountId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"accountId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"balance"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">SignedAmount</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"invoiceByPaymentHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Invoice</span><span class="hljs-punctuation">,</span>
@@ -2798,8 +2667,6 @@
   <span class="hljs-attr">"walletCurrency"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"BTC"</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -2819,12 +2686,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-literal"><span class="hljs-keyword">true</span></span>
+                  <pre><code class="hljs language-json"><span class="hljs-literal"><span class="hljs-keyword">true</span></span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -2865,12 +2728,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"latitude"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987.65</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"longitude"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987.65</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"latitude"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987.65</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"longitude"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123.45</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -2890,12 +2749,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"US"</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">"US"</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -2945,12 +2800,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"SET_DEFAULT_ACCOUNT_MODAL"</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">"SET_DEFAULT_ACCOUNT_MODAL"</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3126,12 +2977,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"CHAT"</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">"CHAT"</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3151,12 +2998,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">DisplayCurrency</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">DisplayCurrency</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3197,15 +3040,11 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"address"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"test@test.com"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"verified"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3225,12 +3064,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"test@test.com"</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">"test@test.com"</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3294,16 +3129,12 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"code"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"message"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"code"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"message"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"path"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"abc123"</span><span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3323,12 +3154,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">ExternalUrl</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">ExternalUrl</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3348,12 +3175,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-number">987.65</span>
+                  <pre><code class="hljs language-json"><span class="hljs-number">123.45</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3400,16 +3223,12 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"code"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"message"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"path"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"abc123"</span><span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3429,12 +3248,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"4"</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">"4"</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3477,12 +3292,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">InitiationViaIntraLedger</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">InitiationViaIntraLedger</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3523,15 +3334,11 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"counterPartyUsername"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Username</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"counterPartyWalletId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">WalletId</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3571,15 +3378,11 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"paymentHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">PaymentHash</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"paymentRequest"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">LnPaymentRequest</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3614,12 +3417,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"address"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">OnChainAddress</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"address"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">OnChainAddress</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3639,12 +3438,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-number">987</span>
+                  <pre><code class="hljs language-json"><span class="hljs-number">123</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3708,9 +3503,7 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"externalId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TxExternalId</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"paymentHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">PaymentHash</span><span class="hljs-punctuation">,</span>
@@ -3719,8 +3512,6 @@
   <span class="hljs-attr">"paymentStatus"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"EXPIRED"</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3763,15 +3554,11 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"edges"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">InvoiceEdge</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"pageInfo"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">PageInfo</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3814,15 +3601,11 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"cursor"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"node"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Invoice</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3872,12 +3655,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"EXPIRED"</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">"EXPIRED"</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3893,12 +3672,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">Language</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">Language</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -3975,9 +3750,7 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"confirmedAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"description"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
@@ -3988,8 +3761,6 @@
   <span class="hljs-attr">"secretPreImage"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">LnPaymentPreImage</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -4066,9 +3837,7 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"amount"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">SatAmount</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"confirmedAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
@@ -4079,8 +3848,6 @@
   <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"FAILED"</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -4096,12 +3863,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">LnPaymentPreImage</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">LnPaymentPreImage</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -4121,12 +3884,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">LnPaymentRequest</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">LnPaymentRequest</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -4142,12 +3901,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">LnPaymentSecret</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">LnPaymentSecret</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -4197,12 +3952,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"FAILED"</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">"FAILED"</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -4218,12 +3969,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">LnPubkey</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">LnPubkey</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -4273,16 +4020,12 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"body"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"body"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"language"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Language</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -4374,9 +4117,7 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"icon"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"ARROW_LEFT"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"localizedNotificationContents"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span>
     <span class="hljs-string">LocalizedNotificationContentInput</span>
@@ -4384,14 +4125,12 @@
   <span class="hljs-attr">"openDeepLink"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">OpenDeepLinkInput</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"openExternalUrl"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">OpenExternalUrlInput</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"phoneCountryCodesFilter"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"US"</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"shouldAddToBulletin"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"shouldAddToBulletin"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"shouldAddToHistory"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"shouldSendPush"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"userIdsFilter"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">"4"</span><span class="hljs-punctuation">]</span>
+  <span class="hljs-attr">"userIdsFilter"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-number">4</span><span class="hljs-punctuation">]</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -4411,12 +4150,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">Memo</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">Memo</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -4478,19 +4213,15 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"coordinates"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Coordinates</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"title"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"username"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Username</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"validated"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -4526,12 +4257,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -4567,12 +4294,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -4613,15 +4336,11 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"errors"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Error</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"merchant"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Merchant</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5007,12 +4726,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"ARROW_LEFT"</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">"ARROW_LEFT"</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5032,12 +4747,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">OnChainAddress</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">OnChainAddress</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5053,12 +4764,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">OnChainTxHash</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">OnChainTxHash</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5101,12 +4808,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"action"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"SET_DEFAULT_ACCOUNT_MODAL"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"screen"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"CHAT"</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"action"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"SET_DEFAULT_ACCOUNT_MODAL"</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"screen"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"CHAT"</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5142,12 +4845,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">ExternalUrl</span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"url"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">ExternalUrl</span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5200,17 +4899,13 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"endCursor"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"hasNextPage"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">true</span></span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"hasNextPage"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"hasPreviousPage"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"startCursor"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5226,12 +4921,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">PaymentHash</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">PaymentHash</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5251,12 +4942,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">Phone</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">Phone</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5321,16 +5008,12 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"base"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">9007199254740991</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"currencyUnit"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"offset"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">987</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5389,17 +5072,13 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"base"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">9007199254740991</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"currencyUnit"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"currencyUnit"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"formattedAmount"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"offset"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5419,12 +5098,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-number">9007199254740991</span>
+                  <pre><code class="hljs language-json"><span class="hljs-number">9007199254740991</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5444,12 +5119,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">SatAmount</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">SatAmount</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5492,12 +5163,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">SettlementViaIntraLedger</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">SettlementViaIntraLedger</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5543,16 +5210,12 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"counterPartyUsername"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Username</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"counterPartyWalletId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">WalletId</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"preImage"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">LnPaymentPreImage</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5594,15 +5257,11 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"paymentSecret"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">LnPaymentSecret</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"preImage"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">LnPaymentPreImage</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5649,16 +5308,12 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"arrivalInMempoolEstimatedAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"transactionHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">OnChainTxHash</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"vout"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">123</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5678,12 +5333,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">SignedAmount</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">SignedAmount</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5703,12 +5354,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">SignedDisplayMajorAmount</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">SignedDisplayMajorAmount</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5728,12 +5375,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"xyz789"</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">"abc123"</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5774,12 +5417,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"errors"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Error</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"success"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">}</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span><span class="hljs-attr">"errors"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">Error</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span> <span class="hljs-attr">"success"</span><span class="hljs-punctuation">:</span> <span class="hljs-literal"><span class="hljs-keyword">false</span></span><span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5799,12 +5438,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-number">1592577642</span>
+                  <pre><code class="hljs language-json"><span class="hljs-number">1592577642</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5818,7 +5453,7 @@
               <div class="doc-copy">
                 <div class="definition-description doc-copy-section">
                   <h5>Description</h5>
-                  <p>Give details about an individual transaction. Blink have a smart routing system which is automatically settling intraledger when both the payer and payee use the same wallet therefore it&#39;s possible the transactions is being initiated onchain or with lightning but settled intraledger.</p>
+                  <p>Give details about an individual transaction. Galoy have a smart routing system which is automatically settling intraledger when both the payer and payee use the same wallet therefore it&#39;s possible the transactions is being initiated onchain or with lightning but settled intraledger.</p>
                 </div>
                 <div class="definition-properties doc-copy-section">
                   <h5>Fields</h5>
@@ -5922,9 +5557,7 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"createdAt"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1592577642</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"direction"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"RECEIVE"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"externalId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">TxExternalId</span><span class="hljs-punctuation">,</span>
@@ -5942,8 +5575,6 @@
   <span class="hljs-attr">"status"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"FAILURE"</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -5986,15 +5617,11 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"edges"</span><span class="hljs-punctuation">:</span> <span class="hljs-punctuation">[</span><span class="hljs-string">TransactionEdge</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"pageInfo"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">PageInfo</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -6037,15 +5664,11 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"cursor"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"xyz789"</span><span class="hljs-punctuation">,</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"cursor"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"abc123"</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"node"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Transaction</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -6088,12 +5711,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"RECEIVE"</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">"RECEIVE"</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -6113,12 +5732,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">TxExternalId</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">TxExternalId</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -6168,12 +5783,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"FAILURE"</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">"FAILURE"</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -6446,12 +6057,10 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"accountId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"accountId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"balance"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">SignedAmount</span><span class="hljs-punctuation">,</span>
-  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"invoiceByPaymentHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Invoice</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"invoices"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">InvoiceConnection</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"pendingIncomingBalance"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">SignedAmount</span><span class="hljs-punctuation">,</span>
@@ -6465,8 +6074,53 @@
   <span class="hljs-attr">"walletCurrency"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"BTC"</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section id="definition-UserUpdateEmailInput" class="definition definition-input-object" data-traverse-target="definition-UserUpdateEmailInput">
+            <div class="definition-group-name">
+              <a href="#group-Types">Types</a>
+            </div>
+            <h2 class="definition-heading">UserUpdateEmailInput</h2>
+            <div class="doc-row">
+              <div class="doc-copy">
+                <div class="definition-properties doc-copy-section">
+                  <h5>Fields</h5>
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>Input Field</th>
+                        <th>Description</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>accountId</code></span> - <span class="property-type"><a href="#definition-AccountId"><code>AccountId!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <span class="property-name"><code>email</code></span> - <span class="property-type"><a href="#definition-EmailAddress"><code>EmailAddress!</code></a></span>
+                        </td>
+                        <td>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="doc-examples">
+                <div class="example-section example-section-is-code">
+                  <h5>Example</h5>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"accountId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AccountId</span><span class="hljs-punctuation">,</span>
+  <span class="hljs-attr">"email"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"test@test.com"</span>
+<span class="hljs-punctuation">}</span>
+</code></pre>
                 </div>
               </div>
             </div>
@@ -6509,15 +6163,11 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
   <span class="hljs-attr">"accountId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">AccountId</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"phone"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Phone</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -6537,12 +6187,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">Username</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">Username</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -6836,10 +6482,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
-  <span class="hljs-attr">"accountId"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"4"</span><span class="hljs-punctuation">,</span>
+                  <pre><code class="hljs language-json"><span class="hljs-punctuation">{</span>
+  <span class="hljs-attr">"accountId"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"balance"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">SignedAmount</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"id"</span><span class="hljs-punctuation">:</span> <span class="hljs-number">4</span><span class="hljs-punctuation">,</span>
   <span class="hljs-attr">"invoiceByPaymentHash"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">Invoice</span><span class="hljs-punctuation">,</span>
@@ -6855,8 +6499,6 @@
   <span class="hljs-attr">"walletCurrency"</span><span class="hljs-punctuation">:</span> <span class="hljs-string">"BTC"</span>
 <span class="hljs-punctuation">}</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -6899,12 +6541,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">"BTC"</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">"BTC"</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
@@ -6924,12 +6562,8 @@
               <div class="doc-examples">
                 <div class="example-section example-section-is-code">
                   <h5>Example</h5>
-                  <html>
-                    <head></head>
-                    <body><pre><code class="hljs language-gql"><span class="hljs-symbol">WalletId</span>
+                  <pre><code class="hljs language-gql"><span class="hljs-symbol">WalletId</span>
 </code></pre>
-                    </body>
-                  </html>
                 </div>
               </div>
             </div>
