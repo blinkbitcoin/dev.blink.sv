@@ -370,6 +370,44 @@ export function DecoderPage() {
     });
   };
 
+  const shareUrl = () => {
+    let shareableUrl = '';
+    const baseUrl = window.location.origin + window.location.pathname;
+
+    // Determine what to share - invoice or lightning address
+    if (decodeInput) {
+      let input = decodeInput.toLowerCase();
+      // Remove 'lightning:' prefix if present
+      if (input.startsWith('lightning:')) {
+        input = input.substring(10);
+      }
+
+      if (input.startsWith('ln')) {
+        // It's an invoice
+        shareableUrl = `${baseUrl}?invoice=${encodeURIComponent(decodeInput)}`;
+      } else if (input.includes('@')) {
+        // It's a lightning address
+        shareableUrl = `${baseUrl}?lnaddress=${encodeURIComponent(decodeInput)}`;
+      }
+    } else if (dataFromUrl) {
+      // Use the data from URL
+      let input = dataFromUrl.toLowerCase();
+      if (input.startsWith('lightning:')) {
+        input = input.substring(10);
+      }
+
+      if (input.startsWith('ln')) {
+        shareableUrl = `${baseUrl}?invoice=${encodeURIComponent(dataFromUrl)}`;
+      } else if (input.includes('@')) {
+        shareableUrl = `${baseUrl}?lnaddress=${encodeURIComponent(dataFromUrl)}`;
+      }
+    }
+
+    if (shareableUrl) {
+      copyToClipboard(shareableUrl);
+    }
+  };
+
   const toggleRawData = () => {
     setShowRawData(!showRawData);
   };
@@ -474,7 +512,10 @@ export function DecoderPage() {
           <br />
           <button onClick={handleInput}>Decode</button>
           {decodeInput && (
-            <button style={{ marginLeft: '10px' }} onClick={clearInput}>Clear</button>
+            <>
+              <button style={{ marginLeft: '10px' }} onClick={clearInput}>Clear</button>
+              <button style={{ marginLeft: '10px' }} onClick={shareUrl}>Share</button>
+            </>
           )}
         </div>
       )}
@@ -490,6 +531,7 @@ export function DecoderPage() {
           />
           <br />
           <button style={{ marginLeft: '10px' }} onClick={clearInput}>Clear</button>
+          <button style={{ marginLeft: '10px' }} onClick={shareUrl}>Share</button>
         </div>
       )}
       <div style={{ marginTop: '10px' }} />
