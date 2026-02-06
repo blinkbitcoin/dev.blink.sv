@@ -3,6 +3,25 @@ import React, { useState, useEffect } from 'react';
 import useScript from '../hooks/useScript';
 import CryptoJS from 'crypto-js';
 
+// Known wallet pubkeys for routing hints - helps identify the generating wallet
+const KNOWN_WALLET_PUBKEYS = {
+  // Muun route hints
+  "038f8f113c580048d847d6949371726653e02b928196bad310e3eda39ff61723f6": "Muun wallet",
+  "03a6ce61fcaacd38d31d4e3ce2d506602818e3856b4b44faff1dde9642ba705976": "Muun wallet",
+  "025eee29468652d3a05c7ecb32c50ab5f3d3ebfa2115acccacae905ceaf6f30a23": "Muun wallet",
+  "025cd6a9c52507da0a3ba832b4f698c73558a8c9e32da10d882b0cefad9cb36a76": "Muun wallet",
+  // Phoenix / ACINQ
+  "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f": "Phoenix wallet",
+  "03933884aaf1d6b108397e5efe5c86bcf2d8ca8d2f700eda99db9214fc2712b134": "Phoenix wallet (testnet)",
+  // Fedi
+  "02dd3fcdaa17b9bc83bf7138fbea85d0e83385a68b5fc8f9933658c8ee04644f68": "the Fedi wallet",
+  // Spark
+  "02a98e8c590a1b5602049d6b21d8f4c8861970aa310762f42eae1b2be88372e924": "a wallet using Spark",
+  "039174f846626c6053ba80f5443d0db33da384f1dde135bf7080ba1eec465019c3": "a wallet using Spark",
+  "030936e7a016fb3f5ce53c8db29da2b6dfbf8e068ea058c363e0fd77f444270d8a": "a wallet using Spark",
+  // Ark Labs
+  "038f83dae5dfcc8566b21d4fd5f28b8cc1d754c95cad6b9009c3e9522ed1156de3": "a wallet using Ark (by Ark Labs)",
+};
 
 export function DecoderPage() {
   const [dataFromUrl, setDataFromUrl] = useState('');
@@ -615,27 +634,9 @@ export function DecoderPage() {
                       />
 
                       {/* Note for specific pubkeys */}
-                      {hint.hintPubkey === "038f8f113c580048d847d6949371726653e02b928196bad310e3eda39ff61723f6" && (
+                      {KNOWN_WALLET_PUBKEYS[hint.hintPubkey] && (
                         <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>
-                          This invoice was likely generated with Muun wallet.
-                        </div>
-                      )}
-
-                      {hint.hintPubkey === "03a6ce61fcaacd38d31d4e3ce2d506602818e3856b4b44faff1dde9642ba705976" && (
-                        <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>
-                          This invoice was likely generated with Muun wallet.
-                        </div>
-                      )}
-
-                      {hint.hintPubkey === "03864ef025fde8fb587d989186ce6a4a186895ee44a926bfc370e2c366597a3f8f" && (
-                        <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>
-                          This invoice was likely generated with Phoenix wallet.
-                        </div>
-                      )}
-
-                      {hint.hintPubkey === "03933884aaf1d6b108397e5efe5c86bcf2d8ca8d2f700eda99db9214fc2712b134" && (
-                        <div style={{ marginLeft: '10px', marginTop: '10px', marginBottom: '10px' }}>
-                          This invoice was likely generated with Phoenix wallet on testnet.
+                          This invoice was likely generated with {KNOWN_WALLET_PUBKEYS[hint.hintPubkey]}.
                         </div>
                       )}
 
