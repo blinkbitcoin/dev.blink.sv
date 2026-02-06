@@ -9,6 +9,12 @@ Add the default wallet or select between BTC and Stablesats.
 
 Available in BTCPay Server v1.12.0 and later.
 
+## Video Tutorial
+
+Watch the step-by-step video guide on how to use the Blink Plugin for BTCPay Server:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/uBrmsE4yt2E" title="How to use the Blink Plugin for BTCPay Server" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
+
 ## How to Activate the Plugin
 * login to the BTCPay Server instance as an admin user
 * select `Manage Plugins` in the left sidebar and install the Blink plugin:
