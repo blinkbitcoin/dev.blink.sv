@@ -114,7 +114,8 @@ const sidebars = {
         'examples/btcpayserver-plugin',
         'examples/alby-connector',
         'examples/lnbits-funding-source',
-        'examples/donation-button'
+        'examples/donation-button',
+        'examples/blink-skills'
       ]
     },
   ],
