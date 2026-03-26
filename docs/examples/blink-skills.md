@@ -34,7 +34,7 @@ node blink/scripts/price.js 1760
 * Check wallet balances and account status from scripts.
 * Create and monitor BTC or USD invoices.
 * Send Lightning payments from BTC or USD wallet.
-* Get swap quotes and execute BTC <-> USD conversions.
+* Get swap quotes and execute BTC to USD conversions.
 * Interact with L402-gated services.
 
 ## Links
