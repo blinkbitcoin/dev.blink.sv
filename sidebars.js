@@ -94,14 +94,14 @@ const sidebars = {
         'api/oauth2',
         'api/proof-of-payment',
         'api/errors',
-        'api/agent-playbook',
         'api/postman',
-        'api/llm-api-reference',
         {
           type: 'link',
           label: 'API reference',
           href: 'https://dev.blink.sv/public-api-reference.html',
         },
+        'api/llm-api-reference',
+        'api/agent-playbook',
       ],
     },
     {
