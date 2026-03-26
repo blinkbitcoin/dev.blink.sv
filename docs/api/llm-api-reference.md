@@ -35,6 +35,8 @@ For systems that work better with OpenAPI specifications:
 
 ## How to Use with LLM Agents
 
+Before generating API calls, follow the [AI Agent API Playbook](/api/agent-playbook). In particular: if anything is unclear, verify it against the machine-readable reference first.
+
 Here are some examples of how to use these formats with popular LLM frameworks:
 
 ### Using with LangChain
@@ -131,6 +133,8 @@ The API reference files are automatically updated when the GraphQL schema change
 
 ## Additional Resources
 
+- [No API Key Operations](/api/no-api-key-operations) - Fast path for unauthenticated query/mutation discovery
+- [AI Agent API Playbook](/api/agent-playbook) - Required workflow for reliable agent behavior
 - [GraphQL Introduction](/api/graphql-intro) - Learn the basics of our GraphQL API
 - [Authentication](/api/auth) - How to authenticate with the Blink API
 - [Postman Collection](/api/postman) - Test the API interactively

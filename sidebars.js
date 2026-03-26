@@ -31,6 +31,7 @@ const sidebars = {
   apiSidebar: [
     'intro',
     'api/auth',
+    'api/no-api-key-operations',
     {
       type: 'category',
       label: 'API tutorials',
@@ -93,6 +94,7 @@ const sidebars = {
         'api/oauth2',
         'api/proof-of-payment',
         'api/errors',
+        'api/agent-playbook',
         'api/postman',
         'api/llm-api-reference',
         {

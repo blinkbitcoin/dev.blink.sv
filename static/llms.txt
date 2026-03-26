@@ -1,0 +1,25 @@
+# Blink API docs for AI agents
+
+This file helps AI agents discover canonical API references and operating rules.
+
+project: Blink Developer Documentation
+base_url: https://dev.blink.sv
+graphql_production: https://api.blink.sv/graphql
+graphql_staging: https://api.staging.blink.sv/graphql
+auth_header: X-API-KEY
+
+priority_sources:
+- https://dev.blink.sv/reference/graphql-api-for-llm.json
+- https://dev.blink.sv/reference/graphql-openapi.json
+- https://dev.blink.sv/public-api-reference.html
+- https://dev.blink.sv/api/no-api-key-operations
+- https://dev.blink.sv/api/agent-playbook
+- https://dev.blink.sv/api/auth
+- https://dev.blink.sv/api/errors
+
+hard_rules:
+- If unclear, consult the API reference before producing an answer.
+- Do not invent GraphQL fields, mutations, arguments, or enums.
+- Validate auth requirements and scope expectations.
+- If auth is unclear, check no-key operations first, then verify exact operation in public reference.
+- Prefer concise, valid examples with explicit environment.
