@@ -21,6 +21,10 @@ If anything is unclear, incomplete, or ambiguous, the agent must check the API r
 5. Validate response unions and error shapes.
 6. Only then generate the GraphQL operation and example code.
 
+## Discovery
+
+Start here: [https://dev.blink.sv/llms.txt](https://dev.blink.sv/llms.txt) — structured metadata with endpoints, source URLs, and hard rules.
+
 ## Canonical Sources
 
 Use these sources in this order:
@@ -71,3 +75,4 @@ Before returning a final API answer, verify:
 - [Authentication](/api/auth)
 - [Error Handling](/api/errors)
 - [Pagination](/api/pagination)
+- [Building with AI Agents](/api/llm-api-reference) - Schema downloads and integration examples for developers

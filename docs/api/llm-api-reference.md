@@ -1,140 +1,115 @@
 ---
 id: llm-api-reference
-title: API Reference for LLMs
+title: Building with AI Agents
 slug: /api/llm-api-reference
 ---
 
-# GraphQL API Reference for LLM Agents
+# Building with AI Agents
 
-This page provides access to machine-readable formats of the Blink GraphQL API schema, specifically designed for consumption by Large Language Models (LLMs) and AI agents.
+This guide is for **developers** who want to integrate AI agents or LLMs with the Blink API. It covers agent discovery, the machine-readable schema formats you can feed to your agent, and practical integration patterns.
 
-## Why Use Machine-Readable API References?
+:::tip For AI agents
+If you are an AI agent, skip this page and follow the [AI Agent API Playbook](/api/agent-playbook) directly.
+:::
 
-When building applications that use AI agents or LLMs to interact with the Blink API, providing structured API documentation in formats that are optimized for machine consumption offers several advantages:
+## Agent Discovery with llms.txt
 
-1. **Improved Understanding**: LLMs can better understand the API structure, available operations, and data types
-2. **More Accurate Code Generation**: AI agents can generate more accurate API calls with proper parameters
-3. **Better Error Handling**: Understanding the API schema helps LLMs suggest appropriate error handling strategies
-4. **Reduced Hallucinations**: Structured documentation reduces the chance of LLMs "hallucinating" non-existent API features
+The site publishes a [`llms.txt`](https://dev.blink.sv/llms.txt) file at the root — a lightweight, structured file that gives any agent the endpoints, canonical source URLs, and hard rules in a single fetch:
 
-## Recommended Formats for LLMs
-
-We provide the following machine-readable formats of the Blink GraphQL API schema, optimized for LLM consumption:
-
-### Enhanced JSON Schema (Recommended)
-
-This is our recommended format for most LLM applications. It provides a clean, structured representation of the GraphQL schema with additional context:
-
-- <a href="/reference/graphql-api-for-llm.json" download>Download Enhanced LLM-Friendly Schema (JSON)</a>
-
-### OpenAPI Format (Alternative)
-
-For systems that work better with OpenAPI specifications:
-
-- <a href="/reference/graphql-openapi.json" download>Download OpenAPI Specification (JSON)</a>
-
-## How to Use with LLM Agents
-
-Before generating API calls, follow the [AI Agent API Playbook](/api/agent-playbook). In particular: if anything is unclear, verify it against the machine-readable reference first.
-
-Here are some examples of how to use these formats with popular LLM frameworks:
-
-### Using with LangChain
-
-```python
-from langchain.agents import Tool
-from langchain.agents import initialize_agent
-from langchain.llms import OpenAI
-import requests
-import json
-
-# Load the API schema
-api_schema_url = "https://dev.blink.sv/reference/graphql-api-for-llm.json"
-api_schema = json.loads(requests.get(api_schema_url).text)
-
-# Create a tool that provides the API schema as context
-tools = [
-    Tool(
-        name="BlinkAPI",
-        func=lambda _: "API schema is already provided in your context",
-        description="Blink GraphQL API schema information"
-    )
-]
-
-# Initialize the agent with the API schema in its context
-llm = OpenAI(temperature=0)
-agent = initialize_agent(tools, llm, agent="zero-shot-react-description", verbose=True)
-
-# Use the agent with the API schema as context
-agent.run(
-    input="How do I create a lightning invoice using the Blink API?",
-    context={"api_schema": api_schema}
-)
+```bash
+curl -s https://dev.blink.sv/llms.txt
 ```
 
-### Using with OpenAI Assistants
+Point your agent at this URL first. It contains everything needed to bootstrap: production/staging GraphQL endpoints, auth header name, prioritized source list, and safety rules.
+
+## Machine-Readable Schema Downloads
+
+We provide the Blink GraphQL API schema in formats optimized for LLM consumption:
+
+| Format | Best for | Download |
+|--------|----------|----------|
+| Enhanced LLM-friendly JSON | Most LLM apps, code generation | <a href="/reference/graphql-api-for-llm.json" download>graphql-api-for-llm.json</a> |
+| OpenAPI specification | Function calling, automated integrations | <a href="/reference/graphql-openapi.json" download>graphql-openapi.json</a> |
+
+## Integration Patterns
+
+### Pattern 1: System prompt + schema (framework-agnostic)
+
+The simplest approach — fetch the schema and playbook, then include them in the system prompt of any LLM:
+
+```bash
+# Fetch the schema and playbook once
+curl -s https://dev.blink.sv/reference/graphql-api-for-llm.json -o blink-schema.json
+curl -s https://dev.blink.sv/api/agent-playbook -o playbook.md
+```
+
+Then in your system prompt:
+
+```
+You are a Blink API assistant. Follow the playbook rules below strictly.
+
+<playbook>
+{contents of playbook.md}
+</playbook>
+
+<api_schema>
+{contents of blink-schema.json}
+</api_schema>
+```
+
+This works with any LLM provider — OpenAI, Anthropic, open-source models, etc.
+
+### Pattern 2: Python with httpx
+
+```python
+import httpx
+import json
+
+# Fetch schema and playbook at startup
+schema = httpx.get("https://dev.blink.sv/reference/graphql-api-for-llm.json").json()
+playbook = httpx.get("https://dev.blink.sv/llms.txt").text
+
+system_prompt = f"""
+You are a Blink API assistant.
+Follow these rules:\n{playbook}
+
+API schema:\n{json.dumps(schema, indent=2)}
+"""
+
+# Use with any LLM client
+# client.chat(system=system_prompt, messages=[...])
+```
+
+### Pattern 3: Node.js
 
 ```javascript
-const { OpenAI } = require('openai');
-const fs = require('fs');
-const path = require('path');
+const schema = await fetch('https://dev.blink.sv/reference/graphql-api-for-llm.json').then(r => r.json());
+const playbook = await fetch('https://dev.blink.sv/llms.txt').then(r => r.text());
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
+const systemPrompt = `
+You are a Blink API assistant.
+Follow these rules:
+${playbook}
 
-async function createAssistantWithBlinkAPI() {
-  // Download the API schema
-  const response = await fetch('https://dev.blink.sv/reference/graphql-api-for-llm.json');
-  const apiSchema = await response.json();
+API schema:
+${JSON.stringify(schema, null, 2)}
+`;
 
-  // Save it to a file
-  fs.writeFileSync('blink-api-schema.json', JSON.stringify(apiSchema));
-
-  // Create an assistant with the API schema as a file
-  const assistant = await openai.beta.assistants.create({
-    name: "Blink API Assistant",
-    instructions: "You are an assistant that helps users interact with the Blink GraphQL API. Use the provided API schema to answer questions and generate code examples.",
-    model: "gpt-4-turbo",
-    tools: [{ type: "code_interpreter" }],
-    file_ids: [
-      // Upload the API schema file to OpenAI and get its file ID
-      await openai.files.create({
-        file: fs.createReadStream(path.resolve('blink-api-schema.json')),
-        purpose: 'assistants',
-      }).then(file => file.id)
-    ]
-  });
-
-  console.log("Assistant created with ID:", assistant.id);
-  return assistant;
-}
-
-createAssistantWithBlinkAPI();
+// Use with any LLM SDK
+// e.g. OpenAI, Anthropic, etc.
 ```
 
 ## Generating Updated Schemas
 
-The API reference files are automatically updated when the GraphQL schema changes. If you need to generate them manually, you can use the following script:
+The API reference files are automatically updated when the GraphQL schema changes. To generate them manually:
 
 ```bash
-# Generate all formats
 ./scripts/generate-api-reference-combined.sh
 ```
 
-## Recommended Format by Use Case
-
-| Use Case | Recommended Format |
-|----------|-------------------|
-| Most LLM applications | Enhanced LLM-friendly JSON |
-| OpenAI function calling | OpenAPI specification |
-| Code generation | Enhanced LLM-friendly JSON |
-| Automated API integration | OpenAPI specification |
-
 ## Additional Resources
 
-- [No API Key Operations](/api/no-api-key-operations) - Fast path for unauthenticated query/mutation discovery
-- [AI Agent API Playbook](/api/agent-playbook) - Required workflow for reliable agent behavior
-- [GraphQL Introduction](/api/graphql-intro) - Learn the basics of our GraphQL API
+- [AI Agent API Playbook](/api/agent-playbook) - Concise instruction set consumed directly by AI agents
+- [No API Key Operations](/api/no-api-key-operations) - Unauthenticated query/mutation discovery
+- [GraphQL Introduction](/api/graphql-intro) - Learn the basics of the GraphQL API
 - [Authentication](/api/auth) - How to authenticate with the Blink API
-- [Postman Collection](/api/postman) - Test the API interactively
