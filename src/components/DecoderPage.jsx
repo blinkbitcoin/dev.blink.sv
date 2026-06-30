@@ -18,7 +18,6 @@ const KNOWN_WALLET_PUBKEYS = {
   // Spark
   "02a98e8c590a1b5602049d6b21d8f4c8861970aa310762f42eae1b2be88372e924": "a wallet using Spark",
   "039174f846626c6053ba80f5443d0db33da384f1dde135bf7080ba1eec465019c3": "a wallet using Spark",
-  "030936e7a016fb3f5ce53c8db29da2b6dfbf8e068ea058c363e0fd77f444270d8a": "a wallet using Spark",
   // Ark Labs
   "038f83dae5dfcc8566b21d4fd5f28b8cc1d754c95cad6b9009c3e9522ed1156de3": "a wallet using Ark (by Ark Labs)",
 };
