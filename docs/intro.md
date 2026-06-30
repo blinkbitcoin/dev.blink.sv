@@ -30,8 +30,16 @@ Robust infrastructure and well-managed Lightning channels allow us to provide th
 
 * Intraledger (between Blink users) – no fee!
 * Outgoing Lightning – only pay routing fees (~0.02%)
-* Onchain deposit – 0% for payments over 1M sats
-* Stablesats conversion – 0.2% spread, no fees
+* Stablesats conversion – 0.35% spread, no extra fees
+* On-chain fee structure:
+  * Deposits:
+    * For deposits equal to or lower than 1,000,000 sats: 2,500 sats fixed fee
+    * For deposits higher than 1,000,000 sats: 5,000 sats fixed fee
+  * Withdrawals:
+    * For withdrawals lower than 1,000,000 sats: 5,000 sats fixed fee
+    * For withdrawals 1,000,000 sats or higher: 10,000 sats fixed fee
+    * Mining fees vary depending on the market
+    * For an imbalance of more than 10M sats LN/on-chain in a 30-day rolling window: additional 0.2% fees
 
 A detailed FAQ entry on [pricing](https://faq.blink.sv/transaction-fees/what-are-the-transaction-fees-for-using-blink-wallet)
 
