@@ -7,7 +7,9 @@ slug: /examples/btcpayserver-plugin
 Use Blink as a lightning provider in [BTCPay Server](https://btcpayserver.org).<br />
 Add the default wallet or select between BTC and Stablesats.
 
-Available in BTCPay Server v1.12.0 and later.
+The plugin works with both **custodial** Blink accounts (using an API key) and the new **non-custodial (Spark)** Blink accounts (using your Blink lightning address, for receiving). See [Non-custodial (Spark) account](#non-custodial-spark-account--receive-only) below.
+
+Available in BTCPay Server v1.12.0 and later. Non-custodial (Spark) support requires the Blink plugin v1.1.0 or later.
 
 ## Video Tutorial
 
@@ -81,6 +83,29 @@ If using the USD wallet the requested invoice amount needs to be at least 1 USDc
   is expected as the Blink plugin is connected to a Blink account, not a lightning node directly, but the connection is working.
 
 * Click `Save` to save the connection.
+
+## Non-custodial (Spark) account — receive only
+
+Blink is introducing **non-custodial (Spark)** accounts. These accounts do not expose an API key or a GraphQL wallet id, so the API-key connection described above does not apply to them. Instead, the plugin receives payments through your Blink **lightning address**, and no credentials are required.
+
+* the connection string for a non-custodial account is:
+  ```
+  type=blink;ln-address=yourname@blink.sv;
+  ```
+* a bare username is also accepted and defaults to the `blink.sv` domain, e.g. `type=blink;ln-address=yourname;`
+* `username=` is accepted as an alias for `ln-address=`, e.g. `type=blink;username=yourname@blink.sv;`
+* finalize the connection the same way as above: click `Test connection`, then `Save`.
+
+:::note
+Non-custodial accounts are **receive only**. Creating invoices and receiving payments work; sending, balance and channel operations are not available, because they require the wallet seed, which BTCPay Server never holds. If you need to send from BTCPay Server, use a custodial account (with a `Write`-scoped API key) or another lightning backend.
+:::
+
+* Only **mainnet** (`blink.sv`) is supported for non-custodial accounts.
+* **USDB (non-custodial Dollar balance):** you can add `currency=USD` (`type=blink;ln-address=yourname@blink.sv;currency=USD;`). This is passed through so it works automatically once Blink enables non-custodial USD receiving; until then the connection test reports it as not yet available.
+
+:::note
+Because there is no websocket for non-custodial accounts, the plugin detects settlement by polling. A received payment typically appears in BTCPay Server within a few seconds and up to about a minute.
+:::
 
 ## Enjoy the Benefits of Using Blink
   * instant inbound lightning liquidity
