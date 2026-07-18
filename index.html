@@ -10,7 +10,7 @@
 
 
 <link rel="search" type="application/opensearchdescription+xml" title="Blink Developer Documentation" href="/opensearch.xml"><link rel="stylesheet" href="/assets/css/styles.65a721dd.css">
-<script src="/assets/js/runtime~main.a685b1ed.js" defer="defer"></script>
+<script src="/assets/js/runtime~main.4c1915c5.js" defer="defer"></script>
 <script src="/assets/js/main.8ce55761.js" defer="defer"></script>
 </head>
 <body class="navigation-with-keyboard">
@@ -34,8 +34,25 @@ With the Blink API you can quickly enable Lightning and onchain payments for you
 <ul>
 <li>Intraledger (between Blink users) – no fee!</li>
 <li>Outgoing Lightning – only pay routing fees (~0.02%)</li>
-<li>Onchain deposit – 0% for payments over 1M sats</li>
-<li>Stablesats conversion – 0.2% spread, no fees</li>
+<li>Stablesats conversion – 0.35% spread, no extra fees</li>
+<li>On-chain fee structure:<!-- -->
+<ul>
+<li>Deposits:<!-- -->
+<ul>
+<li>For deposits equal to or lower than 1,000,000 sats: 2,500 sats fixed fee</li>
+<li>For deposits higher than 1,000,000 sats: 5,000 sats fixed fee</li>
+</ul>
+</li>
+<li>Withdrawals:<!-- -->
+<ul>
+<li>For withdrawals lower than 1,000,000 sats: 5,000 sats fixed fee</li>
+<li>For withdrawals 1,000,000 sats or higher: 10,000 sats fixed fee</li>
+<li>Mining fees vary depending on the market</li>
+<li>For an imbalance of more than 10M sats LN/on-chain in a 30-day rolling window: additional 0.2% fees</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <p>A detailed FAQ entry on <a href="https://faq.blink.sv/transaction-fees/what-are-the-transaction-fees-for-using-blink-wallet" target="_blank" rel="noopener noreferrer">pricing</a></p>
 <h2 class="anchor anchorWithStickyNavbar_LWe7" id="why-choose-the-blink-api">Why Choose the <a href="/api/auth">Blink API</a><a href="#why-choose-the-blink-api" class="hash-link" aria-label="Direct link to why-choose-the-blink-api" title="Direct link to why-choose-the-blink-api">​</a></h2>
