@@ -30,7 +30,7 @@ Robust infrastructure and well-managed Lightning channels allow us to provide th
 
 * Intraledger (between Blink users) – no fee!
 * Outgoing Lightning – only pay routing fees (~0.02%)
-* Stablesats conversion – 0.35% spread, no extra fees
+* Stablesats conversion – 0.50% spread, no extra fees
 * On-chain fee structure:
   * Deposits:
     * For deposits equal to or lower than 1,000,000 sats: 2,500 sats fixed fee
