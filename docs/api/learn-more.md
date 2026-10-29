@@ -20,7 +20,7 @@ slug: /api/learn-more
 
 Dive deeper into constructing GraphQL queries with these preformed queries:
 
-* [blink /tree/main/core/api/test/bats/gql](https://github.com/blinkbitcoin/blink/tree/main/core/api/test/bats/gql)
+* [blink /tree/main/core/api/test/bats/gql](https://github.com/blinkbitcoin/blink-legacy/tree/main/core/api/test/bats/gql)
 * [blink -mobile/blob/main/app/graphql/generated.gql](https://github.com/blinkbitcoin/blink-mobile/blob/main/app/graphql/generated.gql)
 
 ## Videos

@@ -17,7 +17,7 @@ jobs:
       - name: Checkout Blink
         uses: actions/checkout@v4
         with:
-          repository: blinkbitcoin/blink
+          repository: blinkbitcoin/blink-legacy
           path: blink
 
       - name: Install Dependencies

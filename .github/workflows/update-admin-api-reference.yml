@@ -17,7 +17,7 @@ jobs:
     - name: Checkout blinkbitcoin/blink repo
       uses: actions/checkout@v4
       with:
-        repository: 'blinkbitcoin/blink'
+        repository: 'blinkbitcoin/blink-legacy'
         path: 'blink'
         fetch-depth: 0
 

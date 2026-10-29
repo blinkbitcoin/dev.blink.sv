@@ -10,7 +10,7 @@ Blink Admin Panel lets the support team access users and internal transaction in
 
 Admin Panel is packaged as a docker image, and is automatically installed as part of the Blink helm charts.
 
-With a default installation, Admin Panel can be accessed with `admin.domain.com`. Admin-Panel fetches information from a dedicated graphql API endpoint `graphql-admin.domain.com` defined in [graphql-admin-server](https://github.com/blinkbitcoin/blink/blob/main/src/servers/graphql-admin-server.ts)
+With a default installation, Admin Panel can be accessed with `admin.domain.com`. Admin-Panel fetches information from a dedicated graphql API endpoint `graphql-admin.domain.com` defined in [graphql-admin-server](https://github.com/blinkbitcoin/blink-legacy/blob/main/src/servers/graphql-admin-server.ts)
 
 ### How to run this repo locally?
 
