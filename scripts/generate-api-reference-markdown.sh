@@ -14,9 +14,12 @@ cd .temp || exit 1
 # Checkout blink if not already present
 if [ ! -d "blink" ]; then
   echo "Cloning Blink repository..."
-  git clone https://github.com/blinkbitcoin/blink
+  git clone https://github.com/blinkbitcoin/blink-legacy blink
 fi
 cd blink || exit 1
+git remote set-url origin https://github.com/blinkbitcoin/blink-legacy || exit 1
+git fetch origin main || exit 1
+git checkout --detach origin/main || exit 1
 
 # Create a package.json file if it doesn't exist to avoid corepack issues
 if [ ! -f "package.json" ]; then

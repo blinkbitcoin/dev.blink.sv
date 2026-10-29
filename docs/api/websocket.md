@@ -177,4 +177,4 @@ To use the raw websocket protocol in Postman there are a few steps to follow:
 
 ## Test Implementation in the Blink Backend
 
-* [blink/bats/helpers/subscriber/src/gql-subscribe.ts](https://github.com/blinkbitcoin/blink/blob/e010ac0ac2020d546ec2dbbd1a6680ac1a0282af/bats/helpers/subscriber/src/gql-subscribe.ts)
+* [blink/bats/helpers/subscriber/src/gql-subscribe.ts](https://github.com/blinkbitcoin/blink-legacy/blob/e010ac0ac2020d546ec2dbbd1a6680ac1a0282af/bats/helpers/subscriber/src/gql-subscribe.ts)

@@ -8,16 +8,20 @@ import GitHubButton from 'react-github-btn'
 
 # Blink Core
 
-<GitHubButton href="https://github.com/blinkbitcoin/blink" data-color-scheme="no-preference: dark; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star blinkbitcoin/blink on GitHub">Star</GitHubButton>
+<GitHubButton href="https://github.com/blinkbitcoin/blink-legacy" data-color-scheme="no-preference: dark; light: light; dark: dark;" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star blinkbitcoin/blink on GitHub">Star</GitHubButton>
 <div style={{ marginBottom: 20 }}></div>
 
 Blink Core is an opinionated bitcoin banking platform.
 
-This repo represents the main API that brings all functionality together. Take a look at the [Quickstart](https://github.com/blinkbitcoin/blink/tree/main/quickstart) if you want to take it for a spin.
+The public `blink-legacy` repository preserves the public source snapshot for
+self-hosting and documentation. It may differ from the current privately developed
+version running on Blink services.
+
+This repo represents the main API that brings all functionality together. Take a look at the [Quickstart](https://github.com/blinkbitcoin/blink-legacy/tree/main/quickstart) if you want to take it for a spin.
 
 ## Project readme
 
-https://github.com/blinkbitcoin/blink#readme
+https://github.com/blinkbitcoin/blink-legacy#readme
 
 ## Project website
 
@@ -34,8 +38,8 @@ There you can find:
 
 ## Local `dev` API access
 For the local `dev` environment
-* clone the Blink repo: https://github.com/blinkbitcoin/blink
-* follow the steps in the [readme](https://github.com/blinkbitcoin/blink/tree/main?tab=readme-ov-file#local-development-setup) start hosting the API locally
+* clone the Blink repo: https://github.com/blinkbitcoin/blink-legacy
+* follow the steps in the [readme](https://github.com/blinkbitcoin/blink-legacy/tree/main?tab=readme-ov-file#local-development-setup) start hosting the API locally
 
 Find more details about hosting the Blink stack yourself in the [deployment section](/self-host/deployment/).
 
@@ -43,4 +47,4 @@ Find more details about hosting the Blink stack yourself in the [deployment sect
 * [Blink admin API reference](https://dev.blink.sv/admin-api-reference.html)
 
 ### Preformed GraphQL queries
-* [blink/tree/main/core/api/test/bats/admin-gql](https://github.com/blinkbitcoin/blink/tree/main/core/api/test/bats/admin-gql)
+* [blink/tree/main/core/api/test/bats/admin-gql](https://github.com/blinkbitcoin/blink-legacy/tree/main/core/api/test/bats/admin-gql)

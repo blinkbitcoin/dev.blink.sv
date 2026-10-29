@@ -84,7 +84,7 @@ For the detailed documentation on specific queries, mutations, and types availab
 * visit: [dev.blink.sv/public-api-reference.html](https://dev.blink.sv/public-api-reference.html)
 
 ### GraphQL Schema in the Blink Source Code
-* find it on GitHub: [/blink /blob/main/core/api/src/graphql/public/schema.graphql](https://github.com/blinkbitcoin/blink/blob/main/core/api/src/graphql/public/schema.graphql)
+* find it on GitHub: [/blink /blob/main/core/api/src/graphql/public/schema.graphql](https://github.com/blinkbitcoin/blink-legacy/blob/main/core/api/src/graphql/public/schema.graphql)
 
 ### Preformed GraphQL Queries
 Dive deeper into constructing GraphQL queries with these preformed queries:c
