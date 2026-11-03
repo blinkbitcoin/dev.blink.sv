@@ -11,10 +11,10 @@ cd .temp || exit 1
 
 # checkout blink
 if [ ! -d "blink" ]; then
-  git clone https://github.com/blinkbitcoin/blink-legacy blink
+  git clone https://github.com/blinkbitcoin/blink blink
 fi
 cd blink || exit 1
-git remote set-url origin https://github.com/blinkbitcoin/blink-legacy || exit 1
+git remote set-url origin https://github.com/blinkbitcoin/blink || exit 1
 git fetch origin main || exit 1
 git checkout --detach origin/main || exit 1
 

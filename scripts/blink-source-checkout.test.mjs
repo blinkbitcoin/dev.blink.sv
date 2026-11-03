@@ -12,11 +12,11 @@ const scripts = [
   "generate-api-reference-markdown.sh",
   "generate-api-reference-openapi.sh",
 ]
-const sourceUrl = "https://github.com/blinkbitcoin/blink-legacy"
+const sourceUrl = "https://github.com/blinkbitcoin/blink"
 
 function fixture(t, scriptName) {
   const script = readFileSync(new URL(`./${scriptName}`, import.meta.url))
-  const root = mkdtempSync(join(tmpdir(), "public-source-"))
+  const root = mkdtempSync(join(tmpdir(), "blink-source-"))
   t.after(() => rmSync(root, { recursive: true, force: true }))
   const git = execFileSync("which", ["git"], { encoding: "utf8" }).trim()
   const bin = join(root, "bin")
@@ -46,11 +46,11 @@ function fixture(t, scriptName) {
     runGit(path, "-c", "commit.gpgsign=false", "commit", "--no-gpg-sign", "-m", name)
     return path
   }
-  const publicRepo = repo("public")
-  const privateRepo = repo("private")
+  const sourceRepo = repo("source")
+  const staleRepo = repo("stale")
   Object.assign(env, {
     GIT_CONFIG_COUNT: "1",
-    GIT_CONFIG_KEY_0: `url.file://${publicRepo}/.insteadOf`,
+    GIT_CONFIG_KEY_0: `url.file://${sourceRepo}/.insteadOf`,
     GIT_CONFIG_VALUE_0: sourceUrl,
   })
   for (const command of ["yarn", "npm", "curl", "sed"]) {
@@ -66,7 +66,7 @@ function fixture(t, scriptName) {
   writeFileSync(join(docs, "generate.sh"), script)
   const checkout = join(docs, ".temp", "blink")
   const run = () => spawnSync("bash", ["generate.sh"], { cwd: docs, env, encoding: "utf8" })
-  return { root, docs, env, publicRepo, privateRepo, checkout, run, runGit }
+  return { root, docs, env, sourceRepo, staleRepo, checkout, run, runGit }
 }
 
 for (const scriptName of scripts) {
@@ -75,22 +75,22 @@ for (const scriptName of scripts) {
     const result = f.run()
     assert.equal(result.status, 0, result.stderr)
     assert.equal(readFileSync(f.env.GENERATION_MARKER, "utf8"), "")
-    assert.equal(f.runGit(f.checkout, "rev-parse", "HEAD"), f.runGit(f.publicRepo, "rev-parse", "HEAD"))
+    assert.equal(f.runGit(f.checkout, "rev-parse", "HEAD"), f.runGit(f.sourceRepo, "rev-parse", "HEAD"))
     assert.equal(f.runGit(f.checkout, "config", "remote.origin.url"), sourceUrl)
   })
 
   test(`${scriptName}: cached checkout is retargeted before generation`, (t) => {
     const f = fixture(t, scriptName)
     mkdirSync(join(f.docs, ".temp"))
-    f.runGit(f.docs, "clone", f.privateRepo, f.checkout)
+    f.runGit(f.docs, "clone", f.staleRepo, f.checkout)
     const result = f.run()
     assert.equal(result.status, 0, result.stderr)
     assert.equal(readFileSync(f.env.GENERATION_MARKER, "utf8"), "")
-    assert.equal(f.runGit(f.checkout, "rev-parse", "HEAD"), f.runGit(f.publicRepo, "rev-parse", "HEAD"))
+    assert.equal(f.runGit(f.checkout, "rev-parse", "HEAD"), f.runGit(f.sourceRepo, "rev-parse", "HEAD"))
     assert.equal(f.runGit(f.checkout, "config", "remote.origin.url"), sourceUrl)
   })
 
-  test(`${scriptName}: unavailable public source fails before generation`, (t) => {
+  test(`${scriptName}: unavailable Blink source fails before generation`, (t) => {
     const f = fixture(t, scriptName)
     f.env.GIT_CONFIG_KEY_0 = `url.file://${join(f.root, "missing")}/.insteadOf`
     const result = f.run()
@@ -98,10 +98,10 @@ for (const scriptName of scripts) {
     assert.throws(() => readFileSync(f.env.GENERATION_MARKER), { code: "ENOENT" })
   })
 
-  test(`${scriptName}: failed refresh never generates from cached private source`, (t) => {
+  test(`${scriptName}: failed refresh never generates from stale cached source`, (t) => {
     const f = fixture(t, scriptName)
     mkdirSync(join(f.docs, ".temp"))
-    f.runGit(f.docs, "clone", f.privateRepo, f.checkout)
+    f.runGit(f.docs, "clone", f.staleRepo, f.checkout)
     f.env.GIT_CONFIG_KEY_0 = `url.file://${join(f.root, "missing")}/.insteadOf`
     const result = f.run()
     assert.notEqual(result.status, 0)
