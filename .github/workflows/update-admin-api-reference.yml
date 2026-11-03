@@ -17,7 +17,9 @@ jobs:
     - name: Checkout blinkbitcoin/blink repo
       uses: actions/checkout@v4
       with:
-        repository: 'blinkbitcoin/blink-legacy'
+        repository: 'blinkbitcoin/blink'
+        token: ${{ secrets.BLINK_REPO_TOKEN }}
+        persist-credentials: false
         path: 'blink'
         fetch-depth: 0
 
