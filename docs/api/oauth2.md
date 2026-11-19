@@ -12,6 +12,142 @@ Before integrating with Blink OAuth2, it's crucial to have a foundational unders
 The connecting applications are using the [OAuth2 authorization code flow](https://www.ory.sh/docs/oauth2-oidc/authorization-code-flow).<br />
 For a hands-on introduction to setting up OAuth2 with Ory Hydra, you can explore this [5-minute tutorial](https://www.ory.sh/docs/hydra/5min-tutorial).
 
+## Public Clients (PKCE)
+
+### When to Use PKCE
+
+PKCE (Proof Key for Code Exchange) is designed for **public clients** that cannot securely store a client secret. This includes:
+
+- **Mobile applications** (iOS, Android, React Native)
+- **Single Page Applications (SPAs)** running in a browser
+- **CLI tools** and desktop applications
+- **Any client-side application** where the source code is accessible to users
+
+PKCE uses the OAuth2 Authorization Code flow enhanced with [RFC 7636](https://datatracker.ietf.org/doc/html/rfc7636) to provide security without requiring a client secret.
+
+### How PKCE Works
+
+PKCE replaces the client secret with a dynamically generated proof key:
+
+1. **Client generates** a random `code_verifier` (43-128 characters, URL-safe)
+2. **Client creates** `code_challenge` = base64url(SHA256(code_verifier))
+3. **Authorization request** includes `code_challenge` and `code_challenge_method=S256`
+4. **Token exchange** sends `code_verifier` instead of `client_secret`
+5. **Server verifies** the hash matches — proving the same client that started the flow is completing it
+
+This prevents authorization code interception attacks since an attacker would need both the authorization code and the original `code_verifier`.
+
+### Register as a Public Client
+
+To use PKCE with Blink:
+
+1. Contact the Blink development team via [chat.blink.sv](https://chat.blink.sv) for application approval
+2. **Specify** that you need a **public client** registration (no client secret)
+3. **Provide** your callback URL — for mobile apps, this is typically:
+   - A deep link scheme: `cypherbox://auth/callback`
+   - A universal link: `https://cypherbox.app/auth/callback`
+   - For SPAs: your domain with HTTPS: `https://myapp.com/callback`
+
+After approval, you'll receive only a **Client ID** (no secret).
+
+### The PKCE OAuth2 Flow
+
+#### Step 1: Generate Code Verifier and Challenge
+
+```bash
+# Generate a random code_verifier (43-128 characters)
+CODE_VERIFIER=$(openssl rand -base64 32 | tr -d '=' | tr '/+' '_-')
+
+# Create the code_challenge (SHA256 hash, base64url-encoded)
+CODE_CHALLENGE=$(echo -n "$CODE_VERIFIER" | openssl dgst -sha256 -binary | base64 | tr -d '=' | tr '/+' '_-')
+```
+
+#### Step 2: Build the Authorization URL
+
+```
+https://oauth.blink.sv/oauth2/auth?response_type=code&client_id=YOUR_CLIENT_ID&redirect_uri=cypherbox%3A%2F%2Fauth%2Fcallback&scope=read+receive&state=RANDOM_STATE&code_challenge=CODE_CHALLENGE&code_challenge_method=S256
+```
+
+**Key differences from confidential clients:**
+- Includes `code_challenge` and `code_challenge_method=S256`
+- No `client_secret` in any step
+
+#### Step 3: User Authentication
+
+The user authenticates and approves your application. Blink redirects to your callback URL with the authorization code:
+
+```
+cypherbox://auth/callback?code=ory_ac_AUTHORIZATION_CODE&scope=read+receive&state=RANDOM_STATE
+```
+
+#### Step 4: Exchange Code for Token
+
+**Critical:** Send `code_verifier` instead of `client_secret`:
+
+```bash
+curl -X POST https://oauth.blink.sv/oauth2/token \
+  -d "grant_type=authorization_code" \
+  -d "code=$AUTHORIZATION_CODE" \
+  -d "redirect_uri=cypherbox://auth/callback" \
+  -d "client_id=$YOUR_CLIENT_ID" \
+  -d "code_verifier=$CODE_VERIFIER"
+```
+
+#### Step 5: Handle the Access Token
+
+The response format is identical to confidential clients:
+
+```json
+{
+  "access_token": "ory_at_...",
+  "expires_in": 3599,
+  "scope": "read receive",
+  "token_type": "bearer"
+}
+```
+
+### Mobile App Implementation Notes
+
+#### Deep Links and Universal Links
+- **Deep links** (`cypherbox://auth/callback`) work on all platforms but may prompt the user to open your app
+- **Universal links** (`https://cypherbox.app/auth/callback`) provide a smoother experience on iOS
+- The OS automatically routes the redirect back to your app — no backend server needed
+
+#### Secure Token Storage
+- **iOS:** Store tokens in the iOS Keychain using `keychain-services`
+- **Android:** Use Android Keystore for secure token storage
+- **React Native:** Libraries like `react-native-keychain` provide cross-platform secure storage
+
+#### Implementation Best Practices
+- Generate a **new** `code_verifier` for every authorization request
+- Consider using **AppAuth libraries** ([iOS](https://github.com/openid/AppAuth-iOS), [Android](https://github.com/openid/AppAuth-Android), [React Native](https://github.com/FormidableLabs/react-native-app-auth)) which handle PKCE automatically
+- Implement proper error handling for OS routing and token storage failures
+
+### Refresh Tokens with PKCE
+
+Refresh tokens work the same as confidential clients, just omit the `client_secret`:
+
+```bash
+curl -X POST https://oauth.blink.sv/oauth2/token \
+  -d "grant_type=refresh_token" \
+  -d "refresh_token=$REFRESH_TOKEN" \
+  -d "client_id=$YOUR_CLIENT_ID"
+```
+
+To receive refresh tokens, include `offline` in your scope:
+```
+scope=read+receive+offline
+```
+
+### Security Considerations for Public Clients
+
+- **Always use S256** code challenge method (never `plain`)
+- **Use platform's secure storage** for tokens (keychain/keystore, not local storage)
+- **Request minimal scopes** needed for your use case
+- **Implement token rotation** for refresh tokens when available
+- **Validate the state parameter** to prevent CSRF attacks
+- **Use HTTPS** for all universal links and SPA callback URLs
+
 ## Register Your Application
 To initiate the integration process, your application must be registered and approved by Blink's development team. This is a critical step to ensure secure and authorized access to Blink's API functionalities.
 
@@ -32,6 +168,8 @@ After a user grants or denies access to your application, the Blink OAuth2 serve
 
 ### Client ID and Secret
 After the registration with Blink you will receive a client ID and a client secret from us. These are unique identifiers that allow the Blink OAuth2 server to identify your application and allow it to access protected resources. The client ID is considered public information and can be included in JavaScript source code or used to build login URLs. The client secret, however, must be kept confidential and is used to authenticate the client to the authorization server.
+
+**Note for Public Clients:** If you registered as a public client (for mobile apps, SPAs, or CLI tools), you will receive only a Client ID and no secret. Public clients use PKCE (Proof Key for Code Exchange) instead of a client secret for security. See the [Public Clients (PKCE)](#public-clients-pkce) section for implementation details.
 
 ### OAuth2 Endpoints
 #### Authorization Endpoint
