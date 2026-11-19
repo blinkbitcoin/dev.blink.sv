@@ -3,8 +3,7 @@
 
 pkgs.mkShell {
   buildInputs = with pkgs; [
-    nodejs_20
-    nodePackages.npm
+    nodejs_24
     git
     curl
     jq
