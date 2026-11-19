@@ -4,8 +4,8 @@ info:
   description: API for Blink wallet services
   version: 1.0.0
   contact:
-    name: Blink developer community
-    url: https://chat.blink.sv/
+    name: Blink developer contact
+    url: https://dev.blink.sv/contact
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT

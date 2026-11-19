@@ -76,6 +76,6 @@ Blink is built on our open source bitcoin banking stack.<br />
 When you are ready, you can host the API on your own terms and seamlessly transition everything to your own infrastructure.<br />
 Visit [dev.blink.sv](https://dev.blink.sv) for more information on our open-source offerings.
 
-## [Join our Mattermost](https://chat.blink.sv/)
+## [Get in touch](/contact)
 
 Join us in enabling a Bitcoin-powered future with the Blink API!
