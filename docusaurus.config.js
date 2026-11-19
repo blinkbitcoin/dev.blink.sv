@@ -116,20 +116,7 @@ const config = {
             ],
           },
           {
-            title: 'Community',
-            items: [
-              {
-                label: 'Blink Mattermost',
-                href: 'https://chat.blink.sv',
-              },
-              {
-                label: 'BlinkAPI Telegram Channel',
-                href: 'https://t.me/+aKn9E5ZIMs8zZmMy',
-              },
-            ],
-          },
-          {
-            title: 'More',
+            title: 'More info',
             items: [
               {
                 label: 'About Blink',

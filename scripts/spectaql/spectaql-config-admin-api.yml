@@ -9,8 +9,8 @@ info:
   title: GraphQL Admin API Reference
   description: Welcome to the Blink Admin API reference!
   contact:
-    name: Blink developer community
-    url: https://chat.blink.sv/
+    name: Blink developer contact
+    url: https://dev.blink.sv/contact
   license:
     name: MIT
     url: https://opensource.org/licenses/MIT
